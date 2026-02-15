@@ -177,11 +177,35 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1824538660}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: Move
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: db69fb1d-97c7-4d84-af70-f77311aaeaaa
     m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1824538660}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: Jump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 4e2f48d8-2b50-4758-9c62-e8ebca5607ee
     m_ActionName: 'Player/Jump[/Keyboard/space]'
   - m_PersistentCalls:
@@ -225,8 +249,8 @@ MonoBehaviour:
     m_ActionId: 6d6aa1a7-e92c-4aaf-a612-318f0143dca2
     m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: 
+  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1 &1172813330
@@ -370,7 +394,7 @@ GameObject:
   - component: {fileID: 1394246752}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -491,7 +515,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4772506546067472281, guid: b65e9f777e02f1e4986c3e6c26930238, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.133699
+      value: 5.15
       objectReference: {fileID: 0}
     - target: {fileID: 4772506546067472281, guid: b65e9f777e02f1e4986c3e6c26930238, type: 3}
       propertyPath: m_LocalPosition.y
@@ -499,7 +523,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4772506546067472281, guid: b65e9f777e02f1e4986c3e6c26930238, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.3127213
+      value: -3.27
       objectReference: {fileID: 0}
     - target: {fileID: 4772506546067472281, guid: b65e9f777e02f1e4986c3e6c26930238, type: 3}
       propertyPath: m_LocalRotation.w
@@ -535,13 +559,37 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4772506546067472281, guid: b65e9f777e02f1e4986c3e6c26930238, type: 3}
       insertIndex: -1
       addedObject: {fileID: 702942139}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2871441044953900857, guid: b65e9f777e02f1e4986c3e6c26930238, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1824538660}
   m_SourcePrefab: {fileID: 100100000, guid: b65e9f777e02f1e4986c3e6c26930238, type: 3}
+--- !u!1 &1824538654 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2871441044953900857, guid: b65e9f777e02f1e4986c3e6c26930238, type: 3}
+  m_PrefabInstance: {fileID: 1418707669}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1824538659 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4772506546067472281, guid: b65e9f777e02f1e4986c3e6c26930238, type: 3}
   m_PrefabInstance: {fileID: 1418707669}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1824538660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1824538654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb79e2b9e497314f84f3a43bf670db2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  movementSpeed: 0
+  jumpHeight: 0
+  gravity: 0
+  player: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
