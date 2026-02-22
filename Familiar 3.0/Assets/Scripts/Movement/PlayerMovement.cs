@@ -36,8 +36,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        grounded = false;
-        direction.y = player.transform.up.y * jumpHeight;
+        if(context.performed)
+        {
+            grounded = false;
+            direction.y = player.transform.up.y * jumpHeight;
+        }
     }
     
     private void ApplyGravity()
