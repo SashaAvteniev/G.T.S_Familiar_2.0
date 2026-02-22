@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        grounded = true;
     }
 
     // Update is called once per frame
@@ -29,14 +29,15 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
-       direction.x = -context.ReadValue<Vector2>().x;
-       direction.z = -context.ReadValue<Vector2>().y;
+       direction.z = context.ReadValue<Vector2>().x;
+       direction.x = -context.ReadValue<Vector2>().y;
+       direction = direction.normalized;
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
         grounded = false;
-        direction.x = player.transform.up.y * jumpHeight;
+        direction.y = player.transform.up.y * jumpHeight;
     }
     
     private void ApplyGravity()
@@ -49,10 +50,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.rigidbody.tag == "floor")
+        if(collision.gameObject.layer == LayerMask.NameToLayer("floor"))
         {
             grounded = true;
             direction.y = 0;
+            Debug.Log("hit");
         }
     }
 }
