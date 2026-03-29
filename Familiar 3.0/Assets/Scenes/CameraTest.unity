@@ -267,7 +267,7 @@ Transform:
   m_GameObject: {fileID: 637859214}
   serializedVersion: 2
   m_LocalRotation: {x: 0.21027572, y: -0.67511785, z: 0.21027572, w: 0.67511785}
-  m_LocalPosition: {x: 11.69, y: 8.54, z: -3.62}
+  m_LocalPosition: {x: 11.69, y: 8.54, z: -3.524}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -286,8 +286,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CutoutObject
   showCutout: 1
-  cutoutSize: 0.3
-  falloffSize: 0.25
+  cutoutSize: 0.2
+  falloffSize: 0.15
   targetObject: {fileID: 1824538659}
   wallMask:
     serializedVersion: 2
@@ -319,7 +319,7 @@ Transform:
   m_GameObject: {fileID: 702942138}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -4.059, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -800,19 +800,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4772506546067472281, guid: b65e9f777e02f1e4986c3e6c26930238, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.14
+      value: 4.522
       objectReference: {fileID: 0}
     - target: {fileID: 4772506546067472281, guid: b65e9f777e02f1e4986c3e6c26930238, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.9
+      value: 1.914
       objectReference: {fileID: 0}
     - target: {fileID: 4772506546067472281, guid: b65e9f777e02f1e4986c3e6c26930238, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.27
+      value: -3.156
       objectReference: {fileID: 0}
     - target: {fileID: 4772506546067472281, guid: b65e9f777e02f1e4986c3e6c26930238, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4772506546067472281, guid: b65e9f777e02f1e4986c3e6c26930238, type: 3}
       propertyPath: m_LocalRotation.x
@@ -820,7 +820,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4772506546067472281, guid: b65e9f777e02f1e4986c3e6c26930238, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4772506546067472281, guid: b65e9f777e02f1e4986c3e6c26930238, type: 3}
       propertyPath: m_LocalRotation.z
@@ -832,7 +832,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4772506546067472281, guid: b65e9f777e02f1e4986c3e6c26930238, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 4772506546067472281, guid: b65e9f777e02f1e4986c3e6c26930238, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -991,9 +991,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   movementSpeed: 10
-  jumpHeight: 3
   gravity: 10
   player: {fileID: 1824538654}
+  stag: 0
+  jumpHeight: 3
 --- !u!54 &1824538664
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -63,12 +63,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CutoutSize: 0.3
+    - _CutoutSize: 0.2
     - _EnableExternalAlpha: 0
-    - _FalloffSize: 0.25
+    - _FalloffSize: 0.15
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _ShowCutout: 1
+    - _ShowCutout: 0
     - _Show_Hole_Punch: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
