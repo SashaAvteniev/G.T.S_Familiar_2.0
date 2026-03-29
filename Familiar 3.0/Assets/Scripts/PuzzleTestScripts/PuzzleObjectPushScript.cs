@@ -18,11 +18,13 @@ public class PuzzleObjectPushScript : MonoBehaviour
 
     public void Push()
     {
-        this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, .190f);
+        this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -4f);
     }
 
     public void Reset()
     {
         this.gameObject.transform.position = staringPOS;
     }
+
+    public int NoteValue { get { return noteValue; } }
 }
