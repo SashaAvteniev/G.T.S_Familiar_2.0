@@ -666,6 +666,7 @@ GameObject:
   - component: {fileID: 1238836524}
   - component: {fileID: 1238836523}
   - component: {fileID: 1238836522}
+  - component: {fileID: 1238836525}
   m_Layer: 0
   m_Name: Top
   m_TagString: Untagged
@@ -766,6 +767,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1238836520}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &1238836525
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1238836520}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 14
+  m_CollisionDetection: 1
 --- !u!1 &1266813716
 GameObject:
   m_ObjectHideFlags: 0
@@ -778,6 +806,8 @@ GameObject:
   - component: {fileID: 1266813720}
   - component: {fileID: 1266813719}
   - component: {fileID: 1266813721}
+  - component: {fileID: 1266813722}
+  - component: {fileID: 1266813723}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
@@ -794,7 +824,7 @@ Transform:
   m_GameObject: {fileID: 1266813716}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.060225435, y: 4.41178, z: 0.33751518}
+  m_LocalPosition: {x: 0.1343, y: 4.65, z: 0.335}
   m_LocalScale: {x: 0.04153479, y: 1, z: 0.08416603}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -878,6 +908,46 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.9999999, y: 1, z: 1}
   m_Center: {x: -0.00000011920929, y: 0, z: 0.00000023841858}
+--- !u!54 &1266813722
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266813716}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1266813723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266813716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 118cbe882aac8704badeb4807ee377fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzleObjectPushScript
+  noteValue: 4
 --- !u!1 &1302632720
 GameObject:
   m_ObjectHideFlags: 0
@@ -1027,6 +1097,8 @@ GameObject:
   - component: {fileID: 1448590751}
   - component: {fileID: 1448590750}
   - component: {fileID: 1448590752}
+  - component: {fileID: 1448590753}
+  - component: {fileID: 1448590754}
   m_Layer: 0
   m_Name: Cube (4)
   m_TagString: Untagged
@@ -1043,7 +1115,7 @@ Transform:
   m_GameObject: {fileID: 1448590747}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.30901882, y: 4.41178, z: 0.33644047}
+  m_LocalPosition: {x: -0.0717, y: 4.61, z: 0.34}
   m_LocalScale: {x: 0.04153479, y: 1, z: 0.08416603}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1127,6 +1199,46 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.9999999, y: 1, z: 1}
   m_Center: {x: -0.00000011920929, y: 0, z: 0.00000023841858}
+--- !u!54 &1448590753
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448590747}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1448590754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448590747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 118cbe882aac8704badeb4807ee377fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzleObjectPushScript
+  noteValue: 1
 --- !u!1 &1671514537
 GameObject:
   m_ObjectHideFlags: 0
@@ -1139,6 +1251,8 @@ GameObject:
   - component: {fileID: 1671514541}
   - component: {fileID: 1671514540}
   - component: {fileID: 1671514542}
+  - component: {fileID: 1671514543}
+  - component: {fileID: 1671514544}
   m_Layer: 0
   m_Name: Cube (3)
   m_TagString: Untagged
@@ -1155,7 +1269,7 @@ Transform:
   m_GameObject: {fileID: 1671514537}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.19189072, y: 4.41178, z: 0.33697778}
+  m_LocalPosition: {x: 0.0101, y: 4.592, z: 0.339}
   m_LocalScale: {x: 0.04153479, y: 1, z: 0.08416603}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1239,6 +1353,46 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.9999999, y: 1, z: 1}
   m_Center: {x: -0.00000011920929, y: 0, z: 0.00000023841858}
+--- !u!54 &1671514543
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671514537}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1671514544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671514537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 118cbe882aac8704badeb4807ee377fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzleObjectPushScript
+  noteValue: 2
 --- !u!1 &1880430240
 GameObject:
   m_ObjectHideFlags: 0
@@ -1251,6 +1405,8 @@ GameObject:
   - component: {fileID: 1880430244}
   - component: {fileID: 1880430243}
   - component: {fileID: 1880430245}
+  - component: {fileID: 1880430246}
+  - component: {fileID: 1880430247}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -1267,7 +1423,7 @@ Transform:
   m_GameObject: {fileID: 1880430240}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.048595726, y: 4.41178, z: 0.3407393}
+  m_LocalPosition: {x: 0.25959244, y: 4.72, z: 0.333}
   m_LocalScale: {x: 0.04153479, y: 1, z: 0.08416603}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1351,6 +1507,46 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.9999999, y: 1, z: 1}
   m_Center: {x: -0.00000011920929, y: 0, z: 0.00000023841858}
+--- !u!54 &1880430246
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880430240}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1880430247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880430240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 118cbe882aac8704badeb4807ee377fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzleObjectPushScript
+  noteValue: 3
 --- !u!1 &2045351237
 GameObject:
   m_ObjectHideFlags: 0
@@ -1462,8 +1658,8 @@ Transform:
   m_LocalScale: {x: 24.076202, y: 1, z: 11.881279}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1266813717}
   - {fileID: 1880430241}
+  - {fileID: 1266813717}
   - {fileID: 1671514538}
   - {fileID: 1448590748}
   m_Father: {fileID: 0}
