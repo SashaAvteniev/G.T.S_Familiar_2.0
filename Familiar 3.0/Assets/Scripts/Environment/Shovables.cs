@@ -9,6 +9,7 @@ public class Shovables : MonoBehaviour
     //Game Manager sends signal here telling it to shove itself, including player data
 
     private bool readyToShove;
+    public bool ReadyToShove { get { return readyToShove; } }
     private Vector3 shoveDirection;
 
     private float shoveSpeed;
@@ -21,7 +22,7 @@ public class Shovables : MonoBehaviour
     void Start()
     {
         shoveDirection = Vector3.zero;
-        shoveSpeed = 1f;
+        shoveSpeed = 0;
     }
 
     // Update is called once per frame
@@ -30,6 +31,13 @@ public class Shovables : MonoBehaviour
 
     }
 
+    void FixedUpdate()
+    {
+        if(GetComponent<Rigidbody>().linearVelocity.sqrMagnitude > 0)
+        {
+
+        }
+    }
     private void OnCollisionEnter(Collision collision)
     {
 
@@ -41,7 +49,6 @@ public class Shovables : MonoBehaviour
                 shoveDirection = contactPoint.normal;
             }
         }
-        Debug.Log(shoveDirection);
     }
 
     private void OnCollisionStay(Collision collision)
