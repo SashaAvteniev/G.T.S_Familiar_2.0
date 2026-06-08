@@ -22,12 +22,20 @@ public class PlayerMovement : MonoBehaviour
     //Collisions
     private Vector3 currentWallNormal;
 
+    //Shoving
+    [SerializeField] private float shoveSpeed;
+    public float ShoveSpeed { get { return shoveSpeed; } }
+    private bool shoving;
+    public bool Shoving { get { return shoving; } set { shoving = value;} }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //Initialize
         grounded = true;
         velocityVertical = Vector3.zero;
         velocityHorizontal = Vector3.zero;
+        shoving = false;
     }
 
     // Update is called once per frame
@@ -42,9 +50,10 @@ public class PlayerMovement : MonoBehaviour
         player.transform.position = player.transform.position + velocityHorizontal * Time.deltaTime + velocityVertical*Time.deltaTime;
         #endregion
 
-
     }
 
+    #region Player Methods
+    //Active player methods
     public void Move(InputAction.CallbackContext context)
     {
        direction.z = context.ReadValue<Vector2>().x;
@@ -52,7 +61,6 @@ public class PlayerMovement : MonoBehaviour
        direction = direction.normalized;
     }
 
-    #region Jumping
     public void Jump(InputAction.CallbackContext context)
     {
         if(context.started && grounded)
@@ -61,7 +69,24 @@ public class PlayerMovement : MonoBehaviour
             grounded = false;
         }
     }
-    
+
+    public void Shove(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            shoving = true;
+           
+        }
+    }
+
+
+
+    #endregion
+
+
+
+    #region background methods
+    //Background methods
     private void ApplyGravity()
     {
         if(!grounded)
@@ -69,7 +94,6 @@ public class PlayerMovement : MonoBehaviour
             velocityVertical.y -= gravity * Time.deltaTime;
         }
     }
-    #endregion
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.layer == LayerMask.NameToLayer("floor"))
@@ -120,4 +144,5 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
+    #endregion
 }
