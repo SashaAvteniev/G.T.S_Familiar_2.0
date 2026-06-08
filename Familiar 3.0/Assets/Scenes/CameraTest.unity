@@ -292,7 +292,7 @@ MonoBehaviour:
   wallMask:
     serializedVersion: 2
     m_Bits: 64
-  fadeInDuration: 0.5
+  test: {x: 0, y: 0, z: 0}
 --- !u!1 &702942138
 GameObject:
   m_ObjectHideFlags: 0
@@ -993,8 +993,7 @@ MonoBehaviour:
   movementSpeed: 10
   gravity: 10
   player: {fileID: 1824538654}
-  stag: 0
-  jumpHeight: 3
+  jumpHeight: 8
 --- !u!54 &1824538664
 Rigidbody:
   m_ObjectHideFlags: 0
