@@ -8,15 +8,25 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private PlayerMovement player;
     [SerializeField] public List<Shovables> shovables = new List<Shovables>();
+    [SerializeField] public List<Grabbables> grabbables = new List<Grabbables>();
+
+    private Grabbables currentGrabbedObject;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         shovables.Clear();
-        Array gameObjects = GameObject.FindGameObjectsWithTag("Shovable");
-        foreach (GameObject gameObject in gameObjects)
+        Array shovableObjects = GameObject.FindGameObjectsWithTag("Shovable");
+        foreach (GameObject gameObject in shovableObjects)
         {
             shovables.Add(gameObject.GetComponent<Shovables>());
         }
+        Array grabbableObject = GameObject.FindGameObjectsWithTag("Grabbable");
+        foreach (GameObject gameObject in grabbableObject)
+        {
+            grabbables.Add(gameObject.GetComponent<Grabbables>());
+        }
+
+        currentGrabbedObject = null;
     }
 
     // Update is called once per frame
@@ -26,6 +36,14 @@ public class GameManager : MonoBehaviour
         {
             CheckShoving();
         }
+        if (player.Grabbing)
+        {
+            CheckGrabbing();
+        }
+        else if (!player.Grabbing)
+        {
+            CheckDropping();
+        }
     }
 
     private void CheckShoving()
@@ -34,18 +52,43 @@ public class GameManager : MonoBehaviour
         foreach (Shovables shovable in shovables)
         {
 
-            if (shovable.ReadyToShove)
+            if (shovable.ReadyToInteract)
             {
                 shovable.ShoveSpeed = player.ShoveSpeed;
-                Debug.Log("shoving!");
                 shovable.Shove();
-            }
-            else
-            {
-                Debug.Log("notCloseEnough");
             }
         }
         player.Shoving = false;
 
+    }
+
+    private void CheckGrabbing()
+    {
+        if(currentGrabbedObject == null)
+        {
+            foreach (Grabbables grabbable in grabbables)
+            {
+                if (grabbable.ReadyToInteract)
+                {
+                    currentGrabbedObject = grabbable;
+
+                    currentGrabbedObject.Grab();
+                }
+            }
+        }
+        else
+        {
+           
+            currentGrabbedObject.FollowPossition = player.transform.position;
+        }
+    }
+
+    private void CheckDropping()
+    {
+        if(currentGrabbedObject != null)
+        {
+            currentGrabbedObject.Drop();
+            currentGrabbedObject = null;
+        }
     }
 }

@@ -10,7 +10,7 @@ public class Shovables : MonoBehaviour
 
     
     protected bool readyToInteract;
-    public bool ReadyToShove { get { return readyToInteract; } }
+    public bool ReadyToInteract { get { return readyToInteract; } }
     private Vector3 shoveDirection;
 
     private float shoveSpeed;
