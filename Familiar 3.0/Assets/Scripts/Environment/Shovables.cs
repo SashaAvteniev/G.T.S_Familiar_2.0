@@ -8,8 +8,9 @@ public class Shovables : MonoBehaviour
     //Player will shove it
     //Game Manager sends signal here telling it to shove itself, including player data
 
-    private bool readyToShove;
-    public bool ReadyToShove { get { return readyToShove; } }
+    
+    protected bool readyToInteract;
+    public bool ReadyToShove { get { return readyToInteract; } }
     private Vector3 shoveDirection;
 
     private float shoveSpeed;
@@ -33,25 +34,22 @@ public class Shovables : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(GetComponent<Rigidbody>().linearVelocity.sqrMagnitude > 0)
-        {
 
-        }
     }
-    private void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
 
         foreach (ContactPoint contactPoint in collision.contacts)
         {
             if(collision.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
-                readyToShove = true;
+                readyToInteract = true;
                 shoveDirection = contactPoint.normal;
             }
         }
     }
 
-    private void OnCollisionStay(Collision collision)
+    protected virtual void OnCollisionStay(Collision collision)
     {
         foreach (ContactPoint contactPoint in collision.contacts)
         {
@@ -62,11 +60,11 @@ public class Shovables : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    protected virtual void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            readyToShove = false;
+            readyToInteract = false;
         }
     }
 

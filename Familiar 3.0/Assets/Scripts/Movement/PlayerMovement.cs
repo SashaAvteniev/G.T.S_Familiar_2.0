@@ -28,6 +28,9 @@ public class PlayerMovement : MonoBehaviour
     private bool shoving;
     public bool Shoving { get { return shoving; } set { shoving = value;} }
 
+    //Grabbing
+    private bool grabbing;
+    public bool Grabbing { get { return grabbing; } set { grabbing = value;} }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -79,7 +82,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
+    public void Grab(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            grabbing = true;
+        }
+    }
 
     #endregion
 

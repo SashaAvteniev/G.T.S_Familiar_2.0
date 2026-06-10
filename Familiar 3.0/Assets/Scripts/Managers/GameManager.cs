@@ -22,28 +22,30 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckShoving();
+        if (player.Shoving)
+        {
+            CheckShoving();
+        }
     }
 
     private void CheckShoving()
     {
-        if (player.Shoving)
-        {
-            foreach (Shovables shovable in shovables)
-            {
 
-                if (shovable.ReadyToShove)
-                {
-                    shovable.ShoveSpeed = player.ShoveSpeed;
-                    Debug.Log("shoving!");
-                    shovable.Shove();
-                }
-                else
-                {
-                    Debug.Log("notCloseEnough");
-                }
+        foreach (Shovables shovable in shovables)
+        {
+
+            if (shovable.ReadyToShove)
+            {
+                shovable.ShoveSpeed = player.ShoveSpeed;
+                Debug.Log("shoving!");
+                shovable.Shove();
             }
-            player.Shoving = false;
+            else
+            {
+                Debug.Log("notCloseEnough");
+            }
         }
+        player.Shoving = false;
+
     }
 }
