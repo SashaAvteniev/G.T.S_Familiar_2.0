@@ -184,7 +184,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 04b5d388926385f4da8d58f595365915, type: 2}
+  - {fileID: 2100000, guid: 9de4fd228080b7aa78effe5b6269c1cc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -404,6 +404,7 @@ MonoBehaviour:
   wallMask:
     serializedVersion: 2
     m_Bits: 64
+  viewportRaySpread: 1
 --- !u!1 &702942138
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,7 +1033,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 04b5d388926385f4da8d58f595365915, type: 2}
+  - {fileID: 2100000, guid: 9de4fd228080b7aa78effe5b6269c1cc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
