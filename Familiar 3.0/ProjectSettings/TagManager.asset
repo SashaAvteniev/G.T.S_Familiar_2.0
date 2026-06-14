@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Floor
   - Shovable
+  - Grabbable
   layers:
   - Default
   - TransparentFX

@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float movementSpeed;
     [SerializeField] private float gravity;
     [SerializeField] private GameObject player;
- 
+    [SerializeField] private SpriteRenderer playerSprite;
 
     private Vector3 direction;
     private Vector3 velocityHorizontal;
@@ -39,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
         velocityVertical = Vector3.zero;
         velocityHorizontal = Vector3.zero;
         shoving = false;
+        grabbing = false;
     }
 
     // Update is called once per frame
@@ -84,9 +85,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void Grab(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.performed)
         {
             grabbing = true;
+        }
+        if (context.canceled)
+        {
+            grabbing = false;
         }
     }
 
