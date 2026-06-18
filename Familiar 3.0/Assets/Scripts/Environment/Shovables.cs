@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Shovables : MonoBehaviour
+public class Shovables : Interactables
 {
     //Needs to be able to tell when player is nearby
     //Tell something (game manager) that it is ready to be shoved
@@ -8,9 +8,6 @@ public class Shovables : MonoBehaviour
     //Player will shove it
     //Game Manager sends signal here telling it to shove itself, including player data
 
-    
-    protected bool readyToInteract;
-    public bool ReadyToInteract { get { return readyToInteract; } }
     private Vector3 shoveDirection;
 
     private float shoveSpeed;
@@ -36,7 +33,7 @@ public class Shovables : MonoBehaviour
     {
 
     }
-    protected virtual void OnCollisionEnter(Collision collision)
+    protected override void OnCollisionEnter(Collision collision)
     {
 
         foreach (ContactPoint contactPoint in collision.contacts)
@@ -49,7 +46,7 @@ public class Shovables : MonoBehaviour
         }
     }
 
-    protected virtual void OnCollisionStay(Collision collision)
+    protected void OnCollisionStay(Collision collision)
     {
         foreach (ContactPoint contactPoint in collision.contacts)
         {
@@ -60,7 +57,7 @@ public class Shovables : MonoBehaviour
         }
     }
 
-    protected virtual void OnCollisionExit(Collision collision)
+    protected override void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
