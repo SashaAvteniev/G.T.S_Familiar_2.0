@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
     //Fields
     [SerializeField] private float movementSpeed;
+    private float speedDefault;
     [SerializeField] private float gravity;
     [SerializeField] private GameObject player;
     [SerializeField] private SpriteRenderer playerSprite;
@@ -40,13 +41,14 @@ public class PlayerMovement : MonoBehaviour
         velocityHorizontal = Vector3.zero;
         shoving = false;
         grabbing = false;
+        speedDefault = movementSpeed;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         #region calculate velocity
-        velocityHorizontal = new Vector3(direction.x*movementSpeed, 0, direction.z*movementSpeed);
+        velocityHorizontal = new Vector3(direction.x * movementSpeed, 0, direction.z * movementSpeed);
         ApplyGravity();
         HandleWallCollision();
         #endregion
@@ -60,7 +62,8 @@ public class PlayerMovement : MonoBehaviour
     //Active player methods
     public void Move(InputAction.CallbackContext context)
     {
-       direction.z = context.ReadValue<Vector2>().x;
+
+        direction.z = context.ReadValue<Vector2>().x;
        direction.x = -context.ReadValue<Vector2>().y;
        direction = direction.normalized;
     }
@@ -71,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
         {
             velocityVertical.y = Vector3.up.y * jumpHeight;
             grounded = false;
+            movementSpeed = movementSpeed * .7f;
         }
     }
 
@@ -115,6 +119,7 @@ public class PlayerMovement : MonoBehaviour
             grounded = true;
             velocityVertical.y = 0;
             Debug.Log("hit");
+            movementSpeed = speedDefault;
         }
         foreach(ContactPoint contactPoint in collision.contacts)
         {
