@@ -2975,7 +2975,6 @@ GameObject:
   - component: {fileID: 1575073750}
   - component: {fileID: 1575073749}
   - component: {fileID: 1575073748}
-  - component: {fileID: 1575073751}
   m_Layer: 5
   m_Name: Button_Close
   m_TagString: Untagged
@@ -3059,7 +3058,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1575073751}
+      - m_Target: {fileID: 1698697276}
         m_TargetAssemblyTypeName: MenuUI, Assembly-CSharp
         m_MethodName: SetPaused
         m_Mode: 6
@@ -3109,20 +3108,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1575073746}
   m_CullTransparentMesh: 1
---- !u!114 &1575073751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1575073746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 338c8bd4d6e6c944580acbd06dd6de93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MenuUI
-  pauseMenu: {fileID: 0}
-  paused: 0
 --- !u!1 &1698697273 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9028120686030873439, guid: 37068908a5ab5c841843bccc94946a21, type: 3}
@@ -3366,7 +3351,6 @@ GameObject:
   - component: {fileID: 1768657299}
   - component: {fileID: 1768657298}
   - component: {fileID: 1768657297}
-  - component: {fileID: 1768657300}
   m_Layer: 5
   m_Name: Button_Resume
   m_TagString: Untagged
@@ -3450,7 +3434,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1768657300}
+      - m_Target: {fileID: 1698697276}
         m_TargetAssemblyTypeName: MenuUI, Assembly-CSharp
         m_MethodName: SetPaused
         m_Mode: 6
@@ -3500,20 +3484,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1768657295}
   m_CullTransparentMesh: 1
---- !u!114 &1768657300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1768657295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 338c8bd4d6e6c944580acbd06dd6de93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MenuUI
-  pauseMenu: {fileID: 0}
-  paused: 0
 --- !u!1 &1824538654 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2871441044953900857, guid: b65e9f777e02f1e4986c3e6c26930238, type: 3}

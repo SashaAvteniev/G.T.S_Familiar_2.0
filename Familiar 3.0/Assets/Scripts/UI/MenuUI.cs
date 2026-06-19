@@ -16,6 +16,7 @@ public class MenuUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(paused);
         //for some reason paused ends up as true after I close the welcome page
         //the player is still allowed to move even though it thinks paused = true
         //the only way to get this if to work is if it's "&& paused"
@@ -30,9 +31,9 @@ public class MenuUI : MonoBehaviour
 
     public void SetPaused(bool value)
     {
-        Debug.Log("before set val paused = " + paused);
+        //Debug.Log("before set val paused = " + paused);
         paused = value;
-        Debug.Log("after set val paused = " + paused);
+        //Debug.Log("after set val paused = " + paused);
 
         // //if pause == true, timeScale = 0.0f (frozen)
         // //if paused == false, timeScale = 1.0f (normal speed)
