@@ -378,7 +378,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 54275239}
+      - m_Target: {fileID: 1243549984}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -388,15 +388,15 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1243549984}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1698697276}
+        m_TargetAssemblyTypeName: MenuUI, Assembly-CSharp
+        m_MethodName: GoForward
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 54275239}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1657,7 +1657,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1121082047}
-  - component: {fileID: 1121082048}
   m_Layer: 5
   m_Name: Window_Pause
   m_TagString: Untagged
@@ -1689,21 +1688,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 600, y: 353.8}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1121082048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1121082046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e414057c1082014281dd1837dc093b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BackButton
-  backButton: {fileID: 2086236037}
-  currentMenu: {fileID: 54275239}
-  returnMenu: {fileID: 1121082046}
 --- !u!1 &1121972515
 GameObject:
   m_ObjectHideFlags: 0
@@ -2089,7 +2073,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1243549985}
-  - component: {fileID: 1243549986}
   m_Layer: 5
   m_Name: Window_Welcome
   m_TagString: Untagged
@@ -2120,21 +2103,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 600, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1243549986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1243549984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e414057c1082014281dd1837dc093b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BackButton
-  backButton: {fileID: 2086236037}
-  currentMenu: {fileID: 54275239}
-  returnMenu: {fileID: 1243549984}
 --- !u!1 &1298532719
 GameObject:
   m_ObjectHideFlags: 0
@@ -2711,29 +2679,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1121082046}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1698697276}
+        m_TargetAssemblyTypeName: MenuUI, Assembly-CSharp
+        m_MethodName: GoForward
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 54275239}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 54275239}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1412287825
 MonoBehaviour:
@@ -3060,7 +3016,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1698697276}
         m_TargetAssemblyTypeName: MenuUI, Assembly-CSharp
-        m_MethodName: SetPaused
+        m_MethodName: SetPause
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3127,6 +3083,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MenuUI
   pauseMenu: {fileID: 1121082046}
   paused: 0
+  startingUI: {fileID: 1243549984}
 --- !u!1 &1713892071
 GameObject:
   m_ObjectHideFlags: 0
@@ -3436,7 +3393,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1698697276}
         m_TargetAssemblyTypeName: MenuUI, Assembly-CSharp
-        m_MethodName: SetPaused
+        m_MethodName: SetPause
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3623,9 +3580,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1958517937}
-        m_TargetAssemblyTypeName: QuitGame, Assembly-CSharp
-        m_MethodName: QuitApplication
+      - m_Target: {fileID: 1698697276}
+        m_TargetAssemblyTypeName: MenuUI, Assembly-CSharp
+        m_MethodName: Quit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4042,7 +3999,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2086236038}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1698697276}
+        m_TargetAssemblyTypeName: MenuUI, Assembly-CSharp
+        m_MethodName: GoBack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2086236038
 MonoBehaviour:
   m_ObjectHideFlags: 0
