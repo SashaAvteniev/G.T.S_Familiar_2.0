@@ -1359,11 +1359,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   movementSpeed: 10
-  gravity: 10
+  gravity: 40
   player: {fileID: 1824538654}
   playerSprite: {fileID: 0}
-  jumpHeight: 8
-  shoveSpeed: 1000
+  jumpHeight: 15
+  shoveSpeed: 30000
 --- !u!54 &1824538667
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1391,79 +1391,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!1001 &896765527942093493
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 417083361311108453, guid: 87e054ca41c7f9c44b1755842d322018, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 14.69
-      objectReference: {fileID: 0}
-    - target: {fileID: 417083361311108453, guid: 87e054ca41c7f9c44b1755842d322018, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 5.48
-      objectReference: {fileID: 0}
-    - target: {fileID: 417083361311108453, guid: 87e054ca41c7f9c44b1755842d322018, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -3.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 417083361311108453, guid: 87e054ca41c7f9c44b1755842d322018, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 417083361311108453, guid: 87e054ca41c7f9c44b1755842d322018, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 417083361311108453, guid: 87e054ca41c7f9c44b1755842d322018, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 417083361311108453, guid: 87e054ca41c7f9c44b1755842d322018, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 417083361311108453, guid: 87e054ca41c7f9c44b1755842d322018, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 417083361311108453, guid: 87e054ca41c7f9c44b1755842d322018, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 417083361311108453, guid: 87e054ca41c7f9c44b1755842d322018, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4649533465781096243, guid: 87e054ca41c7f9c44b1755842d322018, type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4649533465781096243, guid: 87e054ca41c7f9c44b1755842d322018, type: 3}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4649533465781096243, guid: 87e054ca41c7f9c44b1755842d322018, type: 3}
-      propertyPath: m_Constraints
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4649533465781096243, guid: 87e054ca41c7f9c44b1755842d322018, type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9069745910092670635, guid: 87e054ca41c7f9c44b1755842d322018, type: 3}
-      propertyPath: m_Name
-      value: Shovable object
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 87e054ca41c7f9c44b1755842d322018, type: 3}
 --- !u!1001 &5495370131234892761
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1539,7 +1466,6 @@ SceneRoots:
   - {fileID: 1305694008}
   - {fileID: 1424499151}
   - {fileID: 1121972519}
-  - {fileID: 896765527942093493}
   - {fileID: 5495370131234892761}
   - {fileID: 77443641}
   - {fileID: 1111257932}
