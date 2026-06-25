@@ -96,14 +96,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (context.performed)
         {
-            grabbing = true;
             interacting = true;
         }
         if (context.canceled)
         {
-            grabbing = false;
             interacting = false;
         }
+
     }
 
     #endregion

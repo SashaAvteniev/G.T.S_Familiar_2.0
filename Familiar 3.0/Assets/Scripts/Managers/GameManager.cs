@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using NUnit.Framework.Constraints;
 using System;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,19 +15,7 @@ public class GameManager : MonoBehaviour
     private Grabbables currentGrabbedObject;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-    {
-        shovables.Clear();
-        Array shovableObjects = GameObject.FindGameObjectsWithTag("Shovable");
-        foreach (GameObject gameObject in shovableObjects)
-        {
-            shovables.Add(gameObject.GetComponent<Shovables>());
-        }
-        Array grabbableObject = GameObject.FindGameObjectsWithTag("Grabbable");
-        foreach (GameObject gameObject in grabbableObject)
-        {
-            grabbables.Add(gameObject.GetComponent<Grabbables>());
-        }
-
+    { 
         currentGrabbedObject = null;
     }
 
@@ -36,17 +25,70 @@ public class GameManager : MonoBehaviour
         if(player.Interacting)
         {
             OnInteract();
+            if (player.Grabbing)
+            {
+                currentGrabbedObject.FollowPossition = player.transform.position;
+            }
             currentlyColiding.Clear();
+        }
+        else
+        {
+            if (player.Grabbing)
+            {
+                player.Grabbing = false;
+                currentGrabbedObject.Drop();
+                currentGrabbedObject=null;
+            }
         }
     }
 
     private void OnInteract()
     {
-        Collider[] newCollisions = Physics.OverlapSphere(player.transform.position, 1);
-        foreach (Collider collider in newCollisions)
+        if (currentGrabbedObject == null)
         {
-            currentlyColiding.Add(collider.gameObject);
-            Debug.Log(collider.gameObject.tag);
+            Collider[] newCollisions = Physics.OverlapSphere(player.transform.position, 2);
+            Vector3 closestPosition = new Vector3(int.MaxValue, int.MaxValue, int.MaxValue);
+            GameObject currentObject = null;
+            foreach (Collider collider in newCollisions)
+            {
+                if (collider.gameObject.GetComponent<Interactables>() != null)
+                {
+                    currentlyColiding.Add(collider.gameObject);
+                    if ((player.transform.position - collider.gameObject.transform.position).magnitude < closestPosition.magnitude)
+                    {
+                        closestPosition = player.transform.position - collider.gameObject.transform.position;
+                        currentObject = collider.gameObject;
+                    }
+                }
+            }
+            if (currentObject != null)
+            {
+                switch (currentObject.tag)
+                {
+                    case "Shovable":
+
+                        if (currentObject.GetComponent<Shovables>().ReadyToInteract)
+                        {
+
+                            currentObject.GetComponent<Shovables>().ShoveSpeed = player.ShoveSpeed;
+                            currentObject.GetComponent<Shovables>().Shove();
+                        }
+                        break;
+
+                    case "Grabbable":
+                        if (currentObject.GetComponent<Grabbables>().ReadyToInteract)
+                        {
+                            currentGrabbedObject = currentObject.GetComponent<Grabbables>();
+                            player.Grabbing = true;
+                            currentGrabbedObject.Grab();
+                        }
+
+                        break;
+
+                    default:
+                        break;
+                }
+            }
         }
     }
 }

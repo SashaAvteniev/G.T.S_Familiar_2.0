@@ -1363,7 +1363,7 @@ MonoBehaviour:
   player: {fileID: 1824538654}
   playerSprite: {fileID: 0}
   jumpHeight: 8
-  shoveSpeed: 100
+  shoveSpeed: 1000
 --- !u!54 &1824538667
 Rigidbody:
   m_ObjectHideFlags: 0
