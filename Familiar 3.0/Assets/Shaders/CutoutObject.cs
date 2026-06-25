@@ -23,31 +23,31 @@ public class CutoutObject : MonoBehaviour
         // Center Raycast
         RaycastHit[] centerRaycastHits = Physics.RaycastAll(transform.position, offset, offset.magnitude, wallMask);
         Debug.DrawLine(transform.position, offset, Color.red);
-        Debug.Log("Center: " + centerRaycastHits.Length);
+        //Debug.Log("Center: " + centerRaycastHits.Length);
         UpdateMaterials(centerRaycastHits);
         
         // Left Raycast
         RaycastHit[] leftRaycastHits = Physics.RaycastAll(transform.position, offset + new Vector3(0,0,-5), offset.magnitude, wallMask);
         Debug.DrawRay(transform.position, offset + new Vector3(0,0,-5), Color.blue);
-        Debug.Log("Left: " + leftRaycastHits.Length);
+        //Debug.Log("Left: " + leftRaycastHits.Length);
         UpdateMaterials(leftRaycastHits);
         
         // Right Raycast
         RaycastHit[] rightRaycastHits = Physics.RaycastAll(transform.position, offset + new Vector3(0,0,5), offset.magnitude, wallMask);
         Debug.DrawLine(transform.position, offset + new Vector3(0,0,5), Color.green);
-        Debug.Log("Right: " + rightRaycastHits.Length);
+        //Debug.Log("Right: " + rightRaycastHits.Length);
         UpdateMaterials(rightRaycastHits);
         
         // Upper Raycast
         RaycastHit[] upperRaycastHits = Physics.RaycastAll(transform.position, offset + new Vector3(0,5,0), offset.magnitude, wallMask);
         Debug.DrawLine(transform.position, offset + new Vector3(0,5,0), Color.purple);
-        Debug.Log("Upper: " + upperRaycastHits.Length);
+        //Debug.Log("Upper: " + upperRaycastHits.Length);
         UpdateMaterials(upperRaycastHits);
         
         // Lower Raycast
         RaycastHit[] lowerRaycastHits = Physics.RaycastAll(transform.position, offset + test, offset.magnitude, wallMask);
         Debug.DrawLine(transform.position, offset + test, Color.orange);
-        Debug.Log("Lower: " + lowerRaycastHits.Length);
+        //Debug.Log("Lower: " + lowerRaycastHits.Length);
         UpdateMaterials(lowerRaycastHits);
     }
 
@@ -55,7 +55,7 @@ public class CutoutObject : MonoBehaviour
     {
         if (hits.Length == 0)
         {
-            Debug.Log("No Hits");
+            //Debug.Log("No Hits");
             Shader.SetGlobalFloat("ShowCutout", 0f);
         }
         Vector2 cutoutPos = mainCamera.WorldToViewportPoint(targetObject.position);

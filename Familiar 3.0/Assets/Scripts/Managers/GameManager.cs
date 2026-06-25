@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public List<Shovables> shovables = new List<Shovables>();
     [SerializeField] public List<Grabbables> grabbables = new List<Grabbables>();
 
+    private List<GameObject> currentlyColiding = new List<GameObject>();
     private Grabbables currentGrabbedObject;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -32,63 +33,20 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.Shoving)
+        if(player.Interacting)
         {
-            CheckShoving();
-        }
-        if (player.Grabbing)
-        {
-            CheckGrabbing();
-        }
-        else if (!player.Grabbing)
-        {
-            CheckDropping();
+            OnInteract();
+            currentlyColiding.Clear();
         }
     }
 
-    private void CheckShoving()
+    private void OnInteract()
     {
-
-        foreach (Shovables shovable in shovables)
+        Collider[] newCollisions = Physics.OverlapSphere(player.transform.position, 1);
+        foreach (Collider collider in newCollisions)
         {
-
-            if (shovable.ReadyToInteract)
-            {
-                shovable.ShoveSpeed = player.ShoveSpeed;
-                shovable.Shove();
-            }
-        }
-        player.Shoving = false;
-
-    }
-
-    private void CheckGrabbing()
-    {
-        if(currentGrabbedObject == null)
-        {
-            foreach (Grabbables grabbable in grabbables)
-            {
-                if (grabbable.ReadyToInteract)
-                {
-                    currentGrabbedObject = grabbable;
-
-                    currentGrabbedObject.Grab();
-                }
-            }
-        }
-        else
-        {
-           
-            currentGrabbedObject.FollowPossition = player.transform.position;
-        }
-    }
-
-    private void CheckDropping()
-    {
-        if(currentGrabbedObject != null)
-        {
-            currentGrabbedObject.Drop();
-            currentGrabbedObject = null;
+            currentlyColiding.Add(collider.gameObject);
+            Debug.Log(collider.gameObject.tag);
         }
     }
 }
