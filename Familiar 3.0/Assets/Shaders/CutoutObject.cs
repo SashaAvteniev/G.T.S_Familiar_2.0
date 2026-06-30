@@ -87,7 +87,7 @@ public class CutoutObject : MonoBehaviour
         }
         
         Vector2 cutoutPos = mainCamera.WorldToViewportPoint(targetObject.position);
-        cutoutPos.y /= (Screen.width / Screen.height);
+        cutoutPos.y /= (float)(Screen.width / Screen.height);
         for (int i = 0; i < hits.Length; i++)
         {
             Renderer hitRenderer = hits[i].transform.GetComponent<Renderer>();
@@ -98,7 +98,7 @@ public class CutoutObject : MonoBehaviour
 
             affectedRenderers.Add(hitRenderer);
 
-            Material[] materials = hitRenderer.materials;
+            Material[] materials = hitRenderer.sharedMaterials;
             for (int m = 0; m < materials.Length; ++m)
             {
                 //Debug.Log($"Setting cutout for {hits[i].transform.name} material {m}");
@@ -119,7 +119,7 @@ public class CutoutObject : MonoBehaviour
                 continue;
             }
 
-            Material[] materials = affectedRenderer.materials;
+            Material[] materials = affectedRenderer.sharedMaterials;
             for (int i = 0; i < materials.Length; i++)
             {
                 materials[i].SetFloat("_ShowCutout", 0f);
