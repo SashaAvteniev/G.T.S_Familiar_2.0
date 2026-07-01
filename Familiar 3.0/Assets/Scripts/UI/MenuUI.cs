@@ -10,6 +10,7 @@ public class MenuUI : MonoBehaviour
     public GameObject pauseMenu;
     public bool paused;
     public GameObject startingUI;
+    public IntroWindowManager windowCheck;
 
     private Stack menuOrder = new Stack();
 
@@ -18,6 +19,17 @@ public class MenuUI : MonoBehaviour
         paused = true;
         Time.timeScale = 0.0f;
         menuOrder.Push(startingUI);
+        
+        //Check if the intro window has been shown before
+        //If it has, don't show playtester window again
+        if (!windowCheck.hasBeenShown)
+        {
+            windowCheck.hasBeenShown = true;
+        }
+        else
+        {
+            startingUI.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -45,7 +57,6 @@ public class MenuUI : MonoBehaviour
         menuOrder.Clear();
         Time.timeScale = 1.0f;
     }
-
 
     public void GoForward(GameObject nextUI)
     {
