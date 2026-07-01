@@ -25,4 +25,6 @@ public class PlayerData
     }
     public TalismanInUse currentTalisman;
     public Vector3 currentDoor;
+
+    public bool enteredDoor;
 }
