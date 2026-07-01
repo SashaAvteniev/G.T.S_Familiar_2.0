@@ -2676,6 +2676,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 1121082046}
   paused: 0
   startingUI: {fileID: 1243549984}
+  windowCheck: {fileID: 11400000, guid: d3e65d1f15bd01c87a769342cf6f4594, type: 2}
 --- !u!1 &1713892071
 GameObject:
   m_ObjectHideFlags: 0

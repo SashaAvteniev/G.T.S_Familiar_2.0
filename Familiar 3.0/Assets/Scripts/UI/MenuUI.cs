@@ -29,6 +29,7 @@ public class MenuUI : MonoBehaviour
         else
         {
             startingUI.SetActive(false);
+            SetPause(false);
         }
     }
 
