@@ -25,18 +25,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Shove",
+                    "name": "Interact",
                     "type": "Button",
-                    "id": "15312f9c-d9a7-4b5a-b49c-3ae9e2b07b4f",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Grab",
-                    "type": "Button",
-                    "id": "c217b654-993e-40c4-b1a2-e3f527a0c8c9",
+                    "id": "342df004-3c83-4ee7-b041-8a4ad699c747",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -156,45 +147,23 @@
                 },
                 {
                     "name": "",
-                    "id": "4f1997dd-8af1-41dd-9e6a-2b300fe5574e",
+                    "id": "31a315e5-512c-4b13-ad66-0abd152290fa",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Shove",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "d5368788-1b1c-4aed-9f48-8fdf4f24060c",
+                    "id": "c30084d3-bb62-471d-a451-7fad83700a22",
                     "path": "",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Shove",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ad7640b7-c15b-443b-935b-cbd9721cccd5",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Grab",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5839e8e8-fa72-41b3-b9f1-aae2cdd83ae9",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Grab",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -67,6 +67,7 @@ public class Shovables : Interactables
 
     public void Shove()
     {
+        Debug.Log("Shoved");
         GetComponent<Rigidbody>().AddForce(shoveDirection*shoveSpeed, ForceMode.Force);
     }
 }

@@ -23,6 +23,10 @@ public class PlayerMovement : MonoBehaviour
     //Collisions
     private Vector3 currentWallNormal;
 
+    //Interacting
+    private bool interacting;
+    public bool Interacting { get { return interacting; } set { interacting = value; } }
+
     //Shoving
     [SerializeField] private float shoveSpeed;
     public float ShoveSpeed { get { return shoveSpeed; } }
@@ -41,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
         velocityHorizontal = Vector3.zero;
         shoving = false;
         grabbing = false;
+        interacting = false;
         speedDefault = movementSpeed;
     }
 
@@ -83,7 +88,11 @@ public class PlayerMovement : MonoBehaviour
         if (context.started)
         {
             shoving = true;
-           
+            interacting = true;
+        }
+        if (context.canceled)
+        {
+            interacting = false;
         }
     }
 
@@ -91,12 +100,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (context.performed)
         {
-            grabbing = true;
+            interacting = true;
         }
         if (context.canceled)
         {
-            grabbing = false;
+            interacting = false;
         }
+
     }
 
     #endregion

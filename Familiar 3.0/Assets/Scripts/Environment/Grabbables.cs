@@ -22,7 +22,7 @@ public class Grabbables : Interactables
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(followPossition);
+        //Debug.Log(followPossition);
         if(grabbed)
         {
             this.transform.position = followPossition;
