@@ -85,6 +85,12 @@ public class GameManager : MonoBehaviour
 
                         break;
 
+                    case "Talisman":
+                        if (currentObject.GetComponent<Talismans>().ReadyToInteract)
+                        {
+                            currentObject.GetComponent<Talismans>().OnPickup();
+                        }
+                        break;
                     default:
                         break;
                 }

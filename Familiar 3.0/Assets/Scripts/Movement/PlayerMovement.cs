@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private float holdJumpTime;
     private bool holdingJump;
     private bool grounded;
+    private bool jumped;
 
     //Collisions
     private Vector3 currentWallNormal;
@@ -36,6 +38,9 @@ public class PlayerMovement : MonoBehaviour
     //Grabbing
     private bool grabbing;
     public bool Grabbing { get { return grabbing; } set { grabbing = value;} }
+
+    //Talisman
+    [SerializeField] private PlayerDataScript playerDataScript;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -47,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
         grabbing = false;
         interacting = false;
         speedDefault = movementSpeed;
+        jumped = false;
     }
 
     // Update is called once per frame
@@ -80,6 +86,13 @@ public class PlayerMovement : MonoBehaviour
             velocityVertical.y = Vector3.up.y * jumpHeight;
             grounded = false;
             movementSpeed = movementSpeed * .7f;
+            jumped = true;
+        }
+        else if(playerDataScript.PlayerData.currentTalisman == PlayerData.TalismanInUse.Elk && context.started && grounded==false && jumped)
+        {
+            velocityVertical.y = Vector3.up.y * jumpHeight;
+            grounded = false;
+            jumped =false;
         }
     }
 
@@ -130,6 +143,7 @@ public class PlayerMovement : MonoBehaviour
             velocityVertical.y = 0;
             Debug.Log("hit");
             movementSpeed = speedDefault;
+            jumped = false;
         }
         foreach(ContactPoint contactPoint in collision.contacts)
         {

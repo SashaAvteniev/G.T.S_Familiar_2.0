@@ -4,6 +4,12 @@ using UnityEngine;
 public class PlayerDataScript : ScriptableObject
 {
     public PlayerData PlayerData;
+
+    private void OnEnable()
+    {
+        PlayerData.currentTalisman = PlayerData.TalismanInUse.None;
+        PlayerData.currentDoor = Vector3.zero;
+    }
 }
 
 [System.Serializable]
