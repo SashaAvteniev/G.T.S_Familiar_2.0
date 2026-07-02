@@ -155,6 +155,10 @@ public class PlayerMovement : MonoBehaviour
         {
             currentWallNormal = Vector3.zero;
         }
+        if (collision.gameObject.layer == LayerMask.NameToLayer("floor"))
+        {
+            grounded = false;
+        }
     }
 
     private void HandleWallCollision()
@@ -177,5 +181,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
+
+
     #endregion
 }
