@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,9 +6,10 @@ public class PlayerMovement : MonoBehaviour
 {
     //Fields
     [SerializeField] private float movementSpeed;
+    private float speedDefault;
     [SerializeField] private float gravity;
     [SerializeField] private GameObject player;
- 
+    [SerializeField] private SpriteRenderer playerSprite;
 
     private Vector3 direction;
     private Vector3 velocityHorizontal;
@@ -18,23 +20,48 @@ public class PlayerMovement : MonoBehaviour
     private float holdJumpTime;
     private bool holdingJump;
     private bool grounded;
+    private bool jumped;
 
     //Collisions
     private Vector3 currentWallNormal;
 
+    //Interacting
+    private bool interacting;
+    public bool Interacting { get { return interacting; } set { interacting = value; } }
+
+    //Shoving
+    [SerializeField] private float shoveSpeed;
+    public float ShoveSpeed { get { return shoveSpeed; } }
+    private bool shoving;
+    public bool Shoving { get { return shoving; } set { shoving = value;} }
+
+    //Grabbing
+    private bool grabbing;
+    public bool Grabbing { get { return grabbing; } set { grabbing = value;} }
+
+    //PlayerSaveData
+    [SerializeField] private PlayerDataScript playerDataScript;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //Initialize
         grounded = true;
         velocityVertical = Vector3.zero;
         velocityHorizontal = Vector3.zero;
+        shoving = false;
+        grabbing = false;
+        interacting = false;
+        speedDefault = movementSpeed;
+        jumped = false;
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         #region calculate velocity
-        velocityHorizontal = new Vector3(direction.x*movementSpeed, 0, direction.z*movementSpeed);
+        velocityHorizontal = new Vector3(direction.x * movementSpeed, 0, direction.z * movementSpeed);
         ApplyGravity();
         HandleWallCollision();
         #endregion
@@ -42,26 +69,55 @@ public class PlayerMovement : MonoBehaviour
         player.transform.position = player.transform.position + velocityHorizontal * Time.deltaTime + velocityVertical*Time.deltaTime;
         #endregion
 
-
     }
 
+    #region Player Methods
+    //Active player methods
     public void Move(InputAction.CallbackContext context)
     {
-       direction.z = context.ReadValue<Vector2>().x;
+
+        direction.z = context.ReadValue<Vector2>().x;
        direction.x = -context.ReadValue<Vector2>().y;
        direction = direction.normalized;
     }
 
-    #region Jumping
     public void Jump(InputAction.CallbackContext context)
     {
         if(context.started && grounded)
         {
             velocityVertical.y = Vector3.up.y * jumpHeight;
             grounded = false;
+            movementSpeed = movementSpeed * .7f;
+            jumped = true;
+        }
+        else if(playerDataScript.PlayerData.currentTalisman == PlayerData.TalismanInUse.Elk && context.started && grounded==false && jumped)
+        {
+            velocityVertical.y = Vector3.up.y * jumpHeight;
+            grounded = false;
+            jumped =false;
         }
     }
-    
+
+
+    public void Interact(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            interacting = true;
+        }
+        if (context.canceled)
+        {
+            interacting = false;
+        }
+
+    }
+
+    #endregion
+
+
+
+    #region background methods
+    //Background methods
     private void ApplyGravity()
     {
         if(!grounded)
@@ -69,7 +125,6 @@ public class PlayerMovement : MonoBehaviour
             velocityVertical.y -= gravity * Time.deltaTime;
         }
     }
-    #endregion
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.layer == LayerMask.NameToLayer("floor"))
@@ -77,6 +132,8 @@ public class PlayerMovement : MonoBehaviour
             grounded = true;
             velocityVertical.y = 0;
             Debug.Log("hit");
+            movementSpeed = speedDefault;
+            jumped = false;
         }
         foreach(ContactPoint contactPoint in collision.contacts)
         {
@@ -120,4 +177,5 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
+    #endregion
 }
