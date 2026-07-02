@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Flora_Flowers_02
+  m_Name: M_Flora_04 1
   m_Shader: {fileID: -6465566751694194690, guid: d74c42443db0a48e3b32b073a58ecdf8, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -58,7 +58,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Diffuse:
-        m_Texture: {fileID: 2800000, guid: 4f1d17dda9c66b221b624e0c011d6f3f, type: 3}
+        m_Texture: {fileID: 2800000, guid: be04b50a6ca38113ab34820deb673159, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
