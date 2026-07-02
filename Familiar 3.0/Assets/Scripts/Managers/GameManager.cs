@@ -8,15 +8,20 @@ using Unity.VisualScripting;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private PlayerMovement player;
-    [SerializeField] public List<Shovables> shovables = new List<Shovables>();
-    [SerializeField] public List<Grabbables> grabbables = new List<Grabbables>();
-
+    [SerializeField] private PlayerDataScript playerData;
     private List<GameObject> currentlyColiding = new List<GameObject>();
     private Grabbables currentGrabbedObject;
+    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     { 
         currentGrabbedObject = null;
+        if(playerData.PlayerData.currentDoor != Vector3.zero && !playerData.PlayerData.enteredDoor)
+        {
+            player.transform.position = new Vector3(playerData.PlayerData.currentDoor.x, 1.914f, playerData.PlayerData.currentDoor.z);
+            playerData.PlayerData.currentDoor = Vector3.zero;
+        }
     }
 
     // Update is called once per frame
@@ -44,6 +49,7 @@ public class GameManager : MonoBehaviour
 
     private void OnInteract()
     {
+        //Debug.Log("Hit");
         if (currentGrabbedObject == null)
         {
             Collider[] newCollisions = Physics.OverlapSphere(player.transform.position, 2);
@@ -89,6 +95,12 @@ public class GameManager : MonoBehaviour
                         if (currentObject.GetComponent<Talismans>().ReadyToInteract)
                         {
                             currentObject.GetComponent<Talismans>().OnPickup();
+                        }
+                        break;
+                    case "Door":
+                        if (currentObject.GetComponent<Doors>().ReadyToInteract)
+                        {
+                            currentObject.GetComponent<Doors>().Enter();
                         }
                         break;
                     default:

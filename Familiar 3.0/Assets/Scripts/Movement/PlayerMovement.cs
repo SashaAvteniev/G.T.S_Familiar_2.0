@@ -39,8 +39,9 @@ public class PlayerMovement : MonoBehaviour
     private bool grabbing;
     public bool Grabbing { get { return grabbing; } set { grabbing = value;} }
 
-    //Talisman
+    //PlayerSaveData
     [SerializeField] private PlayerDataScript playerDataScript;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -53,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
         interacting = false;
         speedDefault = movementSpeed;
         jumped = false;
+
     }
 
     // Update is called once per frame
@@ -96,20 +98,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void Shove(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            shoving = true;
-            interacting = true;
-        }
-        if (context.canceled)
-        {
-            interacting = false;
-        }
-    }
 
-    public void Grab(InputAction.CallbackContext context)
+    public void Interact(InputAction.CallbackContext context)
     {
         if (context.performed)
         {

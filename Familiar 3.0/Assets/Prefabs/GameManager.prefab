@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcef26efeda842968bbf5574cf347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  player: {fileID: 0}
-  shovables: []
+  player: {fileID: 994177774869270315, guid: d798c3f8a979ea143927529017dd6dc4, type: 3}
+  playerData: {fileID: 11400000, guid: b89119b1f4154d444b42002a76fadec6, type: 2}
