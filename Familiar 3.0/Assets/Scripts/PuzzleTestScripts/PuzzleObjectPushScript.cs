@@ -1,6 +1,7 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class PuzzleObjectPushScript : MonoBehaviour
+public class PuzzleObjectPushScript : Shovables
 {
     Vector3 staringPOS;
     [SerializeField] int noteValue;
@@ -13,14 +14,18 @@ public class PuzzleObjectPushScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void Push()
+    //public void Push()
+    //{
+    //this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -4f);
+    //}
+
+    public override void Shove()
     {
-        this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -4f);
+        GetComponent<Rigidbody>().AddForce( -this.transform.forward * shoveSpeed, ForceMode.Force);
     }
-
     public void Reset()
     {
         this.gameObject.transform.position = staringPOS;

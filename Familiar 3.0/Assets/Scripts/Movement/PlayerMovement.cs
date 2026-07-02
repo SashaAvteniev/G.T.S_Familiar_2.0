@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     //Collisions
     private Vector3 currentWallNormal;
+    private Vector3 currentFloorNormal;
 
     //Interacting
     private bool interacting;
@@ -68,6 +69,8 @@ public class PlayerMovement : MonoBehaviour
         #region apply velocity
         player.transform.position = player.transform.position + velocityHorizontal * Time.deltaTime + velocityVertical*Time.deltaTime;
         #endregion
+
+        Debug.Log(currentWallNormal);
 
     }
 
@@ -127,27 +130,40 @@ public class PlayerMovement : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("floor"))
-        {
-            grounded = true;
-            velocityVertical.y = 0;
-            Debug.Log("hit");
-            movementSpeed = speedDefault;
-            jumped = false;
-        }
         foreach(ContactPoint contactPoint in collision.contacts)
         {
+            if (collision.gameObject.layer == LayerMask.NameToLayer("floor"))
+            {
+                grounded = true;
+                currentFloorNormal = contactPoint.normal;
+                velocityVertical.y = 0;
+                movementSpeed = speedDefault;
+                jumped = false;
+            }
             if (collision.gameObject.layer == LayerMask.NameToLayer("Walls"))
             {
                 currentWallNormal = contactPoint.normal;
-                Debug.Log(currentWallNormal);
             }
             
         }
 
     }
 
+    private void OnCollisionStay(Collision collision)
+    {
+        foreach (ContactPoint contactPoint in collision.contacts)
+        {
+            if (collision.gameObject.layer == LayerMask.NameToLayer("floor"))
+            {
+                currentFloorNormal = contactPoint.normal;
+            }
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Walls"))
+            {
+                currentWallNormal = contactPoint.normal;
+            }
 
+        }
+    }
 
     private void OnCollisionExit(Collision collision)
     {
@@ -158,6 +174,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("floor"))
         {
             grounded = false;
+            currentFloorNormal.y = 0;
         }
     }
 
@@ -166,20 +183,23 @@ public class PlayerMovement : MonoBehaviour
         if(velocityHorizontal.x > 0)
         {
             velocityHorizontal.x = velocityHorizontal.x - (currentWallNormal.x * -velocityHorizontal.x);
+            velocityHorizontal.x = velocityHorizontal.x - (currentFloorNormal.x * -velocityHorizontal.x);
         }
         if (velocityHorizontal.x < 0)
         {
             velocityHorizontal.x = velocityHorizontal.x - (currentWallNormal.x * velocityHorizontal.x);
+            velocityHorizontal.x = velocityHorizontal.x - (currentFloorNormal.x * velocityHorizontal.x);
         }
         if (velocityHorizontal.z > 0)
         {
             velocityHorizontal.z = velocityHorizontal.z - (currentWallNormal.z * -velocityHorizontal.z);
+            velocityHorizontal.z = velocityHorizontal.z - (currentFloorNormal.z * -velocityHorizontal.z);
         }
         if (velocityHorizontal.z < 0)
         {
             velocityHorizontal.z = velocityHorizontal.z - (currentWallNormal.z * velocityHorizontal.z);
+            velocityHorizontal.z = velocityHorizontal.z - (currentFloorNormal.z * velocityHorizontal.z);
         }
-
     }
 
 

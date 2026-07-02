@@ -26,7 +26,7 @@ public class CatPushObjectInCollider : MonoBehaviour
     {
         if (currentInRangeObject != null && currentInRangeObject.GetComponent<PuzzleObjectPushScript>() != null )
         {
-            currentInRangeObject.GetComponent<PuzzleObjectPushScript>().Push();
+            //currentInRangeObject.GetComponent<PuzzleObjectPushScript>().Push();
 
         }
     }

@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
                 switch (currentObject.tag)
                 {
                     case "Shovable":
-
+                        Debug.Log("hit");
                         if (currentObject.GetComponent<Shovables>().ReadyToInteract)
                         {
 
