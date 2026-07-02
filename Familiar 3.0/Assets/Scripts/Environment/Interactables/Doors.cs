@@ -28,7 +28,6 @@ public class Doors : Interactables
         else
         {
             playerData.PlayerData.enteredDoor = false;
-            playerData.PlayerData.currentDoor = Vector3.zero;
             SceneManager.LoadScene(scene);
         }
     }

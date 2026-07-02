@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
         if(playerData.PlayerData.currentDoor != Vector3.zero && !playerData.PlayerData.enteredDoor)
         {
             player.transform.position = new Vector3(playerData.PlayerData.currentDoor.x, 1.914f, playerData.PlayerData.currentDoor.z);
+            playerData.PlayerData.currentDoor = Vector3.zero;
         }
     }
 
