@@ -64,13 +64,13 @@ public class PlayerMovement : MonoBehaviour
         #region calculate velocity
         velocityHorizontal = new Vector3(direction.x * movementSpeed, 0, direction.z * movementSpeed);
         ApplyGravity();
-        HandleWallCollision();
         #endregion
         #region apply velocity
-        player.transform.position = player.transform.position + velocityHorizontal * Time.deltaTime + velocityVertical*Time.deltaTime;
+        Debug.Log(player.GetComponent<Rigidbody>().linearVelocity);
+        player.GetComponent<Rigidbody>().linearVelocity = velocityHorizontal + velocityVertical;
+        //CheckLanded();
         #endregion
 
-        Debug.Log(currentWallNormal);
 
     }
 
@@ -86,14 +86,14 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if(context.started && grounded)
+        
+        if(context.started)
         {
-            velocityVertical.y = Vector3.up.y * jumpHeight;
-            grounded = false;
-            movementSpeed = movementSpeed * .7f;
+            velocityVertical = Vector3.up * jumpHeight;
             jumped = true;
+            grounded = false;
         }
-        else if(playerDataScript.PlayerData.currentTalisman == PlayerData.TalismanInUse.Elk && context.started && grounded==false && jumped)
+        else if(playerDataScript.PlayerData.currentTalisman == PlayerData.TalismanInUse.Elk && context.started && jumped)
         {
             velocityVertical.y = Vector3.up.y * jumpHeight;
             grounded = false;
@@ -125,83 +125,44 @@ public class PlayerMovement : MonoBehaviour
     {
         if(!grounded)
         {
-            velocityVertical.y -= gravity * Time.deltaTime;
+            velocityVertical += Vector3.down * gravity;
         }
     }
+
+    private void CheckLanded()
+    {
+        if ((player.GetComponent<Rigidbody>().linearVelocity.y < .5f && player.GetComponent<Rigidbody>().linearVelocity.y >= -.5f) && !grounded)
+        {
+            Debug.Log("NotJumping/Falling");
+            velocityVertical = Vector3.zero;
+            grounded = true;
+            movementSpeed = speedDefault;
+            jumped = false;
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        foreach(ContactPoint contactPoint in collision.contacts)
+       
+        foreach (ContactPoint contact in collision.contacts)
         {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("floor"))
+            if(contact.normal == Vector3.up)
             {
-                grounded = true;
-                currentFloorNormal = contactPoint.normal;
-                velocityVertical.y = 0;
-                movementSpeed = speedDefault;
-                jumped = false;
+                if (!grounded)
+                {
+                    Debug.Log("NotJumping/Falling");
+                    velocityVertical = Vector3.zero;
+                    grounded = true;
+                    movementSpeed = speedDefault;
+                    jumped = false;
+                }
             }
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Walls"))
-            {
-                currentWallNormal = contactPoint.normal;
-            }
-            
-        }
-
-    }
-
-    private void OnCollisionStay(Collision collision)
-    {
-        foreach (ContactPoint contactPoint in collision.contacts)
-        {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("floor"))
-            {
-                currentFloorNormal = contactPoint.normal;
-            }
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Walls"))
-            {
-                currentWallNormal = contactPoint.normal;
-            }
-
         }
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Walls"))
-        {
-            currentWallNormal = Vector3.zero;
-        }
-        if (collision.gameObject.layer == LayerMask.NameToLayer("floor"))
-        {
-            grounded = false;
-            currentFloorNormal.y = 0;
-        }
+        grounded = false;
     }
-
-    private void HandleWallCollision()
-    {
-        if(velocityHorizontal.x > 0)
-        {
-            velocityHorizontal.x = velocityHorizontal.x - (currentWallNormal.x * -velocityHorizontal.x);
-            velocityHorizontal.x = velocityHorizontal.x - (currentFloorNormal.x * -velocityHorizontal.x);
-        }
-        if (velocityHorizontal.x < 0)
-        {
-            velocityHorizontal.x = velocityHorizontal.x - (currentWallNormal.x * velocityHorizontal.x);
-            velocityHorizontal.x = velocityHorizontal.x - (currentFloorNormal.x * velocityHorizontal.x);
-        }
-        if (velocityHorizontal.z > 0)
-        {
-            velocityHorizontal.z = velocityHorizontal.z - (currentWallNormal.z * -velocityHorizontal.z);
-            velocityHorizontal.z = velocityHorizontal.z - (currentFloorNormal.z * -velocityHorizontal.z);
-        }
-        if (velocityHorizontal.z < 0)
-        {
-            velocityHorizontal.z = velocityHorizontal.z - (currentWallNormal.z * velocityHorizontal.z);
-            velocityHorizontal.z = velocityHorizontal.z - (currentFloorNormal.z * velocityHorizontal.z);
-        }
-    }
-
-
     #endregion
 }

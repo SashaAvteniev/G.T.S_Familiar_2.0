@@ -34,7 +34,11 @@ public class PianoPuzzleManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        puzzleNoteQueue.Add(collision.gameObject.GetComponent<PuzzleObjectPushScript>().NoteValue);
-        collision.gameObject.GetComponent<PuzzleObjectPushScript>().Reset();
+        if(collision.gameObject.tag == "Shovable")
+        {
+            puzzleNoteQueue.Add(collision.gameObject.GetComponent<PuzzleObjectPushScript>().NoteValue);
+            collision.gameObject.GetComponent<PuzzleObjectPushScript>().Reset();
+        }
+
     }
 }
