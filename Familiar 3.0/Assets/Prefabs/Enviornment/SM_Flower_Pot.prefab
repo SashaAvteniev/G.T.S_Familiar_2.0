@@ -258,6 +258,7 @@ GameObject:
   - component: {fileID: 3548675968162480511}
   - component: {fileID: 2469507527747024483}
   - component: {fileID: 8906260977222390430}
+  - component: {fileID: 3570827276516060668}
   m_Layer: 0
   m_Name: SM_Flower_Pot_LOD0
   m_TagString: Untagged
@@ -337,6 +338,28 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3570827276516060668
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5648815882626456491}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2972258930280225657, guid: 9a5c356807dbf6374a6e3d36ea474a30, type: 3}
 --- !u!1 &7579285465077093393
 GameObject:
   m_ObjectHideFlags: 0

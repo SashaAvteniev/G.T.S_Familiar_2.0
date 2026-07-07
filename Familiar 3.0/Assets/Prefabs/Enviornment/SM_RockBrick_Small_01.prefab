@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9023384441523600200}
   - component: {fileID: 5041046185162155394}
   - component: {fileID: 5469544441668832575}
+  - component: {fileID: 6314306222718087406}
   m_Layer: 0
   m_Name: SM_RockBrick_Small_01_LOD0
   m_TagString: Untagged
@@ -90,6 +91,28 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6314306222718087406
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1514477774924129945}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6114775846825350230, guid: e7bbc0f759f722bb0903c6a28710897b, type: 3}
 --- !u!1 &2007493525220604921
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,8 +157,8 @@ LODGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2007493525220604921}
   serializedVersion: 2
-  m_LocalReferencePoint: {x: 0.00000023841858, y: -0.000000059604645, z: 0.17094234}
-  m_Size: 0.44706893
+  m_LocalReferencePoint: {x: -0.0000002682209, y: 0.17094219, z: -0.000000029802322}
+  m_Size: 0.44706863
   m_FadeMode: 0
   m_AnimateCrossFading: 0
   m_LastLODIsBillboard: 0

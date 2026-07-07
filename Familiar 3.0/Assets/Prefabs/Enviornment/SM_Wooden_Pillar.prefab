@@ -44,8 +44,8 @@ LODGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1599064311833631500}
   serializedVersion: 2
-  m_LocalReferencePoint: {x: 0, y: 0.00000023841858, z: 2.2655845}
-  m_Size: 4.5447187
+  m_LocalReferencePoint: {x: 0, y: 2.2655835, z: 0.00000023841858}
+  m_Size: 4.544717
   m_FadeMode: 0
   m_AnimateCrossFading: 0
   m_LastLODIsBillboard: 0
@@ -258,6 +258,7 @@ GameObject:
   - component: {fileID: 7497229336318509933}
   - component: {fileID: 227023589425675067}
   - component: {fileID: 5148940735169309113}
+  - component: {fileID: 7798981726877024279}
   m_Layer: 0
   m_Name: SM_Wooden_Pillar_LOD0
   m_TagString: Untagged
@@ -337,6 +338,28 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7798981726877024279
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3394100985994952935}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7891841956295764053, guid: 64a5208482b68332893e7abc3719df14, type: 3}
 --- !u!1 &3907424477130342403
 GameObject:
   m_ObjectHideFlags: 0

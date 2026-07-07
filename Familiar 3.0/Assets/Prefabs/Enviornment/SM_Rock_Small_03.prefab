@@ -78,6 +78,7 @@ GameObject:
   - component: {fileID: 7372578366338503977}
   - component: {fileID: 8061782007926408803}
   - component: {fileID: 352078397242963847}
+  - component: {fileID: 5747232371608451961}
   m_Layer: 0
   m_Name: SM_Rock_Small_03_LOD0
   m_TagString: Untagged
@@ -157,6 +158,28 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5747232371608451961
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2951379748237824026}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7519967773279326419, guid: 6e955ed3d4e99fb299de27390be1d485, type: 3}
 --- !u!1 &4532364530609741287
 GameObject:
   m_ObjectHideFlags: 0

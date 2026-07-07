@@ -77,8 +77,7 @@ public class CutoutObject : MonoBehaviour
     void UpdateMaterials(RaycastHit[] hits)
     {
         ClearAffectedRenderers();
-
-        Shader.SetGlobalFloat("_ShowCutout", showCutout ? 1f : 0f);
+        Shader.SetGlobalFloat("_ShowCutout", 0f);
 
         if (hits.Length == 0)
         {
@@ -87,7 +86,6 @@ public class CutoutObject : MonoBehaviour
         }
         
         Vector2 cutoutPos = mainCamera.WorldToViewportPoint(targetObject.position);
-        cutoutPos.y /= (float)(Screen.width / Screen.height);
         for (int i = 0; i < hits.Length; i++)
         {
             Renderer hitRenderer = hits[i].transform.GetComponent<Renderer>();
@@ -98,10 +96,9 @@ public class CutoutObject : MonoBehaviour
 
             affectedRenderers.Add(hitRenderer);
 
-            Material[] materials = hitRenderer.sharedMaterials;
+            Material[] materials = hitRenderer.materials;
             for (int m = 0; m < materials.Length; ++m)
             {
-                //Debug.Log($"Setting cutout for {hits[i].transform.name} material {m}");
                 materials[m].SetVector("_CutoutPos", cutoutPos);
                 materials[m].SetFloat("_CutoutSize", cutoutSize);
                 materials[m].SetFloat("_FalloffSize", falloffSize);
@@ -119,7 +116,7 @@ public class CutoutObject : MonoBehaviour
                 continue;
             }
 
-            Material[] materials = affectedRenderer.sharedMaterials;
+            Material[] materials = affectedRenderer.materials;
             for (int i = 0; i < materials.Length; i++)
             {
                 materials[i].SetFloat("_ShowCutout", 0f);

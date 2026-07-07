@@ -281,6 +281,7 @@ GameObject:
   - component: {fileID: 3750427141008147602}
   - component: {fileID: 4384303667656660540}
   - component: {fileID: 4560829461983683476}
+  - component: {fileID: 8764579529667446379}
   m_Layer: 0
   m_Name: SM_RockBrick_Small_03_LOD0
   m_TagString: Untagged
@@ -360,6 +361,28 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8764579529667446379
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6452061659324996990}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7271918690989219032, guid: 250ed683e295de12e9cfb59624c77847, type: 3}
 --- !u!1 &8832500414024618882
 GameObject:
   m_ObjectHideFlags: 0
