@@ -66,7 +66,6 @@ public class PlayerMovement : MonoBehaviour
         ApplyGravity();
         #endregion
         #region apply velocity
-        Debug.Log(player.GetComponent<Rigidbody>().linearVelocity);
         player.GetComponent<Rigidbody>().linearVelocity = velocityHorizontal + velocityVertical;
         //CheckLanded();
         #endregion
@@ -129,18 +128,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void CheckLanded()
-    {
-        if ((player.GetComponent<Rigidbody>().linearVelocity.y < .5f && player.GetComponent<Rigidbody>().linearVelocity.y >= -.5f) && !grounded)
-        {
-            Debug.Log("NotJumping/Falling");
-            velocityVertical = Vector3.zero;
-            grounded = true;
-            movementSpeed = speedDefault;
-            jumped = false;
-        }
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
        
@@ -150,16 +137,26 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (!grounded)
                 {
-                    Debug.Log("NotJumping/Falling");
+                    
                     velocityVertical = Vector3.zero;
                     grounded = true;
                     movementSpeed = speedDefault;
                     jumped = false;
+                    currentFloorNormal = Vector3.up;
                 }
             }
         }
     }
-
+    private void OnCollisionStay(Collision collision)
+    {
+        foreach(ContactPoint contact in collision.contacts)
+        {
+            if(contact.normal == Vector3.up)
+            {
+                grounded = true;
+            }
+        }
+    }
     private void OnCollisionExit(Collision collision)
     {
         grounded = false;

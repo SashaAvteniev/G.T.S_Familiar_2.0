@@ -29,6 +29,8 @@ public class PuzzleObjectPushScript : Shovables
     public void Reset()
     {
         this.gameObject.transform.position = staringPOS;
+        this.gameObject.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+        this.gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
     }
 
     public int NoteValue { get { return noteValue; } }

@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private PlayerMovement player;
     [SerializeField] private PlayerDataScript playerData;
+    [SerializeField] private Transform spawnPoint;
     private List<GameObject> currentlyColiding = new List<GameObject>();
     private Grabbables currentGrabbedObject;
     
@@ -21,6 +22,10 @@ public class GameManager : MonoBehaviour
         {
             player.transform.position = new Vector3(playerData.PlayerData.currentDoor.x, 1.914f, playerData.PlayerData.currentDoor.z);
             playerData.PlayerData.currentDoor = Vector3.zero;
+        }
+        else if (spawnPoint != null) 
+        {
+            player.transform.position = spawnPoint.position;
         }
     }
 
