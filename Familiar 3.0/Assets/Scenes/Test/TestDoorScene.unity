@@ -519,6 +519,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sphere
       objectReference: {fileID: 0}
+    - target: {fileID: 6148554050500106412, guid: 2d6c86ab6f761c64bbf6d28413216ffc, type: 3}
+      propertyPath: scene
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6899731752744040102, guid: 2d6c86ab6f761c64bbf6d28413216ffc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.08

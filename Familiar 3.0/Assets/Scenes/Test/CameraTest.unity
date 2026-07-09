@@ -1362,7 +1362,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6148554050500106412, guid: 2d6c86ab6f761c64bbf6d28413216ffc, type: 3}
       propertyPath: scene
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6899731752744040102, guid: 2d6c86ab6f761c64bbf6d28413216ffc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2677,6 +2677,7 @@ MonoBehaviour:
   paused: 0
   startingUI: {fileID: 1243549984}
   windowCheck: {fileID: 11400000, guid: d3e65d1f15bd01c87a769342cf6f4594, type: 2}
+  sceneToLoad: 0
 --- !u!1 &1713892071
 GameObject:
   m_ObjectHideFlags: 0

@@ -26,6 +26,7 @@ public class MenuUI : MonoBehaviour
     
     //built in scene to load to
     [SerializeField] private int sceneToLoad;
+    
 
     void Start()
     {
@@ -55,6 +56,10 @@ public class MenuUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// pauses the game whenever a menu is open
+    /// </summary>
+    /// <param name="value">shows if gameplay should be frozen</param>
     public void SetPause(bool value)
     {
         if(value)
@@ -88,14 +93,23 @@ public class MenuUI : MonoBehaviour
         top.SetActive(true);
     }
 
+    /// <summary>
+    /// Allows the quit button to quit the game
+    /// </summary>
     public void Quit()
     {
         Debug.Log("THE GAME HAS QUIT");
         Application.Quit();
     }
 
+    /// <summary>
+    /// loads the scene set in the inspector
+    /// for the play button and sets the playtester UI
+    /// to be shown
+    /// </summary>
     public void SceneSwitch()
     {
         SceneManager.LoadScene(sceneToLoad);
+        windowCheck.hasBeenShown = false;
     }
 }
