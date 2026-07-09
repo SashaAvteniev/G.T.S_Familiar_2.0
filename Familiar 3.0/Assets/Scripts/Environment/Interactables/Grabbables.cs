@@ -1,7 +1,7 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class Grabbables : Shovables
+public class Grabbables : Interactables
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -15,28 +15,18 @@ public class Grabbables : Shovables
     private bool grabbed;
     void Start()
     {
+        readyToInteract = false;
         grabbed = false;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(followPossition);
+        //Debug.Log(followPossition);
         if(grabbed)
         {
             this.transform.position = followPossition;
         }
-    }
-
-    protected override void OnCollisionEnter(Collision collision)
-    {
-        readyToInteract = true;
-    }
-
-
-    protected override void OnCollisionExit(Collision collision)
-    {
-        readyToInteract = false;
     }
 
     public void Grab()

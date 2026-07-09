@@ -3,92 +3,110 @@ using UnityEngine;
 using System.Collections.Generic;
 using NUnit.Framework.Constraints;
 using System;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private PlayerMovement player;
-    [SerializeField] public List<Shovables> shovables = new List<Shovables>();
-    [SerializeField] public List<Grabbables> grabbables = new List<Grabbables>();
-
+    [SerializeField] private PlayerDataScript playerData;
+    private List<GameObject> currentlyColiding = new List<GameObject>();
     private Grabbables currentGrabbedObject;
+    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-    {
-        shovables.Clear();
-        Array shovableObjects = GameObject.FindGameObjectsWithTag("Shovable");
-        foreach (GameObject gameObject in shovableObjects)
-        {
-            shovables.Add(gameObject.GetComponent<Shovables>());
-        }
-        Array grabbableObject = GameObject.FindGameObjectsWithTag("Grabbable");
-        foreach (GameObject gameObject in grabbableObject)
-        {
-            grabbables.Add(gameObject.GetComponent<Grabbables>());
-        }
-
+    { 
         currentGrabbedObject = null;
+        if(playerData.PlayerData.currentDoor != Vector3.zero && !playerData.PlayerData.enteredDoor)
+        {
+            player.transform.position = new Vector3(playerData.PlayerData.currentDoor.x, 1.914f, playerData.PlayerData.currentDoor.z);
+            playerData.PlayerData.currentDoor = Vector3.zero;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (player.Shoving)
+        if(player.Interacting)
         {
-            CheckShoving();
-        }
-        if (player.Grabbing)
-        {
-            CheckGrabbing();
-        }
-        else if (!player.Grabbing)
-        {
-            CheckDropping();
-        }
-    }
-
-    private void CheckShoving()
-    {
-
-        foreach (Shovables shovable in shovables)
-        {
-
-            if (shovable.ReadyToInteract)
+            OnInteract();
+            if (player.Grabbing)
             {
-                shovable.ShoveSpeed = player.ShoveSpeed;
-                shovable.Shove();
+                currentGrabbedObject.FollowPossition = player.transform.position;
             }
-        }
-        player.Shoving = false;
-
-    }
-
-    private void CheckGrabbing()
-    {
-        if(currentGrabbedObject == null)
-        {
-            foreach (Grabbables grabbable in grabbables)
-            {
-                if (grabbable.ReadyToInteract)
-                {
-                    currentGrabbedObject = grabbable;
-
-                    currentGrabbedObject.Grab();
-                }
-            }
+            currentlyColiding.Clear();
         }
         else
         {
-           
-            currentGrabbedObject.FollowPossition = player.transform.position;
+            if (player.Grabbing)
+            {
+                player.Grabbing = false;
+                currentGrabbedObject.Drop();
+                currentGrabbedObject=null;
+            }
         }
     }
 
-    private void CheckDropping()
+    private void OnInteract()
     {
-        if(currentGrabbedObject != null)
+        //Debug.Log("Hit");
+        if (currentGrabbedObject == null)
         {
-            currentGrabbedObject.Drop();
-            currentGrabbedObject = null;
+            Collider[] newCollisions = Physics.OverlapSphere(player.transform.position, 2);
+            Vector3 closestPosition = new Vector3(int.MaxValue, int.MaxValue, int.MaxValue);
+            GameObject currentObject = null;
+            foreach (Collider collider in newCollisions)
+            {
+                if (collider.gameObject.GetComponent<Interactables>() != null)
+                {
+                    currentlyColiding.Add(collider.gameObject);
+                    if ((player.transform.position - collider.gameObject.transform.position).magnitude < closestPosition.magnitude)
+                    {
+                        closestPosition = player.transform.position - collider.gameObject.transform.position;
+                        currentObject = collider.gameObject;
+                    }
+                }
+            }
+            if (currentObject != null)
+            {
+                switch (currentObject.tag)
+                {
+                    case "Shovable":
+
+                        if (currentObject.GetComponent<Shovables>().ReadyToInteract)
+                        {
+
+                            currentObject.GetComponent<Shovables>().ShoveSpeed = player.ShoveSpeed;
+                            currentObject.GetComponent<Shovables>().Shove();
+                        }
+                        break;
+
+                    case "Grabbable":
+                        if (currentObject.GetComponent<Grabbables>().ReadyToInteract)
+                        {
+                            currentGrabbedObject = currentObject.GetComponent<Grabbables>();
+                            player.Grabbing = true;
+                            currentGrabbedObject.Grab();
+                        }
+
+                        break;
+
+                    case "Talisman":
+                        if (currentObject.GetComponent<Talismans>().ReadyToInteract)
+                        {
+                            currentObject.GetComponent<Talismans>().OnPickup();
+                        }
+                        break;
+                    case "Door":
+                        if (currentObject.GetComponent<Doors>().ReadyToInteract)
+                        {
+                            currentObject.GetComponent<Doors>().Enter();
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }
