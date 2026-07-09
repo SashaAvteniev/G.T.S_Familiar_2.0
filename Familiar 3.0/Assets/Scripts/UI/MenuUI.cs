@@ -4,15 +4,28 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using UnityEditor;
 using System.Net.NetworkInformation;
+using UnityEngine.SceneManagement;
 
 public class MenuUI : MonoBehaviour
 {
+    //holds pause menu panel
     public GameObject pauseMenu;
+    
+    //holds if the gameplay should freeze or not
+    //t = freeze, f = don't freeze
     public bool paused;
+    
+    //holds welcome window that appears for playtesters
     public GameObject startingUI;
+    
+    //object that stores if the intro window has been shown
     public IntroWindowManager windowCheck;
 
+    //keeps track of which menus the player goes through
     private Stack menuOrder = new Stack();
+    
+    //built in scene to load to
+    [SerializeField] private int sceneToLoad;
 
     void Start()
     {
@@ -79,5 +92,10 @@ public class MenuUI : MonoBehaviour
     {
         Debug.Log("THE GAME HAS QUIT");
         Application.Quit();
+    }
+
+    public void SceneSwitch()
+    {
+        SceneManager.LoadScene(sceneToLoad);
     }
 }
