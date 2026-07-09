@@ -107,11 +107,10 @@ public class PlayerMovement : MonoBehaviour
         {
             interacting = true;
         }
-        if (context.canceled)
+        if(context.canceled)
         {
             interacting = false;
         }
-
     }
 
     #endregion
