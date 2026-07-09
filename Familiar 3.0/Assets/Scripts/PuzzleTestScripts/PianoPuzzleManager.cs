@@ -8,28 +8,81 @@ using UnityEngine;
 public class PianoPuzzleManager : MonoBehaviour
 {
     public List<int> puzzleNoteQueue;
-    [SerializeField] List<int> correctPuzzleOrder;
-    bool correctOrder;
+    [SerializeField] List<int> firstBar;
+    [SerializeField] List<int> secondBar;
+    [SerializeField] List<int> thirdBar;
+    bool correctOrderFirst;
+    bool correctOrderSecond;
+    bool correctOrderThird;
+
+    [SerializeField] GameObject barOneObject;
+    [SerializeField] GameObject barTwoObject;
+    [SerializeField] GameObject barThreeObject;
+
+    [SerializeField] Material success;
+    [SerializeField] Material failure;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        correctOrderFirst = false;
+        correctOrderSecond = false;
+        correctOrderThird = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (puzzleNoteQueue.Count == 12)
+        if (puzzleNoteQueue.Count == 4 && !correctOrderFirst)
         {
-            correctOrder = puzzleNoteQueue.SequenceEqual(correctPuzzleOrder);
+            correctOrderFirst = puzzleNoteQueue.SequenceEqual(firstBar);
+            if (correctOrderFirst)
+            {
+                Debug.Log("firstBarDone");
+                puzzleNoteQueue.Clear();
+                barOneObject.GetComponent<MeshRenderer>().material = success;
+            }
+            else
+            {
+                puzzleNoteQueue.Clear();
+                barOneObject.GetComponent<MeshRenderer>().material = failure;
+            }
         }
-        
-        
-        if (correctOrder)
+        else if(puzzleNoteQueue.Count == 4 && correctOrderFirst && !correctOrderSecond)
         {
-            Debug.Log("YIPPEEEEE");
+            correctOrderSecond = puzzleNoteQueue.SequenceEqual(secondBar);
+            if (correctOrderSecond)
+            {
+                Debug.Log("secondBarDone");
+                puzzleNoteQueue.Clear();
+                barTwoObject.GetComponent<MeshRenderer>().material = success;
+            }
+            else
+            {
+                puzzleNoteQueue.Clear();
+                barOneObject.GetComponent<MeshRenderer>().material = failure;
+                barTwoObject.GetComponent<MeshRenderer>().material = failure;
+                correctOrderFirst = false;
+            }
         }
-        
+        if (puzzleNoteQueue.Count == 4 && correctOrderFirst && correctOrderSecond)
+        {
+            correctOrderThird = puzzleNoteQueue.SequenceEqual(thirdBar);
+            if (correctOrderThird)
+            {
+                Debug.Log("thirdBarDone");
+                barThreeObject.GetComponent<MeshRenderer>().material = success;
+                puzzleNoteQueue.Clear();
+            }
+            else
+            {
+                puzzleNoteQueue.Clear();
+                correctOrderFirst = false;
+                correctOrderSecond = false;
+                barOneObject.GetComponent<MeshRenderer>().material = failure;
+                barTwoObject.GetComponent<MeshRenderer>().material = failure;
+                barThreeObject.GetComponent<MeshRenderer>().material = failure;
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

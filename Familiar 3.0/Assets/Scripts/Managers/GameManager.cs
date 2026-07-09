@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(player.Interacting);
         if (player.Interacting)
         {
             OnInteract();
@@ -96,7 +95,6 @@ public class GameManager : MonoBehaviour
                             currentGrabbedObject = currentObject.GetComponent<Grabbables>();
                             player.Grabbing = true;
                             currentGrabbedObject.Grab();
-                            Debug.Log(currentGrabbedObject);
                         }
 
                         break;

@@ -6,6 +6,8 @@ public class PuzzleObjectPushScript : Shovables
     Vector3 staringPOS;
     [SerializeField] int noteValue;
     [SerializeField] Transform target;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -30,7 +32,6 @@ public class PuzzleObjectPushScript : Shovables
     }
     public void Reset()
     {
-        this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
         this.gameObject.transform.position = staringPOS;
         this.gameObject.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
         this.gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
