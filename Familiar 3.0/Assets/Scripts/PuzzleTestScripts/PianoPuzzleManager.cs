@@ -21,12 +21,16 @@ public class PianoPuzzleManager : MonoBehaviour
 
     [SerializeField] Material success;
     [SerializeField] Material failure;
+
+    [SerializeField] GameObject talisman; 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         correctOrderFirst = false;
         correctOrderSecond = false;
         correctOrderThird = false;
+        talisman.SetActive(false);
+        talisman.GetComponent<Rigidbody>().isKinematic = true;
     }
 
     // Update is called once per frame
@@ -72,6 +76,8 @@ public class PianoPuzzleManager : MonoBehaviour
                 Debug.Log("thirdBarDone");
                 barThreeObject.GetComponent<MeshRenderer>().material = success;
                 puzzleNoteQueue.Clear();
+                talisman.SetActive(true);
+                talisman.GetComponent<Rigidbody>().isKinematic = false;
             }
             else
             {

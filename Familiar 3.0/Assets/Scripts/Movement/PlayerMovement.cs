@@ -86,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
     public void Jump(InputAction.CallbackContext context)
     {
         
-        if(context.started)
+        if(context.started && grounded)
         {
             velocityVertical = Vector3.up * jumpHeight;
             jumped = true;
