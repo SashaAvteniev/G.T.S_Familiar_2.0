@@ -33,11 +33,15 @@ public class Grabbables : Interactables
     {
         grabbed = true;
         this.GetComponent<Rigidbody>().isKinematic = true;
+        this.GetComponent<Rigidbody>().detectCollisions = false;
+
     }
 
     public void Drop()
     {
         grabbed = false;
         this.GetComponent<Rigidbody>().isKinematic = false;
+        this.GetComponent<Rigidbody>().detectCollisions = true;
+
     }
 }

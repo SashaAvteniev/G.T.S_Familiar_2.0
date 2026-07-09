@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private PlayerMovement player;
     [SerializeField] private PlayerDataScript playerData;
+    [SerializeField] private Transform spawnPoint;
     private List<GameObject> currentlyColiding = new List<GameObject>();
     private Grabbables currentGrabbedObject;
     
@@ -22,16 +23,21 @@ public class GameManager : MonoBehaviour
             player.transform.position = new Vector3(playerData.PlayerData.currentDoor.x, 1.914f, playerData.PlayerData.currentDoor.z);
             playerData.PlayerData.currentDoor = Vector3.zero;
         }
+        else if (spawnPoint != null) 
+        {
+            player.transform.position = spawnPoint.position;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(player.Interacting)
+        if (player.Interacting)
         {
             OnInteract();
             if (player.Grabbing)
             {
+
                 currentGrabbedObject.FollowPossition = player.transform.position;
             }
             currentlyColiding.Clear();
@@ -72,18 +78,20 @@ public class GameManager : MonoBehaviour
                 switch (currentObject.tag)
                 {
                     case "Shovable":
-
                         if (currentObject.GetComponent<Shovables>().ReadyToInteract)
                         {
 
                             currentObject.GetComponent<Shovables>().ShoveSpeed = player.ShoveSpeed;
                             currentObject.GetComponent<Shovables>().Shove();
+                            player.Interacting = false;
                         }
                         break;
 
                     case "Grabbable":
+                        
                         if (currentObject.GetComponent<Grabbables>().ReadyToInteract)
                         {
+                            
                             currentGrabbedObject = currentObject.GetComponent<Grabbables>();
                             player.Grabbing = true;
                             currentGrabbedObject.Grab();
@@ -95,12 +103,14 @@ public class GameManager : MonoBehaviour
                         if (currentObject.GetComponent<Talismans>().ReadyToInteract)
                         {
                             currentObject.GetComponent<Talismans>().OnPickup();
+                            player.Interacting = false;
                         }
                         break;
                     case "Door":
                         if (currentObject.GetComponent<Doors>().ReadyToInteract)
                         {
                             currentObject.GetComponent<Doors>().Enter();
+                            player.Interacting = false;
                         }
                         break;
                     default:

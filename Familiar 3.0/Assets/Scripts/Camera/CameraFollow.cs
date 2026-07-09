@@ -7,6 +7,8 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private GameObject target;
     [SerializeField] private float smoothSpeed;
 
+    public float SmoothSpeed { get { return smoothSpeed; } set { smoothSpeed = value; } }
+
     // Update is called once per frame
     void FixedUpdate()
     {

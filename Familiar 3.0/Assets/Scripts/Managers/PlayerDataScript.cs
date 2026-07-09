@@ -24,7 +24,9 @@ public class PlayerData
         Badger
     }
     public TalismanInUse currentTalisman;
-    public Vector3 currentDoor;
+  
 
+    public Vector3 currentDoor;
+    
     public bool enteredDoor;
 }

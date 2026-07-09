@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     //Collisions
     private Vector3 currentWallNormal;
+    private Vector3 currentFloorNormal;
 
     //Interacting
     private bool interacting;
@@ -63,11 +64,12 @@ public class PlayerMovement : MonoBehaviour
         #region calculate velocity
         velocityHorizontal = new Vector3(direction.x * movementSpeed, 0, direction.z * movementSpeed);
         ApplyGravity();
-        HandleWallCollision();
         #endregion
         #region apply velocity
-        player.transform.position = player.transform.position + velocityHorizontal * Time.deltaTime + velocityVertical*Time.deltaTime;
+        player.GetComponent<Rigidbody>().linearVelocity = velocityHorizontal + velocityVertical;
+        //CheckLanded();
         #endregion
+
 
     }
 
@@ -83,14 +85,14 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if(context.started && grounded)
+        
+        if(context.started)
         {
-            velocityVertical.y = Vector3.up.y * jumpHeight;
-            grounded = false;
-            movementSpeed = movementSpeed * .7f;
+            velocityVertical = Vector3.up * jumpHeight;
             jumped = true;
+            grounded = false;
         }
-        else if(playerDataScript.PlayerData.currentTalisman == PlayerData.TalismanInUse.Elk && context.started && grounded==false && jumped)
+        else if(playerDataScript.PlayerData.currentTalisman == PlayerData.TalismanInUse.Elk && context.started && jumped)
         {
             velocityVertical.y = Vector3.up.y * jumpHeight;
             grounded = false;
@@ -105,11 +107,10 @@ public class PlayerMovement : MonoBehaviour
         {
             interacting = true;
         }
-        if (context.canceled)
+        if(context.canceled)
         {
             interacting = false;
         }
-
     }
 
     #endregion
@@ -122,60 +123,42 @@ public class PlayerMovement : MonoBehaviour
     {
         if(!grounded)
         {
-            velocityVertical.y -= gravity * Time.deltaTime;
+            velocityVertical += Vector3.down * gravity;
         }
     }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("floor"))
+       
+        foreach (ContactPoint contact in collision.contacts)
         {
-            grounded = true;
-            velocityVertical.y = 0;
-            Debug.Log("hit");
-            movementSpeed = speedDefault;
-            jumped = false;
-        }
-        foreach(ContactPoint contactPoint in collision.contacts)
-        {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Walls"))
+            if(contact.normal == Vector3.up)
             {
-                currentWallNormal = contactPoint.normal;
-                Debug.Log(currentWallNormal);
+                if (!grounded)
+                {
+                    
+                    velocityVertical = Vector3.zero;
+                    grounded = true;
+                    movementSpeed = speedDefault;
+                    jumped = false;
+                    currentFloorNormal = Vector3.up;
+                }
             }
-            
         }
-
     }
-
-
-
+    private void OnCollisionStay(Collision collision)
+    {
+        foreach(ContactPoint contact in collision.contacts)
+        {
+            if(contact.normal == Vector3.up)
+            {
+                grounded = true;
+            }
+        }
+    }
     private void OnCollisionExit(Collision collision)
     {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Walls"))
-        {
-            currentWallNormal = Vector3.zero;
-        }
-    }
-
-    private void HandleWallCollision()
-    {
-        if(velocityHorizontal.x > 0)
-        {
-            velocityHorizontal.x = velocityHorizontal.x - (currentWallNormal.x * -velocityHorizontal.x);
-        }
-        if (velocityHorizontal.x < 0)
-        {
-            velocityHorizontal.x = velocityHorizontal.x - (currentWallNormal.x * velocityHorizontal.x);
-        }
-        if (velocityHorizontal.z > 0)
-        {
-            velocityHorizontal.z = velocityHorizontal.z - (currentWallNormal.z * -velocityHorizontal.z);
-        }
-        if (velocityHorizontal.z < 0)
-        {
-            velocityHorizontal.z = velocityHorizontal.z - (currentWallNormal.z * velocityHorizontal.z);
-        }
-
+        grounded = false;
     }
     #endregion
 }

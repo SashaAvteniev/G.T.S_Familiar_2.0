@@ -10,7 +10,7 @@ public class Shovables : Interactables
 
     private Vector3 shoveDirection;
 
-    private float shoveSpeed;
+    protected float shoveSpeed;
 
     public float ShoveSpeed
     {
@@ -65,7 +65,7 @@ public class Shovables : Interactables
         }
     }
 
-    public void Shove()
+    public virtual void Shove()
     {
         Debug.Log("Shoved");
         GetComponent<Rigidbody>().AddForce(shoveDirection*shoveSpeed, ForceMode.Force);

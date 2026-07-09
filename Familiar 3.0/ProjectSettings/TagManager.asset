@@ -18,8 +18,8 @@ TagManager:
   - UI
   - Walls
   - Player
-  - 
-  - 
+  - HiddenBarrier
+  - Interactable
   - 
   - 
   - 
