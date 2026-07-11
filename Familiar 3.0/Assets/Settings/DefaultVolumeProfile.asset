@@ -414,6 +414,46 @@ MonoBehaviour:
   tint:
     m_OverrideState: 1
     m_Value: 0
+--- !u!114 &-906369163768678528
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0088b6163220ceb4b8726e5b7851835a, type: 3}
+  m_Name: ToonShadingVolume
+  m_EditorClassIdentifier: Assembly-CSharp::ToonShadingVolume
+  active: 1
+  lightTint:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  darkTint:
+    m_OverrideState: 1
+    m_Value: {r: 0.281, g: 0.276, b: 0.291, a: 1}
+  threshold:
+    m_OverrideState: 1
+    m_Value: 0.5
+  contrast:
+    m_OverrideState: 1
+    m_Value: 1
+  lightBlendAmount:
+    m_OverrideState: 1
+    m_Value: 1
+  darkBlendAmount:
+    m_OverrideState: 1
+    m_Value: 1
+  blendIntensity:
+    m_OverrideState: 1
+    m_Value: 1
+  enableAO:
+    m_OverrideState: 1
+    m_Value: 0
+  useCustomDepth:
+    m_OverrideState: 1
+    m_Value: 0
 --- !u!114 &-581120513425526550
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -468,6 +508,7 @@ MonoBehaviour:
   - {fileID: -6288072647309666549}
   - {fileID: 7518938298396184218}
   - {fileID: -1410297666881709256}
+  - {fileID: -906369163768678528}
 --- !u!114 &853819529557874667
 MonoBehaviour:
   m_ObjectHideFlags: 3
