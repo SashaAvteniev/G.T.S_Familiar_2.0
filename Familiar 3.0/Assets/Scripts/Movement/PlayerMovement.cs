@@ -63,9 +63,10 @@ public class PlayerMovement : MonoBehaviour
         #endregion
         #region apply velocity
         player.GetComponent<CharacterController>().Move(velocityVertical * Time.deltaTime + velocityHorizontal * Time.deltaTime);
-        CheckFalling();
+        CheckFallingOffEdge();
         CheckLanded();
 
+        Debug.Log(player.GetComponent<CharacterController>().velocity);
         #endregion
 
 
@@ -86,7 +87,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (context.started && grounded)
         {
-            Debug.Log("hit");
             velocityVertical = Vector3.up * jumpHeight;
             jumped = true;
             grounded = false;
@@ -120,10 +120,7 @@ public class PlayerMovement : MonoBehaviour
     //Background methods
     private void ApplyGravity()
     {
-        if (!grounded)
-        {
-            velocityVertical += Vector3.down * gravity*Time.deltaTime;
-        }
+       velocityVertical += Vector3.down * gravity*Time.deltaTime;
     }
 
     private void CheckLanded()
@@ -142,10 +139,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void CheckFalling()
+    private void CheckFallingOffEdge()
     {
-        if (!player.GetComponent<CharacterController>().isGrounded)
+        if (!player.GetComponent<CharacterController>().isGrounded && grounded)
         {
+            velocityVertical = Vector3.zero;
             grounded = false;
         }
     }
