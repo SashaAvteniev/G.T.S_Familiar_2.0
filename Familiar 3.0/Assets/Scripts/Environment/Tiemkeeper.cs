@@ -48,7 +48,7 @@ public class Tiemkeeper : MonoBehaviour
         currentTime += minutes;
         float sunRotation = Mathf.Lerp(-90, 270, currentTime/2400f);
         directionalLight.transform.SetPositionAndRotation(new Vector3(), Quaternion.Euler(sunRotation, directionalLight.transform.rotation.y, directionalLight.transform.rotation.z));
-        Debug.Log("Minutes" + minutes);
+        //Debug.Log("Minutes" + minutes);
     }
 
 

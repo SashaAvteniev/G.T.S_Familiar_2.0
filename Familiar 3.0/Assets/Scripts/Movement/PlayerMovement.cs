@@ -22,10 +22,6 @@ public class PlayerMovement : MonoBehaviour
     private bool grounded;
     private bool jumped;
 
-    //Collisions
-    private Vector3 currentWallNormal;
-    private Vector3 currentFloorNormal;
-
     //Interacting
     private bool interacting;
     public bool Interacting { get { return interacting; } set { interacting = value; } }
@@ -34,11 +30,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float shoveSpeed;
     public float ShoveSpeed { get { return shoveSpeed; } }
     private bool shoving;
-    public bool Shoving { get { return shoving; } set { shoving = value;} }
+    public bool Shoving { get { return shoving; } set { shoving = value; } }
 
     //Grabbing
     private bool grabbing;
-    public bool Grabbing { get { return grabbing; } set { grabbing = value;} }
+    public bool Grabbing { get { return grabbing; } set { grabbing = value; } }
 
     //PlayerSaveData
     [SerializeField] private PlayerDataScript playerDataScript;
@@ -66,8 +62,10 @@ public class PlayerMovement : MonoBehaviour
         ApplyGravity();
         #endregion
         #region apply velocity
-        player.GetComponent<Rigidbody>().linearVelocity = velocityHorizontal + velocityVertical;
-        //CheckLanded();
+        player.GetComponent<CharacterController>().Move(velocityVertical * Time.deltaTime + velocityHorizontal * Time.deltaTime);
+        CheckFalling();
+        CheckLanded();
+
         #endregion
 
 
@@ -77,26 +75,27 @@ public class PlayerMovement : MonoBehaviour
     //Active player methods
     public void Move(InputAction.CallbackContext context)
     {
-
         direction.z = context.ReadValue<Vector2>().x;
-       direction.x = -context.ReadValue<Vector2>().y;
-       direction = direction.normalized;
+        direction.x = -context.ReadValue<Vector2>().y;
+        direction = direction.normalized;
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
-        
-        if(context.started && grounded)
+
+
+        if (context.started && grounded)
         {
+            Debug.Log("hit");
             velocityVertical = Vector3.up * jumpHeight;
             jumped = true;
             grounded = false;
         }
-        else if(playerDataScript.PlayerData.currentTalisman == PlayerData.TalismanInUse.Elk && context.started && jumped)
+        else if (playerDataScript.PlayerData.currentTalisman == PlayerData.TalismanInUse.Elk && context.started && jumped)
         {
             velocityVertical.y = Vector3.up.y * jumpHeight;
             grounded = false;
-            jumped =false;
+            jumped = false;
         }
     }
 
@@ -107,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
         {
             interacting = true;
         }
-        if(context.canceled)
+        if (context.canceled)
         {
             interacting = false;
         }
@@ -121,44 +120,34 @@ public class PlayerMovement : MonoBehaviour
     //Background methods
     private void ApplyGravity()
     {
-        if(!grounded)
+        if (!grounded)
         {
-            velocityVertical += Vector3.down * gravity;
+            velocityVertical += Vector3.down * gravity*Time.deltaTime;
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void CheckLanded()
     {
-       
-        foreach (ContactPoint contact in collision.contacts)
+        if (player.GetComponent<CharacterController>().isGrounded)
         {
-            if(contact.normal == Vector3.up)
+            if (!grounded)
             {
-                if (!grounded)
-                {
-                    
-                    velocityVertical = Vector3.zero;
-                    grounded = true;
-                    movementSpeed = speedDefault;
-                    jumped = false;
-                    currentFloorNormal = Vector3.up;
-                }
-            }
-        }
-    }
-    private void OnCollisionStay(Collision collision)
-    {
-        foreach(ContactPoint contact in collision.contacts)
-        {
-            if(contact.normal == Vector3.up)
-            {
+                //Debug.Log("player is grounded");
+                velocityVertical = Vector3.zero;
                 grounded = true;
+                movementSpeed = speedDefault;
+                jumped = false;
             }
+
         }
     }
-    private void OnCollisionExit(Collision collision)
+
+    private void CheckFalling()
     {
-        grounded = false;
+        if (!player.GetComponent<CharacterController>().isGrounded)
+        {
+            grounded = false;
+        }
     }
     #endregion
 }
