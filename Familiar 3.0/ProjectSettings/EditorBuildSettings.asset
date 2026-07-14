@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/TitleScreen.unity
+    path: Assets/Scenes/Shipping/TitleScreen.unity
     guid: f43864fe0337ac54c936aae3e6c50b22
   - enabled: 1
-    path: Assets/Scenes/Test/CameraTest.unity
+    path: Assets/Scenes/Develeopment/CameraTest.unity
     guid: 7c9c51b3edd666e4fb5434b306de702c
   - enabled: 1
-    path: Assets/Scenes/PuzzleTestIn3D but 2d.unity
+    path: Assets/Scenes/Develeopment/PuzzleTestIn3D but 2d.unity
     guid: 8217f6888a5a1fc4e8f3ad8f8e5d5045
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
