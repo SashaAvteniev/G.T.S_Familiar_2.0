@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,9 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private float holdJumpTime;
     private bool holdingJump;
     private bool grounded;
-
-    //Collisions
-    private Vector3 currentWallNormal;
+    private bool jumped;
 
     //Interacting
     private bool interacting;
@@ -31,11 +30,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float shoveSpeed;
     public float ShoveSpeed { get { return shoveSpeed; } }
     private bool shoving;
-    public bool Shoving { get { return shoving; } set { shoving = value;} }
+    public bool Shoving { get { return shoving; } set { shoving = value; } }
 
     //Grabbing
     private bool grabbing;
-    public bool Grabbing { get { return grabbing; } set { grabbing = value;} }
+    public bool Grabbing { get { return grabbing; } set { grabbing = value; } }
+
+    //PlayerSaveData
+    [SerializeField] private PlayerDataScript playerDataScript;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -47,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
         grabbing = false;
         interacting = false;
         speedDefault = movementSpeed;
+        jumped = false;
+
     }
 
     // Update is called once per frame
@@ -55,11 +60,15 @@ public class PlayerMovement : MonoBehaviour
         #region calculate velocity
         velocityHorizontal = new Vector3(direction.x * movementSpeed, 0, direction.z * movementSpeed);
         ApplyGravity();
-        HandleWallCollision();
         #endregion
         #region apply velocity
-        player.transform.position = player.transform.position + velocityHorizontal * Time.deltaTime + velocityVertical*Time.deltaTime;
+        player.GetComponent<CharacterController>().Move(velocityVertical * Time.deltaTime + velocityHorizontal * Time.deltaTime);
+        CheckFallingOffEdge();
+        CheckLanded();
+
+        Debug.Log(player.GetComponent<CharacterController>().velocity);
         #endregion
+
 
     }
 
@@ -67,36 +76,31 @@ public class PlayerMovement : MonoBehaviour
     //Active player methods
     public void Move(InputAction.CallbackContext context)
     {
-
         direction.z = context.ReadValue<Vector2>().x;
-       direction.x = -context.ReadValue<Vector2>().y;
-       direction = direction.normalized;
+        direction.x = -context.ReadValue<Vector2>().y;
+        direction = direction.normalized;
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if(context.started && grounded)
+
+
+        if (context.started && grounded)
+        {
+            velocityVertical = Vector3.up * jumpHeight;
+            jumped = true;
+            grounded = false;
+        }
+        else if (playerDataScript.PlayerData.currentTalisman == PlayerData.TalismanInUse.Elk && context.started && jumped)
         {
             velocityVertical.y = Vector3.up.y * jumpHeight;
             grounded = false;
-            movementSpeed = movementSpeed * .7f;
+            jumped = false;
         }
     }
 
-    public void Shove(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            shoving = true;
-            interacting = true;
-        }
-        if (context.canceled)
-        {
-            interacting = false;
-        }
-    }
 
-    public void Grab(InputAction.CallbackContext context)
+    public void Interact(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
@@ -106,7 +110,6 @@ public class PlayerMovement : MonoBehaviour
         {
             interacting = false;
         }
-
     }
 
     #endregion
@@ -117,61 +120,32 @@ public class PlayerMovement : MonoBehaviour
     //Background methods
     private void ApplyGravity()
     {
-        if(!grounded)
-        {
-            velocityVertical.y -= gravity * Time.deltaTime;
-        }
+       velocityVertical += Vector3.down * gravity*Time.deltaTime;
     }
-    private void OnCollisionEnter(Collision collision)
+
+    private void CheckLanded()
     {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("floor"))
+        if (player.GetComponent<CharacterController>().isGrounded)
         {
-            grounded = true;
-            velocityVertical.y = 0;
-            Debug.Log("hit");
-            movementSpeed = speedDefault;
-        }
-        foreach(ContactPoint contactPoint in collision.contacts)
-        {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Walls"))
+            if (!grounded)
             {
-                currentWallNormal = contactPoint.normal;
-                Debug.Log(currentWallNormal);
+                //Debug.Log("player is grounded");
+                velocityVertical = Vector3.zero;
+                grounded = true;
+                movementSpeed = speedDefault;
+                jumped = false;
             }
-            
-        }
 
-    }
-
-
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Walls"))
-        {
-            currentWallNormal = Vector3.zero;
         }
     }
 
-    private void HandleWallCollision()
+    private void CheckFallingOffEdge()
     {
-        if(velocityHorizontal.x > 0)
+        if (!player.GetComponent<CharacterController>().isGrounded && grounded)
         {
-            velocityHorizontal.x = velocityHorizontal.x - (currentWallNormal.x * -velocityHorizontal.x);
+            velocityVertical = Vector3.zero;
+            grounded = false;
         }
-        if (velocityHorizontal.x < 0)
-        {
-            velocityHorizontal.x = velocityHorizontal.x - (currentWallNormal.x * velocityHorizontal.x);
-        }
-        if (velocityHorizontal.z > 0)
-        {
-            velocityHorizontal.z = velocityHorizontal.z - (currentWallNormal.z * -velocityHorizontal.z);
-        }
-        if (velocityHorizontal.z < 0)
-        {
-            velocityHorizontal.z = velocityHorizontal.z - (currentWallNormal.z * velocityHorizontal.z);
-        }
-
     }
     #endregion
 }

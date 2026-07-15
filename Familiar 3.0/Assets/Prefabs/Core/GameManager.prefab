@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 575651540258984387}
   - component: {fileID: 540302737279540084}
+  - component: {fileID: 5805014227844026616}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -45,4 +46,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   player: {fileID: 0}
-  shovables: []
+  playerData: {fileID: 11400000, guid: b89119b1f4154d444b42002a76fadec6, type: 2}
+  spawnPoint: {fileID: 0}
+--- !u!114 &5805014227844026616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9028120686030873439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 338c8bd4d6e6c944580acbd06dd6de93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuUI
+  pauseMenu: {fileID: 0}
+  paused: 0
+  startingUI: {fileID: 0}
+  windowCheck: {fileID: 11400000, guid: d3e65d1f15bd01c87a769342cf6f4594, type: 2}
+  sceneToLoad: 0

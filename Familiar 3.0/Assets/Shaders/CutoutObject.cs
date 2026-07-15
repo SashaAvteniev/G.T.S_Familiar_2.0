@@ -52,7 +52,7 @@ public class CutoutObject : MonoBehaviour
         Vector3 rayDirection = rayToEnd.normalized;
         RaycastHit[] hits = Physics.RaycastAll(transform.position, rayDirection, rayToEnd.magnitude, wallMask);
         Debug.DrawRay(transform.position, rayDirection * rayToEnd.magnitude, debugColor);
-        Debug.Log(label + ": " + hits.Length);
+        //Debug.Log(label + ": " + hits.Length);
         allHits.AddRange(hits);
     }
 
@@ -81,7 +81,7 @@ public class CutoutObject : MonoBehaviour
 
         if (hits.Length == 0)
         {
-            Debug.Log("No Hits");
+            //Debug.Log("No Hits");
             return;
         }
         
