@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 17.67, y: 2.55, z: 6.74533}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.125, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -160,4 +160,5 @@ MonoBehaviour:
   talismanVersion:
     currentTalisman: 0
     currentDoor: {x: 0, y: 0, z: 0}
+    enteredDoor: 0
   playerData: {fileID: 11400000, guid: b89119b1f4154d444b42002a76fadec6, type: 2}
