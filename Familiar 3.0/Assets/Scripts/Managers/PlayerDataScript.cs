@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerDataScript", menuName = "Scriptable Objects/PlayerDataScript")]
@@ -9,6 +10,8 @@ public class PlayerDataScript : ScriptableObject
     {
         PlayerData.currentTalisman = PlayerData.TalismanInUse.None;
         PlayerData.currentDoor = Vector3.zero;
+        PlayerData.lastKnownY = 0;
+        PlayerData.enteredDoor = false;
     }
 }
 
@@ -29,4 +32,6 @@ public class PlayerData
     public Vector3 currentDoor;
     
     public bool enteredDoor;
+
+    public float lastKnownY;
 }

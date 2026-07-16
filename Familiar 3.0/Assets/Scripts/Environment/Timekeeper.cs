@@ -44,7 +44,7 @@ public class Timekeeper : MonoBehaviour
         {
             sun.intensity = Mathf.InverseLerp(600f, 1200f, currentTime);
         } else {sun.intensity = 1f - Mathf.InverseLerp(1200f, 1800f, currentTime);}
-        Debug.Log(sun.intensity);
+        //Debug.Log(sun.intensity);
     }
 
 
