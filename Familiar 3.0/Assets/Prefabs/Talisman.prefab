@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 582279225080370689}
   - component: {fileID: 1198936414163219293}
   - component: {fileID: 3431077262276253755}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Talisman
   m_TagString: Talisman
   m_Icon: {fileID: 0}

@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 public class PuzzleObjectPushScript : Shovables
 {
     Vector3 staringPOS;
+    Vector3 startingRotation;
     [SerializeField] int noteValue;
     [SerializeField] Transform target;
 
@@ -12,6 +13,7 @@ public class PuzzleObjectPushScript : Shovables
     void Start()
     {
        staringPOS = this.transform.position;
+        startingRotation = this.transform.rotation.eulerAngles;
     }
 
     // Update is called once per frame
@@ -27,14 +29,18 @@ public class PuzzleObjectPushScript : Shovables
 
     public override void Shove()
     {
+        GetComponent<BoxCollider>().size = new Vector3(1f, 1f, 1f);
+        GetComponent<BoxCollider>().center = Vector3.zero;
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         GetComponent<Rigidbody>().AddForce( (target.position - this.transform.position) * shoveSpeed, ForceMode.VelocityChange);
-        Debug.Log((target.position - this.transform.position) * shoveSpeed);
     }
     public void Reset()
     {
         this.gameObject.transform.position = staringPOS;
         this.gameObject.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
         this.gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        this.transform.eulerAngles = startingRotation;
         this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
     }
 

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8919367113069880016}
   - component: {fileID: -7459385332310363051}
   - component: {fileID: 7103162838408042428}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Grabbable object
   m_TagString: Grabbable
   m_Icon: {fileID: 0}
@@ -153,3 +153,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10e234476cf8493429fa59e78520cad9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Grabbables
+  readyToInteract: 0
+  weight: 0
