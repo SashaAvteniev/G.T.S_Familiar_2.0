@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5271456348461734298}
   - component: {fileID: 1948756263425403819}
   - component: {fileID: 6148554050500106412}
+  - component: {fileID: -628884682343373938}
   m_Layer: 9
   m_Name: DoorInteractable
   m_TagString: Door
@@ -127,5 +128,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Doors
   readyToInteract: 0
   weight: 0
-  scene: 0
+  scene: 1
   playerData: {fileID: 11400000, guid: b89119b1f4154d444b42002a76fadec6, type: 2}
+--- !u!54 &-628884682343373938
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3936707621490893502}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
