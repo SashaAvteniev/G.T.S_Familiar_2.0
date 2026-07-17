@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
         CheckFallingOffEdge();
         CheckLanded();
 
-        Debug.Log(player.GetComponent<CharacterController>().velocity);
+
         #endregion
 
 

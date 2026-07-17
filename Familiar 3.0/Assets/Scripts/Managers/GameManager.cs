@@ -20,13 +20,16 @@ public class GameManager : MonoBehaviour
         currentGrabbedObject = null;
         if(playerData.PlayerData.currentDoor != Vector3.zero && !playerData.PlayerData.enteredDoor)
         {
-            player.transform.position = new Vector3(playerData.PlayerData.currentDoor.x, 1.914f, playerData.PlayerData.currentDoor.z);
+            player.gameObject.GetComponent<CharacterController>().enabled = false;
+            player.transform.position = new Vector3(playerData.PlayerData.currentDoor.x, playerData.PlayerData.lastKnownY, playerData.PlayerData.currentDoor.z);
+            player.gameObject.GetComponent<CharacterController>().enabled = true;
             playerData.PlayerData.currentDoor = Vector3.zero;
         }
         else if (spawnPoint != null) 
         {
             player.transform.position = spawnPoint.position;
         }
+        Debug.Log(player.transform.position);
     }
 
     // Update is called once per frame
@@ -109,6 +112,7 @@ public class GameManager : MonoBehaviour
                     case "Door":
                         if (currentObject.GetComponent<Doors>().ReadyToInteract)
                         {
+                            playerData.PlayerData.lastKnownY = player.transform.position.y;
                             currentObject.GetComponent<Doors>().Enter();
                             player.Interacting = false;
                         }

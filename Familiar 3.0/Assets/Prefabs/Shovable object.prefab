@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5782012962576190578}
   - component: {fileID: 4649533465781096243}
   - component: {fileID: 621733284615958845}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shovable object
   m_TagString: Shovable
   m_Icon: {fileID: 0}

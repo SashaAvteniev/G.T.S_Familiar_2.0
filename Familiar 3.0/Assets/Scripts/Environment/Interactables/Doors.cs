@@ -5,6 +5,8 @@ public class Doors : Interactables
 {
     [SerializeField] private int scene;
     [SerializeField] private PlayerDataScript playerData;
+
+    [SerializeField] private Transform returnPosition;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -22,7 +24,7 @@ public class Doors : Interactables
         if(playerData.PlayerData.currentDoor == Vector3.zero)
         {
             SceneManager.LoadScene(scene);
-            playerData.PlayerData.currentDoor = this.transform.position;
+            playerData.PlayerData.currentDoor = returnPosition.position;
             playerData.PlayerData.enteredDoor = true;
         }
         else

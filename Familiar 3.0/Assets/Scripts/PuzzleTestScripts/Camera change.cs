@@ -22,7 +22,7 @@ public class Camerachange : MonoBehaviour
         mainCamera.SetActive(true);
         baseCameraRotation = mainCamera.transform.eulerAngles;
         currentCameraRotation = baseCameraRotation;
-        Debug.Log(baseCameraRotation);
+        //Debug.Log(baseCameraRotation);
     }
 
     // Update is called once per frame
