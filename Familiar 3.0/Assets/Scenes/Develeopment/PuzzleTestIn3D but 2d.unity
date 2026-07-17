@@ -247,6 +247,33 @@ MonoBehaviour:
   mainCamera: {fileID: 1905742490}
   player: {fileID: 1927606322}
   box: {fileID: 25221003}
+--- !u!1 &76444233 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 369287027826295737, guid: c6712d0d4fbd10a4fac3f673b02baba1, type: 3}
+  m_PrefabInstance: {fileID: 475890624166873661}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &76444237
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76444233}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2492924345917075417, guid: 9145e9f76f4fff6458c56f56f3cf5298, type: 3}
 --- !u!1 &147078023 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5374328416219010470, guid: b39a03202b49c05429c87d24cd8313ab, type: 3}
@@ -1510,7 +1537,7 @@ GameObject:
   - component: {fileID: 892670866}
   - component: {fileID: 892670865}
   - component: {fileID: 892670864}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: wall_front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1572,7 +1599,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c22777d6e868e4f2fb421913386b154e, type: 2}
+  - {fileID: 2100000, guid: a37dfcc6569ee0744ba9cbf9b25503a3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5528,7 +5555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e632af1ab8ddc74b8c281eb12e6f40a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzleCamera
-  followDistance: 1
+  followDistance: 2
   target: {fileID: 1927606322}
   smoothSpeed: 10
   angleFinal: {x: 0, y: 270, z: 0}
@@ -7295,7 +7322,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 369287027826295737, guid: c6712d0d4fbd10a4fac3f673b02baba1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 76444237}
   m_SourcePrefab: {fileID: 100100000, guid: c6712d0d4fbd10a4fac3f673b02baba1, type: 3}
 --- !u!1001 &6299286928970638982
 PrefabInstance:
@@ -7364,6 +7394,10 @@ PrefabInstance:
     - target: {fileID: 4772506546067472281, guid: 4672923674d8a1e4a9e21ad91a3aaa67, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5193124193537290491, guid: 4672923674d8a1e4a9e21ad91a3aaa67, type: 3}
+      propertyPath: m_Height
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 5193124193537290491, guid: 4672923674d8a1e4a9e21ad91a3aaa67, type: 3}
       propertyPath: m_Radius
