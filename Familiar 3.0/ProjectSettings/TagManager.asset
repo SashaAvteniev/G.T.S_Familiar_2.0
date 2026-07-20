@@ -9,6 +9,7 @@ TagManager:
   - Grabbable
   - Talisman
   - Door
+  - ExtLight
   layers:
   - Default
   - TransparentFX

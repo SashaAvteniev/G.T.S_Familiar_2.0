@@ -44,7 +44,7 @@ Light:
   serializedVersion: 12
   m_Type: 2
   m_Color: {r: 1, g: 0.8002132, b: 0, a: 1}
-  m_Intensity: 5
+  m_Intensity: 3.51
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 3422553562879844770}
   m_Layer: 0
   m_Name: Latern_Street
-  m_TagString: Untagged
+  m_TagString: ExtLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -211,6 +211,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 3ff7f2ccc73e8a642a24ec14477dbe2d, type: 3}
       propertyPath: m_Name
       value: Street_Lantern
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3ff7f2ccc73e8a642a24ec14477dbe2d, type: 3}
+      propertyPath: m_TagString
+      value: ExtLight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
