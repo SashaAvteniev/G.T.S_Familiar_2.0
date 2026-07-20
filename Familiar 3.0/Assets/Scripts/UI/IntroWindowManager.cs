@@ -7,6 +7,6 @@ public class IntroWindowManager : ScriptableObject
     public bool hasBeenShown = false;
     private void OnEnable()
     {
-         hasBeenShown = false;
+         //hasBeenShown = false;
     }
 }

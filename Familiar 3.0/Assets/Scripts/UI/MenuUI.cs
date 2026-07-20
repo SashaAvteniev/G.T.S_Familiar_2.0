@@ -27,7 +27,7 @@ public class MenuUI : MonoBehaviour
     //built in scene to load to
     [SerializeField] private int sceneToLoad;
     
-
+    /*
     void Start()
     {
         paused = true;
@@ -38,7 +38,7 @@ public class MenuUI : MonoBehaviour
         //If it has, don't show playtester window again
         if (!windowCheck.hasBeenShown)
         {
-            windowCheck.hasBeenShown = true;
+            //windowCheck.hasBeenShown = true;
         }
         else
         {
@@ -46,7 +46,7 @@ public class MenuUI : MonoBehaviour
             SetPause(false);
         }
     }
-
+    */
     // Update is called once per frame
     void Update()
     {
