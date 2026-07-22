@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 public class Interact : MonoBehaviour
 {
     bool canInteract = false;
+
+    public GameObject interactableObject;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -16,6 +18,7 @@ public class Interact : MonoBehaviour
         if(Keyboard.current.eKey.wasPressedThisFrame && canInteract)
         {
             Debug.Log("Open UI");
+            interactableObject.SetActive(true);
             // Add other functionality here
         }
     }
