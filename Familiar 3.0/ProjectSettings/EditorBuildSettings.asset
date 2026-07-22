@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Shipping/Town.unity
     guid: 8c1958012de18161b93d438bac0b6b07
   - enabled: 1
-    path: Assets/Scenes/Develeopment/PuzzleTestIn3D but 2d.unity
+    path: Assets/Scenes/Develeopment/PuzzleRoom.unity
     guid: 8217f6888a5a1fc4e8f3ad8f8e5d5045
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
