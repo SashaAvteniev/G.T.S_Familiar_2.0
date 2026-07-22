@@ -30,7 +30,7 @@ public class PianoPuzzleManager : MonoBehaviour
         correctOrderSecond = false;
         correctOrderThird = false;
         talisman.SetActive(false);
-        talisman.GetComponent<Rigidbody>().isKinematic = true;
+        //talisman.GetComponent<Rigidbody>().isKinematic = true;
     }
 
     // Update is called once per frame
@@ -77,7 +77,7 @@ public class PianoPuzzleManager : MonoBehaviour
                 barThreeObject.GetComponent<MeshRenderer>().material = success;
                 puzzleNoteQueue.Clear();
                 talisman.SetActive(true);
-                talisman.GetComponent<Rigidbody>().isKinematic = false;
+                //talisman.GetComponent<Rigidbody>().isKinematic = false;
             }
             else
             {

@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
         {
             player.transform.position = spawnPoint.position;
         }
-        Debug.Log(player.transform.position);
     }
 
     // Update is called once per frame

@@ -65,8 +65,6 @@ public class PlayerMovement : MonoBehaviour
         player.GetComponent<CharacterController>().Move(velocityVertical * Time.deltaTime + velocityHorizontal * Time.deltaTime);
         CheckFallingOffEdge();
         CheckLanded();
-
-
         #endregion
 
 
@@ -134,6 +132,7 @@ public class PlayerMovement : MonoBehaviour
                 grounded = true;
                 movementSpeed = speedDefault;
                 jumped = false;
+                gravity = 30;
             }
 
         }
@@ -144,6 +143,7 @@ public class PlayerMovement : MonoBehaviour
         if (!player.GetComponent<CharacterController>().isGrounded && grounded)
         {
             velocityVertical = Vector3.zero;
+            gravity = 20;
             grounded = false;
         }
     }
