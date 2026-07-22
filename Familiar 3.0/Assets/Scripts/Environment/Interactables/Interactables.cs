@@ -24,7 +24,7 @@ public class Interactables : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
-
+        Debug.Log("hit");
         foreach (ContactPoint contactPoint in collision.contacts)
         {
             if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
