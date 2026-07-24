@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 575651540258984387}
   - component: {fileID: 540302737279540084}
-  - component: {fileID: 5805014227844026616}
+  - component: {fileID: -7375997708518530508}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -48,7 +48,7 @@ MonoBehaviour:
   player: {fileID: 0}
   playerData: {fileID: 11400000, guid: b89119b1f4154d444b42002a76fadec6, type: 2}
   spawnPoint: {fileID: 0}
---- !u!114 &5805014227844026616
+--- !u!114 &-7375997708518530508
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -63,5 +63,5 @@ MonoBehaviour:
   pauseMenu: {fileID: 0}
   paused: 0
   startingUI: {fileID: 0}
-  windowCheck: {fileID: 11400000, guid: d3e65d1f15bd01c87a769342cf6f4594, type: 2}
+  windowCheck: {fileID: 0}
   sceneToLoad: 0

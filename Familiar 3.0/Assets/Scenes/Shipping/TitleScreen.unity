@@ -1485,6 +1485,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7375997708518530508, guid: 37068908a5ab5c841843bccc94946a21, type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 725526757}
+    - target: {fileID: -7375997708518530508, guid: 37068908a5ab5c841843bccc94946a21, type: 3}
+      propertyPath: startingUI
+      value: 
+      objectReference: {fileID: 1162776937}
+    - target: {fileID: -7375997708518530508, guid: 37068908a5ab5c841843bccc94946a21, type: 3}
+      propertyPath: sceneToLoad
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7375997708518530508, guid: 37068908a5ab5c841843bccc94946a21, type: 3}
+      propertyPath: windowCheck
+      value: 
+      objectReference: {fileID: 11400000, guid: d3e65d1f15bd01c87a769342cf6f4594, type: 2}
     - target: {fileID: 540302737279540084, guid: 37068908a5ab5c841843bccc94946a21, type: 3}
       propertyPath: player
       value: 
@@ -1537,41 +1553,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5805014227844026616, guid: 37068908a5ab5c841843bccc94946a21, type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 725526757}
+    - target: {fileID: 5805014227844026616, guid: 37068908a5ab5c841843bccc94946a21, type: 3}
+      propertyPath: startingUI
+      value: 
+      objectReference: {fileID: 1162776937}
+    - target: {fileID: 5805014227844026616, guid: 37068908a5ab5c841843bccc94946a21, type: 3}
+      propertyPath: sceneToLoad
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9028120686030873439, guid: 37068908a5ab5c841843bccc94946a21, type: 3}
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5805014227844026616, guid: 37068908a5ab5c841843bccc94946a21, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 9028120686030873439, guid: 37068908a5ab5c841843bccc94946a21, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2008872235}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37068908a5ab5c841843bccc94946a21, type: 3}
---- !u!1 &2008872234 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9028120686030873439, guid: 37068908a5ab5c841843bccc94946a21, type: 3}
+--- !u!114 &2008872235 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -7375997708518530508, guid: 37068908a5ab5c841843bccc94946a21, type: 3}
   m_PrefabInstance: {fileID: 2008872233}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2008872235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2008872234}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 338c8bd4d6e6c944580acbd06dd6de93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuUI
-  pauseMenu: {fileID: 725526757}
-  paused: 0
-  startingUI: {fileID: 1162776937}
-  windowCheck: {fileID: 11400000, guid: d3e65d1f15bd01c87a769342cf6f4594, type: 2}
-  sceneToLoad: 1
 --- !u!1 &2037138273
 GameObject:
   m_ObjectHideFlags: 0
@@ -1885,12 +1898,16 @@ PrefabInstance:
     - target: {fileID: 5766203395711994081, guid: bf2560c23e46c7f43a47ad9a0be10d78, type: 3}
       propertyPath: m_text
       value: "   - Walk: WASD\n   - Pause game: [Esc]\n   - Jump: [Space]\n   - Grab
-        (blue): Q\n   - Push objects: E\n"
+        (blue): Hold E\n   - Push objects: E\n"
       objectReference: {fileID: 0}
     - target: {fileID: 6662765267278039674, guid: bf2560c23e46c7f43a47ad9a0be10d78, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2008872235}
+    - target: {fileID: 6662765267278039674, guid: bf2560c23e46c7f43a47ad9a0be10d78, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GoBack
+      objectReference: {fileID: 0}
     - target: {fileID: 8513411272153331952, guid: bf2560c23e46c7f43a47ad9a0be10d78, type: 3}
       propertyPath: m_Name
       value: Window_Controls
@@ -1909,8 +1926,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1385046744}
+  - {fileID: 13080031}
   - {fileID: 1690528028}
   - {fileID: 2008872233}
-  - {fileID: 725526758}
   - {fileID: 39713188}
-  - {fileID: 13080031}
+  - {fileID: 725526758}
