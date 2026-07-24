@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 5979087041542380371}
   - component: {fileID: 187012957178481034}
   - component: {fileID: 3188533474915625050}
+  - component: {fileID: 5423437360955678597}
   m_Layer: 0
   m_Name: SM_Jar_02_LOD0
   m_TagString: Untagged
@@ -180,6 +181,28 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5423437360955678597
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718593450181630355}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -491417472168665200, guid: 2c493c41c03bd7e49ae2114453aad712, type: 3}
 --- !u!1 &7603184960104632842
 GameObject:
   m_ObjectHideFlags: 0

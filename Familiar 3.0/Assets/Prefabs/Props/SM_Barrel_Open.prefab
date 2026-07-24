@@ -258,6 +258,7 @@ GameObject:
   - component: {fileID: 6156739347997368983}
   - component: {fileID: 7410407123070042371}
   - component: {fileID: 8016003853373575010}
+  - component: {fileID: 6354564447264785081}
   m_Layer: 0
   m_Name: SM_Barrel_Open_LOD0
   m_TagString: Untagged
@@ -337,6 +338,28 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6354564447264785081
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4259598962673009681}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 778172732720870949, guid: 41e1cb2c8be8fb28b9c0c0500cbae6cf, type: 3}
 --- !u!1 &7532007074642510285
 GameObject:
   m_ObjectHideFlags: 0
