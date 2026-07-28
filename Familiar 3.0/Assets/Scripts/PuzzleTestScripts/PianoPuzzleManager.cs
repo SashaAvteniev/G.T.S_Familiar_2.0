@@ -7,25 +7,33 @@ using UnityEngine;
 
 public class PianoPuzzleManager : MonoBehaviour
 {
+    //holds player input
     public List<int> puzzleNoteQueue;
+    
+    //correct order for melody 1-3
     [SerializeField] List<int> firstBar;
     [SerializeField] List<int> secondBar;
     [SerializeField] List<int> thirdBar;
+   
+    //has melody been completed
     bool correctOrderFirst;
     bool correctOrderSecond;
     bool correctOrderThird;
 
+    //visual if melody correct or not 
     [SerializeField] GameObject barOneObject;
     [SerializeField] GameObject barTwoObject;
     [SerializeField] GameObject barThreeObject;
-
     [SerializeField] Material success;
     [SerializeField] Material failure;
-
+    
+    //reward unlocked when puzzle solved
     [SerializeField] GameObject talisman; 
+   
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //puzzle set up
         correctOrderFirst = false;
         correctOrderSecond = false;
         correctOrderThird = false;
@@ -36,58 +44,71 @@ public class PianoPuzzleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (puzzleNoteQueue.Count == 4 && !correctOrderFirst)
+        //only check when player has entered full bar
+        if (puzzleNoteQueue.Count != 4) { return; }
+        
+        //check melody 1 (first 4 notes)
+        if (!correctOrderFirst)
         {
             correctOrderFirst = puzzleNoteQueue.SequenceEqual(firstBar);
+            
             if (correctOrderFirst)
             {
-                Debug.Log("firstBarDone");
-                puzzleNoteQueue.Clear();
-                barOneObject.GetComponent<MeshRenderer>().material = success;
+                Debug.Log("firstBarDone"); 
+                SetBarMaterial(barOneObject, success);
             }
             else
             {
-                puzzleNoteQueue.Clear();
-                barOneObject.GetComponent<MeshRenderer>().material = failure;
+                //wrong sequence
+                SetBarMaterial(barOneObject, failure);
             }
+            
+            puzzleNoteQueue.Clear();
         }
-        else if(puzzleNoteQueue.Count == 4 && correctOrderFirst && !correctOrderSecond)
+        //Check melody 2 (next 4 notes after melody 1)
+        else if(!correctOrderSecond)
         {
             correctOrderSecond = puzzleNoteQueue.SequenceEqual(secondBar);
+            
             if (correctOrderSecond)
             {
                 Debug.Log("secondBarDone");
-                puzzleNoteQueue.Clear();
-                barTwoObject.GetComponent<MeshRenderer>().material = success;
+                SetBarMaterial(barTwoObject, success);
             }
             else
             {
-                puzzleNoteQueue.Clear();
-                barOneObject.GetComponent<MeshRenderer>().material = failure;
-                barTwoObject.GetComponent<MeshRenderer>().material = failure;
-                correctOrderFirst = false;
+                //wrong sequence
+                SetBarMaterial(barOneObject, failure);
+                SetBarMaterial(barTwoObject, failure);
             }
+            
+            puzzleNoteQueue.Clear();
         }
-        if (puzzleNoteQueue.Count == 4 && correctOrderFirst && correctOrderSecond)
+        //Check melody 3 (next 4 notes after melody 1 & 2)
+        else if (!correctOrderThird)
         {
             correctOrderThird = puzzleNoteQueue.SequenceEqual(thirdBar);
+            
             if (correctOrderThird)
             {
                 Debug.Log("thirdBarDone");
-                barThreeObject.GetComponent<MeshRenderer>().material = success;
-                puzzleNoteQueue.Clear();
+                SetBarMaterial(barThreeObject, success);
+                
+                //puzzle complete, show & enable talisman
                 talisman.SetActive(true);
                 talisman.GetComponent<Rigidbody>().isKinematic = false;
             }
             else
             {
-                puzzleNoteQueue.Clear();
+                //wrong sequence - full reset
                 correctOrderFirst = false;
                 correctOrderSecond = false;
-                barOneObject.GetComponent<MeshRenderer>().material = failure;
-                barTwoObject.GetComponent<MeshRenderer>().material = failure;
-                barThreeObject.GetComponent<MeshRenderer>().material = failure;
+                SetBarMaterial(barOneObject, failure);
+                SetBarMaterial(barTwoObject, failure);
+                SetBarMaterial(barThreeObject, failure);
             }
+            
+            puzzleNoteQueue.Clear();
         }
     }
 
@@ -98,6 +119,15 @@ public class PianoPuzzleManager : MonoBehaviour
             puzzleNoteQueue.Add(collision.gameObject.GetComponent<PuzzleObjectPushScript>().NoteValue);
             collision.gameObject.GetComponent<PuzzleObjectPushScript>().Reset();
         }
-
+    }
+    
+    /// <summary>
+    /// changes material of game objects
+    /// </summary>
+    /// <param name="bar">which melody to edit</param>
+    /// <param name="material">material to change to</param>
+    void SetBarMaterial(GameObject bar, Material material)
+    {
+        bar.GetComponent<MeshRenderer>().material = material;
     }
 }
