@@ -158,8 +158,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 0.2869146, y: 1, z: 0.58992285}
-  m_Center: {x: -0.3565406, y: 0, z: -0.014028529}
+  m_Size: {x: 1.0037419, y: 1, z: 1.0063732}
+  m_Center: {x: 0.0018732967, y: 0, z: -0.0031510685}
 --- !u!23 &25221001
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -226,8 +226,8 @@ Transform:
   m_GameObject: {fileID: 25220999}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: -3.9119, y: 0.6698, z: 1.2943}
-  m_LocalScale: {x: 6.8194895, y: 5.559, z: 9.487691}
+  m_LocalPosition: {x: -4.35, y: 0.01, z: 4.71}
+  m_LocalScale: {x: 5.474485, y: 4.4626007, z: 7.6164374}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1648267487}
@@ -977,7 +977,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &258454819
 Transform:
   m_ObjectHideFlags: 0
@@ -987,7 +987,7 @@ Transform:
   m_GameObject: {fileID: 258454818}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 1.964, y: -2.634, z: 5.076}
+  m_LocalPosition: {x: 1.144, y: -3.233, z: 5.076}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3628,7 +3628,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1020224294
 Transform:
   m_ObjectHideFlags: 0
@@ -3638,7 +3638,7 @@ Transform:
   m_GameObject: {fileID: 1020224293}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 1.921, y: -2.634, z: 3.969}
+  m_LocalPosition: {x: 1.144, y: -3.233, z: 3.969}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4430,7 +4430,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1082289645
 Transform:
   m_ObjectHideFlags: 0
@@ -4440,7 +4440,7 @@ Transform:
   m_GameObject: {fileID: 1082289644}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 1.962, y: -2.634, z: 4.73}
+  m_LocalPosition: {x: 1.144, y: -3.233, z: 4.73}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4520,7 +4520,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1086179192
 Transform:
   m_ObjectHideFlags: 0
@@ -4530,7 +4530,7 @@ Transform:
   m_GameObject: {fileID: 1086179191}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 1.943, y: -2.634, z: 4.336}
+  m_LocalPosition: {x: 1.144, y: -3.233, z: 4.336}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8727,7 +8727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e632af1ab8ddc74b8c281eb12e6f40a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzleCamera
-  followDistance: 1
+  followDistance: 1.5
   target: {fileID: 1927606322}
   smoothSpeed: 10
   angleFinal: {x: 0, y: 270, z: 0}
@@ -9369,8 +9369,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.40294483, y: 1.3953568, z: 0.5680017}
+  m_Center: {x: 0.1229402, y: 0.1976776, z: 0.21599916}
 --- !u!23 &2045351239
 MeshRenderer:
   m_ObjectHideFlags: 0

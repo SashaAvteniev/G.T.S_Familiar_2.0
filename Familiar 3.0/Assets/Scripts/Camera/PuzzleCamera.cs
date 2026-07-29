@@ -12,20 +12,18 @@ public class PuzzleCamera : MonoBehaviour
     [SerializeField] private float defaultSpeed;
     private Vector3 startAngle;
 
-    private bool active;
-
     private void Start()
     {
-        active = false;
         startAngle = transform.eulerAngles;
         Debug.Log(smoothSpeed);
-
     }
+    
     private void OnEnable()
     {
         startAngle = transform.eulerAngles;
         smoothSpeed = 3;
     }
+    
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -42,7 +40,6 @@ public class PuzzleCamera : MonoBehaviour
         {
             smoothSpeed = defaultSpeed;
         }
-
     }
 
     private void OnDisable()

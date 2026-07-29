@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    //Serialized
+    //Serialized to access in inspector
     [SerializeField, Header("Camera")] private float followDistance = 10.0f;
     [SerializeField] private GameObject target;
     [SerializeField] private float smoothSpeed;
