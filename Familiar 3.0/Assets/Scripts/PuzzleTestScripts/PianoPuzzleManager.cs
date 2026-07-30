@@ -14,6 +14,8 @@ public class PianoPuzzleManager : MonoBehaviour
     bool correctOrderFirst;
     bool correctOrderSecond;
     bool correctOrderThird;
+    public GameObject piano;
+    private AudioSource pianoAudio;
 
     [SerializeField] GameObject barOneObject;
     [SerializeField] GameObject barTwoObject;
@@ -31,6 +33,7 @@ public class PianoPuzzleManager : MonoBehaviour
         correctOrderThird = false;
         talisman.SetActive(false);
         talisman.GetComponent<Rigidbody>().isKinematic = true;
+        pianoAudio = piano.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -95,9 +98,11 @@ public class PianoPuzzleManager : MonoBehaviour
     {
         if(collision.gameObject.tag == "Shovable")
         {
-            puzzleNoteQueue.Add(collision.gameObject.GetComponent<PuzzleObjectPushScript>().NoteValue);
-            collision.gameObject.GetComponent<PuzzleObjectPushScript>().Reset();
+            PuzzleObjectPushScript puzzleObject = collision.gameObject.GetComponent<PuzzleObjectPushScript>();
+            puzzleNoteQueue.Add(puzzleObject.NoteValue);
+            pianoAudio.generator = puzzleObject.SoundQueue;
+            pianoAudio.Play();
+            puzzleObject.Reset();
         }
-
     }
 }

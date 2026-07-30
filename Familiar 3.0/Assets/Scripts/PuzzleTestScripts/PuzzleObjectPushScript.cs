@@ -8,11 +8,17 @@ public class PuzzleObjectPushScript : Shovables
     [SerializeField] int noteValue;
     [SerializeField] Transform target;
 
+    [SerializeField]
+    [Tooltip("Sound to play when object hits the piano")]
+    private AudioClip soundQueue;
+
+    public int NoteValue { get { return noteValue; } }
+    public AudioClip SoundQueue { get {return soundQueue;}}
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       staringPOS = this.transform.position;
+        staringPOS = this.transform.position;
         startingRotation = this.transform.rotation.eulerAngles;
     }
 
@@ -44,7 +50,5 @@ public class PuzzleObjectPushScript : Shovables
         GetComponent<BoxCollider>().size = new Vector3(1f, 1f, 1.65f);
         this.transform.eulerAngles = startingRotation;
         this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-    }
-
-    public int NoteValue { get { return noteValue; } }
+    }    
 }
