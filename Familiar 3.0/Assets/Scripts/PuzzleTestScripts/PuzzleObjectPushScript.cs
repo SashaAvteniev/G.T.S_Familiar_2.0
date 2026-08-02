@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 public class PuzzleObjectPushScript : Shovables
 {
-    Vector3 staringPOS;
+    Vector3 staringPos;
     Vector3 startingRotation;
     [SerializeField] int noteValue;
     [SerializeField] Transform target;
@@ -14,18 +14,16 @@ public class PuzzleObjectPushScript : Shovables
 
     public int NoteValue { get { return noteValue; } }
     public AudioClip SoundQueue { get {return soundQueue;}}
+    
+    private BoxCollider boxCollider;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        staringPOS = this.transform.position;
-        startingRotation = this.transform.rotation.eulerAngles;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        staringPos = transform.position;
+        startingRotation = transform.rotation.eulerAngles;
+        boxCollider = GetComponent<BoxCollider>();
+        rigidBody = GetComponent<Rigidbody>();
     }
 
     //public void Push()
@@ -33,22 +31,25 @@ public class PuzzleObjectPushScript : Shovables
     //this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -4f);
     //}
 
-    public override void Shove()
+    protected override void Interact()
     {
-        GetComponent<BoxCollider>().size = new Vector3(1f, 1f, 1f);
-        GetComponent<BoxCollider>().center = Vector3.zero;
-        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        GetComponent<Rigidbody>().AddForce( (target.position - this.transform.position) * shoveSpeed, ForceMode.VelocityChange);
+        shoveSpeed = GameManager.player.ShoveSpeed;
+        Vector3 direction = target.position - transform.position;
+        direction.y = 0;
+        direction.Normalize();
+        boxCollider.center = Vector3.zero;
+        rigidBody.constraints = RigidbodyConstraints.None;
+        rigidBody.AddForce(shoveSpeed * direction, ForceMode.Force);
     }
+    
     public void Reset()
     {
-        this.gameObject.transform.position = staringPOS;
-        this.gameObject.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
-        this.gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        GetComponent<BoxCollider>().center = new Vector3(0, 0, .3241f);
-        GetComponent<BoxCollider>().size = new Vector3(1f, 1f, 1.65f);
-        this.transform.eulerAngles = startingRotation;
-        this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+        transform.position = staringPos;
+        rigidBody.linearVelocity = Vector3.zero;
+        rigidBody.angularVelocity = Vector3.zero;
+        rigidBody.constraints = RigidbodyConstraints.FreezeAll;
+        boxCollider.center = new Vector3(0, 0, .3241f);
+        transform.eulerAngles = startingRotation;
+        rigidBody.isKinematic = false;
     }    
 }

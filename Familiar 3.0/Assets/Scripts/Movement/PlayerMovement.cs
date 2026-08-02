@@ -8,8 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float movementSpeed;
     private float speedDefault;
     [SerializeField] private float gravity;
-    [SerializeField] private GameObject player;
-    [SerializeField] private SpriteRenderer playerSprite;
+    //[SerializeField] private SpriteRenderer playerSprite;
 
     private Vector3 direction;
     private Vector3 velocityHorizontal;
@@ -36,8 +35,7 @@ public class PlayerMovement : MonoBehaviour
     private bool grabbing;
     public bool Grabbing { get { return grabbing; } set { grabbing = value; } }
 
-    //PlayerSaveData
-    [SerializeField] private PlayerDataScript playerDataScript;
+    private CharacterController characterController;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -51,7 +49,15 @@ public class PlayerMovement : MonoBehaviour
         interacting = false;
         speedDefault = movementSpeed;
         jumped = false;
-
+        characterController = GetComponent<CharacterController>();
+        if(GameManager.gameData.doorExits.ContainsKey(GameManager.gameData.newDoorGUID))
+        {
+            Debug.Log("Teleporting Player!");
+            CharacterController characterController = GetComponent<CharacterController>();
+            characterController.enabled = false;
+            gameObject.transform.position = GameManager.gameData.doorExits[GameManager.gameData.newDoorGUID];
+            characterController.enabled = true;
+        }
     }
 
     // Update is called once per frame
@@ -62,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
         ApplyGravity();
         #endregion
         #region apply velocity
-        player.GetComponent<CharacterController>().Move(velocityVertical * Time.deltaTime + velocityHorizontal * Time.deltaTime);
+        characterController.Move(velocityVertical * Time.deltaTime + velocityHorizontal * Time.deltaTime);
         CheckFallingOffEdge();
         CheckLanded();
         #endregion
@@ -81,35 +87,19 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-
-
         if (context.started && grounded)
         {
             velocityVertical = Vector3.up * jumpHeight;
             jumped = true;
             grounded = false;
         }
-        else if (playerDataScript.PlayerData.currentTalisman == PlayerData.TalismanInUse.Elk && context.started && jumped)
+        else if (GameManager.gameData.data.currentTalisman == PlayerData.ETalismans.Elk && context.started && jumped)
         {
             velocityVertical.y = Vector3.up.y * jumpHeight;
             grounded = false;
             jumped = false;
         }
     }
-
-
-    public void Interact(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            interacting = true;
-        }
-        if (context.canceled)
-        {
-            interacting = false;
-        }
-    }
-
     #endregion
 
 
@@ -118,12 +108,12 @@ public class PlayerMovement : MonoBehaviour
     //Background methods
     private void ApplyGravity()
     {
-       velocityVertical += Vector3.down * gravity*Time.deltaTime;
+       velocityVertical += Time.deltaTime * gravity * Vector3.down;
     }
 
     private void CheckLanded()
     {
-        if (player.GetComponent<CharacterController>().isGrounded)
+        if (characterController.isGrounded)
         {
             if (!grounded)
             {
@@ -137,10 +127,10 @@ public class PlayerMovement : MonoBehaviour
 
         }
     }
-
+    
     private void CheckFallingOffEdge()
     {
-        if (!player.GetComponent<CharacterController>().isGrounded && grounded)
+        if (!characterController.isGrounded && grounded)
         {
             velocityVertical = Vector3.zero;
             gravity = 20;

@@ -100,5 +100,42 @@ MonoBehaviour:
   m_Name: Post Process Volume Profile
   m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.VolumeProfile
   components:
-  - {fileID: -5127467846822099549}
   - {fileID: -7817126933890456576}
+  - {fileID: 1911055642026084222}
+--- !u!114 &1911055642026084222
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0088b6163220ceb4b8726e5b7851835a, type: 3}
+  m_Name: ToonShadingVolume
+  m_EditorClassIdentifier: Assembly-CSharp::ToonShadingVolume
+  active: 1
+  lightTint:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  darkTint:
+    m_OverrideState: 1
+    m_Value: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 1}
+  threshold:
+    m_OverrideState: 1
+    m_Value: 0.45
+  contrast:
+    m_OverrideState: 1
+    m_Value: 0.37
+  lightBlendAmount:
+    m_OverrideState: 1
+    m_Value: 4
+  darkBlendAmount:
+    m_OverrideState: 1
+    m_Value: 0
+  blendIntensity:
+    m_OverrideState: 1
+    m_Value: 1
+  useCustomDepth:
+    m_OverrideState: 0
+    m_Value: 0

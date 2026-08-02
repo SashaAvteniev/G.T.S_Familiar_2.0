@@ -1,24 +1,38 @@
-using JetBrains.Annotations;
+using System.Collections.Generic;
+using AYellowpaper.SerializedCollections;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.ResourceProviders;
+using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(fileName = "PlayerDataScript", menuName = "Scriptable Objects/PlayerDataScript")]
-public class PlayerDataScript : ScriptableObject
+public class GameData : ScriptableObject
 {
-    public PlayerData PlayerData;
+    [HideInInspector]
+    [SerializeField]
+    public PlayerData data;
 
-    private void OnEnable()
+    [HideInInspector]
+    [SerializeField]
+    public bool interactFlag = false;
+    
+    [SerializedDictionary("GUID", "Spawn Point")]
+    
+    public SerializedDictionary<string, Vector3> doorExits;
+
+    [SerializeField] public string newDoorGUID;
+    
+    // Used in editor only and for before a save system
+    void OnApplicationQuit()
     {
-        PlayerData.currentTalisman = PlayerData.TalismanInUse.None;
-        PlayerData.currentDoor = Vector3.zero;
-        PlayerData.lastKnownY = 0;
-        PlayerData.enteredDoor = false;
+        interactFlag = false;
     }
 }
 
 [System.Serializable]
-public class PlayerData
+public struct PlayerData
 {
-    public enum TalismanInUse
+    public enum ETalismans
     {
         None,
         Elk,
@@ -26,12 +40,14 @@ public class PlayerData
         Snake,
         Badger
     }
-    public TalismanInUse currentTalisman;
-  
+    public ETalismans currentTalisman;
+    public List<ETalismans> unlockedTalismans;
+    public SceneInstance sceneInstance;
 
-    public Vector3 currentDoor;
-    
-    public bool enteredDoor;
-
-    public float lastKnownY;
+    public PlayerData(PlayerData playerData)
+    {
+        currentTalisman = playerData.currentTalisman;
+        unlockedTalismans = playerData.unlockedTalismans;
+        sceneInstance = playerData.sceneInstance;
+    }
 }

@@ -139,7 +139,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -155,10 +155,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ac190261dbfd5342b480d7ad7c68418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Talismans
-  readyToInteract: 0
-  weight: 0
+  inRange: 0
+  outline: {fileID: 0}
+  id: PuzzleRoom_72e653ce-4c3d-445a-b6b3-3a5c524a924e
   talismanVersion:
     currentTalisman: 0
-    currentDoor: {x: 0, y: 0, z: 0}
-    enteredDoor: 0
   playerData: {fileID: 11400000, guid: b89119b1f4154d444b42002a76fadec6, type: 2}

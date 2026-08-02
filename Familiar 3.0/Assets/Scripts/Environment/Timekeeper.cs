@@ -21,7 +21,8 @@ public class Timekeeper : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        sun = directionalLight.GetComponent<Light>();
+        if(directionalLight)
+            sun = directionalLight.GetComponent<Light>();
         fullDaySeconds = dayLength * 60f;
     }
 
@@ -30,28 +31,45 @@ public class Timekeeper : MonoBehaviour
     {
         if(!simulateTime) { return; }
         float sunRotation = Mathf.Lerp(-90, 270, currentTime/2400f);
-        sun = directionalLight.GetComponent<Light>();
-
-        // Actually rotating the sun gmae object
-        directionalLight.transform.SetPositionAndRotation(new Vector3(), Quaternion.Euler(sunRotation, directionalLight.transform.rotation.y, directionalLight.transform.rotation.z));
-        
-        // Fades sun intensity in/out as it rises and sets 
-        if(currentTime <= 1200f){ sun.intensity = Mathf.InverseLerp(600f, 1200f, currentTime); }
-        else { sun.intensity = 1f - Mathf.InverseLerp(1200f, 1800f, currentTime); }
-
-        // Handle lights turning on and off with day & night
-
-        //Get all exterior lights
-        GameObject[] extLights = GameObject.FindGameObjectsWithTag("ExtLight");
-        for(int i = 0; i < extLights.Length; i++)
+        if(directionalLight)
         {
-            Light l;
-            if (l = extLights[i].GetComponentInChildren<Light>()) 
+            sun = directionalLight.GetComponent<Light>();
+
+            // Actually rotating the sun gmae object
+            directionalLight.transform.SetPositionAndRotation(new Vector3(),
+                Quaternion.Euler(sunRotation, directionalLight.transform.rotation.y,
+                    directionalLight.transform.rotation.z));
+
+            // Fades sun intensity in/out as it rises and sets 
+            if (currentTime <= 1200f)
             {
-                if(currentTime <= 1200f){ l.intensity = 1f- Mathf.InverseLerp(600f, 1200f, currentTime); }
-                else { l.intensity = Mathf.InverseLerp(1200f, 1800f, currentTime); }
+                sun.intensity = Mathf.InverseLerp(600f, 1200f, currentTime);
+            }
+            else
+            {
+                sun.intensity = 1f - Mathf.InverseLerp(1200f, 1800f, currentTime);
             }
 
+            // Handle lights turning on and off with day & night
+
+            //Get all exterior lights
+            GameObject[] extLights = GameObject.FindGameObjectsWithTag("ExtLight");
+            for (int i = 0; i < extLights.Length; i++)
+            {
+                Light l;
+                if (l = extLights[i].GetComponentInChildren<Light>())
+                {
+                    if (currentTime <= 1200f)
+                    {
+                        l.intensity = 1f - Mathf.InverseLerp(600f, 1200f, currentTime);
+                    }
+                    else
+                    {
+                        l.intensity = Mathf.InverseLerp(1200f, 1800f, currentTime);
+                    }
+                }
+
+            }
         }
     }
 
@@ -63,24 +81,35 @@ public class Timekeeper : MonoBehaviour
         // Converts real time to game time
         currentTime += 2400f / fullDaySeconds * Time.deltaTime;
         if(currentTime >= 2400) {currentTime = 0;} // Restart the day
-        float sunRotation = Mathf.Lerp(-90, 270, currentTime/2400f);
-        directionalLight.transform.SetPositionAndRotation(new Vector3(), Quaternion.Euler(sunRotation, directionalLight.transform.rotation.y, directionalLight.transform.rotation.z));
-
-        // Fades sun intensity in/out as it rises and sets 
-        if(currentTime <= 1200f) { sun.intensity = Mathf.InverseLerp(600f, 1200f, currentTime); } 
-        else {sun.intensity = 1f - Mathf.InverseLerp(1200f, 1800f, currentTime);}
-
-                //Get all exterior lights
-        GameObject[] extLights = GameObject.FindGameObjectsWithTag("ExtLight");
-        for(int i = 0; i < extLights.Length; i++)
+        
+        if(directionalLight)
         {
-            Light l;
-            if (l = extLights[i].GetComponent<Light>()) 
-            {
-                if(currentTime <= 1200f){ l.intensity = 1f - Mathf.InverseLerp(600f, 1200f, currentTime); }
-                else { l.intensity = Mathf.InverseLerp(1200f, 1800f, currentTime); }
-            }
+            float sunRotation = Mathf.Lerp(-90, 270, currentTime / 2400f);
+            directionalLight.transform.SetPositionAndRotation(new Vector3(),
+                Quaternion.Euler(sunRotation, directionalLight.transform.rotation.y,
+                    directionalLight.transform.rotation.z));
 
+            // Fades sun intensity in/out as it rises and sets 
+            if (currentTime <= 1200f)
+            {
+                sun.intensity = Mathf.InverseLerp(600f, 1200f, currentTime);
+            }
+            else
+            {
+                sun.intensity = 1f - Mathf.InverseLerp(1200f, 1800f, currentTime);
+            }
+            //Get all exterior lights
+            GameObject[] extLights = GameObject.FindGameObjectsWithTag("ExtLight");
+            for(int i = 0; i < extLights.Length; i++)
+            {
+                Light l;
+                if (l = extLights[i].GetComponent<Light>()) 
+                {
+                    if(currentTime <= 1200f){ l.intensity = 1f - Mathf.InverseLerp(600f, 1200f, currentTime); }
+                    else { l.intensity = Mathf.InverseLerp(1200f, 1800f, currentTime); }
+                }
+
+            }
         }
     }
 

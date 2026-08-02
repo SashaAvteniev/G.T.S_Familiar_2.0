@@ -1,125 +1,59 @@
-using NUnit.Framework;
-using UnityEngine;
 using System.Collections.Generic;
-using NUnit.Framework.Constraints;
-using System;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using AYellowpaper.SerializedCollections;
 using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
 
-public class GameManager : MonoBehaviour
+public static class GameManager
 {
-    [SerializeField] private PlayerMovement player;
-    [SerializeField] private PlayerDataScript playerData;
-    [SerializeField] private Transform spawnPoint;
-    private List<GameObject> currentlyColiding = new List<GameObject>();
-    private Grabbables currentGrabbedObject;
-    
+    public static PlayerMovement player;
+    public static GameData gameData;
+    public static Timekeeper timekeeper;
+    public static bool dataLoaded;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    { 
-        currentGrabbedObject = null;
-        if(playerData.PlayerData.currentDoor != Vector3.zero && !playerData.PlayerData.enteredDoor)
+    // Create a task that we can use in other scripts while we await for the data to load
+    // Useful for loading screens
+    private static TaskCompletionSource<bool> initTask = new TaskCompletionSource<bool>(); 
+    public static Task InitTask = initTask.Task;
+
+    // This will create a persistent game manager that allows us to access global static data
+    // (e.g. player reference, timekeeper, etc.) globally, removing the requirement to have a
+    // game manager in a scene
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static async void Bootstrap()
+    {
+        var playerSessionDataHandle = Addressables.LoadAssetAsync<GameData>("GameData");
+        await playerSessionDataHandle.Task;
+
+        if(playerSessionDataHandle.Status == 
+        UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded)
         {
-            player.gameObject.GetComponent<CharacterController>().enabled = false;
-            player.transform.position = new Vector3(playerData.PlayerData.currentDoor.x, playerData.PlayerData.lastKnownY, playerData.PlayerData.currentDoor.z);
-            player.gameObject.GetComponent<CharacterController>().enabled = true;
-            playerData.PlayerData.currentDoor = Vector3.zero;
+            dataLoaded = true;
+            gameData = playerSessionDataHandle.Result;
+            if (gameData.doorExits == null)
+            {
+                gameData.doorExits = new SerializedDictionary<string, Vector3>();
+            }
+            if (string.IsNullOrEmpty(gameData.newDoorGUID))
+            {
+                Debug.Log("New door GUID is empty! We don't know where to put the player!");
+            }
+            if (gameData.data.currentTalisman.IsUnityNull())
+            {
+                gameData.data.currentTalisman = PlayerData.ETalismans.None;
+            }
+            initTask.SetResult(true);
+            return;
         }
-        else if (spawnPoint != null) 
-        {
-            player.transform.position = spawnPoint.position;
-        }
+        initTask.SetResult(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    public static void Init()
     {
-        if (player.Interacting)
-        {
-            OnInteract();
-            if (player.Grabbing)
-            {
-
-                currentGrabbedObject.FollowPossition = player.transform.position;
-            }
-            currentlyColiding.Clear();
-        }
-        else
-        {
-            if (player.Grabbing)
-            {
-                player.Grabbing = false;
-                currentGrabbedObject.Drop();
-                currentGrabbedObject=null;
-            }
-        }
-    }
-
-    private void OnInteract()
-    {
-        //Debug.Log("Hit");
-        if (currentGrabbedObject == null)
-        {
-            Collider[] newCollisions = Physics.OverlapSphere(player.transform.position, 2);
-            Vector3 closestPosition = new Vector3(int.MaxValue, int.MaxValue, int.MaxValue);
-            GameObject currentObject = null;
-            foreach (Collider collider in newCollisions)
-            {
-                if (collider.gameObject.GetComponent<Interactables>() != null)
-                {
-                    currentlyColiding.Add(collider.gameObject);
-                    if ((player.transform.position - collider.gameObject.transform.position).magnitude < closestPosition.magnitude)
-                    {
-                        closestPosition = player.transform.position - collider.gameObject.transform.position;
-                        currentObject = collider.gameObject;
-                    }
-                }
-            }
-            if (currentObject != null)
-            {
-                switch (currentObject.tag)
-                {
-                    case "Shovable":
-                        if (currentObject.GetComponent<Shovables>().ReadyToInteract)
-                        {
-
-                            currentObject.GetComponent<Shovables>().ShoveSpeed = player.ShoveSpeed;
-                            currentObject.GetComponent<Shovables>().Shove();
-                            player.Interacting = false;
-                        }
-                        break;
-
-                    case "Grabbable":
-                        
-                        if (currentObject.GetComponent<Grabbables>().ReadyToInteract)
-                        {
-                            
-                            currentGrabbedObject = currentObject.GetComponent<Grabbables>();
-                            player.Grabbing = true;
-                            currentGrabbedObject.Grab();
-                        }
-
-                        break;
-
-                    case "Talisman":
-                        if (currentObject.GetComponent<Talismans>().ReadyToInteract)
-                        {
-                            currentObject.GetComponent<Talismans>().OnPickup();
-                            player.Interacting = false;
-                        }
-                        break;
-                    case "Door":
-                        if (currentObject.GetComponent<Doors>().ReadyToInteract)
-                        {
-                            playerData.PlayerData.lastKnownY = player.transform.position.y;
-                            currentObject.GetComponent<Doors>().Enter();
-                            player.Interacting = false;
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        timekeeper = new GameObject("Timekeeper").AddComponent<Timekeeper>();
     }
 }
