@@ -47,6 +47,7 @@ public class PianoPuzzleManager : MonoBehaviour
         pianoAudio = GetComponent<AudioSource>();
         mSuccess = await Addressables.LoadAssetAsync<Material>("BarSuccess").Task;
         mFailure = await Addressables.LoadAssetAsync<Material>("BarFail").Task;
+        talisman = await Addressables.LoadAssetAsync<GameObject>("Talisman").Task;
         
         // GetComponent is an expensive function, so we want to call it once per object and store the result
         barOneMeshRenderer = barOneObject.GetComponent<MeshRenderer>();
@@ -97,11 +98,10 @@ public class PianoPuzzleManager : MonoBehaviour
                 puzzleNoteQueue.Clear();
                 
                 // Spawn talisman, will be 1 unit above player
-                Transform spawnPos = GameManager.player.transform;
-                spawnPos.position = new Vector3(GameManager.player.transform.position.x,
-                    GameManager.player.transform.position.y + 1,
-                    GameManager.player.transform.position.z);
-                Addressables.InstantiateAsync(Addressables.LoadAssetAsync<GameObject>("Talisman").Result, spawnPos);
+                Vector3 playerPos = GameManager.player.transform.position;
+                Vector3 spawnPos = new Vector3(playerPos.x, playerPos.y + 1f, playerPos.z);
+                GameObject talismanRef = Instantiate(talisman, spawnPos, Quaternion.identity);
+                talismanRef.GetComponent<Talisman>().talismanVersion = PlayerData.ETalismans.Elk;
             }
             else
             {
@@ -117,6 +117,8 @@ public class PianoPuzzleManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        // Due to the fact that we don't know what is going to be overlapping the collider,
+        // we can do the check and get component at the same time this way
         if(collision.gameObject.TryGetComponent(out PuzzleObjectPushScript puzzleObject))
         {
             puzzleNoteQueue.Add(puzzleObject.NoteValue);

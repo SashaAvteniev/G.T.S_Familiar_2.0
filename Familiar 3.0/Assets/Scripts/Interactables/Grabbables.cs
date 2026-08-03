@@ -3,19 +3,18 @@ using UnityEngine;
 
 public class Grabbables : InteractParent
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    
     private bool grabbed;
     private Rigidbody rigidBody;
 
     void Start()
     {
+        // GetComponent<>() is expensive, so we call it once and store the result
         rigidBody = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
+        // If the player is holding the item, then follow the players position
         if(grabbed)
         {
             transform.position = GameManager.player.transform.position;

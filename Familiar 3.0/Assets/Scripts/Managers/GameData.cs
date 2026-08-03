@@ -4,29 +4,31 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "PlayerDataScript", menuName = "Scriptable Objects/PlayerDataScript")]
 public class GameData : ScriptableObject
 {
+    [FormerlySerializedAs("data")]
     [HideInInspector]
     [SerializeField]
-    public PlayerData data;
+    public PlayerData playerData; // The player specific data
 
     [HideInInspector]
     [SerializeField]
-    public bool interactFlag = false;
+    public bool interactFlag = false; // Only here for future save system
     
     [SerializedDictionary("GUID", "Spawn Point")]
-    
+    [HideInInspector] //Remove to aid in debugging
     public SerializedDictionary<string, Vector3> doorExits;
 
-    [SerializeField] public string newDoorGUID;
-    
-    // Used in editor only and for before a save system
-    void OnApplicationQuit()
-    {
-        interactFlag = false;
-    }
+    [HideInInspector]
+    [SerializeField]
+    public string newDoorGUID; // Which door GUID is the target in the new scene
+
+    [HideInInspector]
+    [SerializeField]
+    public float currentTime; // Current time in the world
 }
 
 [System.Serializable]

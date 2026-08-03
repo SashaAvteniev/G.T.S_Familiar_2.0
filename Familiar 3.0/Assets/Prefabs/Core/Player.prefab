@@ -29,8 +29,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -3.47749, y: -0, z: -0.34287}
-  m_LocalScale: {x: 0.26198366, y: 0.26198366, z: 0.26198366}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2346224190931354320}
   - {fileID: 5629828582673043635}
@@ -107,9 +107,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb79e2b9e497314f84f3a43bf670db2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  movementSpeed: 3.5
-  gravity: 30
-  jumpHeight: 10
+  movementSpeed: 3
+  gravity: 40
+  jumpHeight: 9
   shoveSpeed: 200
 --- !u!143 &1711083910804838851
 CharacterController:
@@ -129,13 +129,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2.76
+  m_Height: 1.7
   m_Radius: 0.2
   m_SlopeLimit: 90
   m_StepOffset: 0
   m_SkinWidth: 0.1
   m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -0.31, z: 0}
 --- !u!1 &4506934770121608850
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,8 +313,8 @@ Transform:
   m_GameObject: {fileID: 5418642577718966258}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.773, z: 0.277}
+  m_LocalScale: {x: 1, y: 1.5314, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4772506546067472281}

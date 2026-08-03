@@ -100,6 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 722147136043281240}
   - component: {fileID: 8658624341020171940}
+  - component: {fileID: 6903852108153567137}
   m_Layer: 0
   m_Name: Door_03
   m_TagString: Untagged
@@ -115,7 +116,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2090206416003141685}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071065, z: -0, w: 0.7071072}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 12.13, y: 1.8, z: 7.87}
   m_LocalScale: {x: 0.016521743, y: 0.016521743, z: 0.016521743}
   m_ConstrainProportionsScale: 0
@@ -140,6 +141,33 @@ MonoBehaviour:
   outline: {fileID: 0}
   id: Town_a1d791d5-ee4e-43bd-8f1b-3e84396a3884
   linkedGUID: PuzzleRoom_f82d8247-3852-48a0-a1c4-b266c7919f42
+--- !u!54 &6903852108153567137
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090206416003141685}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5230689047947137089
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,7 +236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
   m_IsGlobal: 0
   priority: 0
-  blendDistance: 1
+  blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 0}
 --- !u!1 &7106776577017773030
@@ -222,6 +250,7 @@ GameObject:
   - component: {fileID: 1200054218365348537}
   - component: {fileID: 3650237162583183761}
   - component: {fileID: 300198940688079806}
+  - component: {fileID: 2952325798664368910}
   m_Layer: 0
   m_Name: Frame
   m_TagString: Untagged
@@ -302,3 +331,24 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2952325798664368910
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7106776577017773030}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.6188514, y: 2.3205247, z: 0.8609371}
+  m_Center: {x: 0, y: 0, z: 0.00000047683716}

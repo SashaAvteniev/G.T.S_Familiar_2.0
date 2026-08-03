@@ -19,7 +19,7 @@ public class CopyID : UnityEditor.Editor
         // Draw a clean, dedicated button instead of a text field
         if (GUILayout.Button("Copy Object GUID", GUILayout.Height(30)))
         {
-            GUIUtility.systemCopyBuffer = script.ID;
+            script.CopyGuidToClipboard();
         }
 
         GUILayout.Space(5);

@@ -81,7 +81,11 @@ public class Timekeeper : MonoBehaviour
         // Converts real time to game time
         currentTime += 2400f / fullDaySeconds * Time.deltaTime;
         if(currentTime >= 2400) {currentTime = 0;} // Restart the day
+
+        // Update the current time in the game manager for when we save/transition scenes
+        GameManager.gameData.currentTime = currentTime;
         
+        // Null check needed for interior scenes
         if(directionalLight)
         {
             float sunRotation = Mathf.Lerp(-90, 270, currentTime / 2400f);

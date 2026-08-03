@@ -1,13 +1,13 @@
 using UnityEngine;
 
 public class Talisman : InteractParent
-{
-    [SerializeField] PlayerData talismanVersion;
-    [SerializeField] GameData playerData;
+{ 
+    public PlayerData.ETalismans talismanVersion;
 
     protected override void Interact()
     {
-        playerData.data.currentTalisman = talismanVersion.currentTalisman;
+        GameManager.gameData.playerData.currentTalisman = talismanVersion;
+        GameManager.gameData.interactFlag = false;
         gameObject.SetActive(false);
     }
 }

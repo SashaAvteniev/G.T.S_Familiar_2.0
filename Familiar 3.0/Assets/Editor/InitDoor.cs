@@ -2,6 +2,8 @@
 using UnityEngine;
 using UnityEditor;
 
+// Adds the initialize door button to doors, only really needed for debugging,
+// Or if a door is having trouble adding itself to the dictionary
 [CustomEditor(typeof(Door), true)]
 public class InitDoor : UnityEditor.Editor
 {

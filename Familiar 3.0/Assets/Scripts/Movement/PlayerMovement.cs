@@ -52,7 +52,6 @@ public class PlayerMovement : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         if(GameManager.gameData.doorExits.ContainsKey(GameManager.gameData.newDoorGUID))
         {
-            Debug.Log("Teleporting Player!");
             CharacterController characterController = GetComponent<CharacterController>();
             characterController.enabled = false;
             gameObject.transform.position = GameManager.gameData.doorExits[GameManager.gameData.newDoorGUID];
@@ -93,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
             jumped = true;
             grounded = false;
         }
-        else if (GameManager.gameData.data.currentTalisman == PlayerData.ETalismans.Elk && context.started && jumped)
+        else if (GameManager.gameData.playerData.currentTalisman == PlayerData.ETalismans.Elk && context.started && jumped)
         {
             velocityVertical.y = Vector3.up.y * jumpHeight;
             grounded = false;
