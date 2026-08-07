@@ -7,13 +7,13 @@ public class PuzzleObjectPushScript : Shovables
     Vector3 startingRotation;
     [SerializeField] int noteValue;
     [SerializeField] Transform target;
-
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
        staringPOS = this.transform.position;
-        startingRotation = this.transform.rotation.eulerAngles;
+       startingRotation = this.transform.rotation.eulerAngles;
     }
 
     // Update is called once per frame
@@ -40,8 +40,6 @@ public class PuzzleObjectPushScript : Shovables
         this.gameObject.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
         this.gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        GetComponent<BoxCollider>().center = new Vector3(0, 0, .3241f);
-        GetComponent<BoxCollider>().size = new Vector3(1f, 1f, 1.65f);
         this.transform.eulerAngles = startingRotation;
         this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
     }

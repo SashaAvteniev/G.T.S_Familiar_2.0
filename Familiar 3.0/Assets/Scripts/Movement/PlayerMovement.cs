@@ -38,6 +38,9 @@ public class PlayerMovement : MonoBehaviour
 
     //PlayerSaveData
     [SerializeField] private PlayerDataScript playerDataScript;
+    
+    //Animations
+    private Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -52,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
         speedDefault = movementSpeed;
         jumped = false;
 
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -66,8 +70,6 @@ public class PlayerMovement : MonoBehaviour
         CheckFallingOffEdge();
         CheckLanded();
         #endregion
-
-
     }
 
     #region Player Methods
@@ -77,12 +79,13 @@ public class PlayerMovement : MonoBehaviour
         direction.z = context.ReadValue<Vector2>().x;
         direction.x = -context.ReadValue<Vector2>().y;
         direction = direction.normalized;
+        
+        //activate walking animation
+        animator.SetBool("isWalking", true);
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
-
-
         if (context.started && grounded)
         {
             velocityVertical = Vector3.up * jumpHeight;
@@ -111,9 +114,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     #endregion
-
-
-
+    
     #region background methods
     //Background methods
     private void ApplyGravity()
