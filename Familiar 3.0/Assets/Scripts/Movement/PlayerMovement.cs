@@ -78,10 +78,20 @@ public class PlayerMovement : MonoBehaviour
     {
         direction.z = context.ReadValue<Vector2>().x;
         direction.x = -context.ReadValue<Vector2>().y;
-        direction = direction.normalized;
-        
+
         //activate walking animation
-        animator.SetBool("isWalking", true);
+        if(direction.magnitude > 0)
+        {
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
+        animator.SetFloat("inputZ", direction.z);
+        animator.SetFloat("inputX", direction.x);
+        //Normalize direction for consistant speed
+        direction = direction.normalized;
     }
 
     public void Jump(InputAction.CallbackContext context)
