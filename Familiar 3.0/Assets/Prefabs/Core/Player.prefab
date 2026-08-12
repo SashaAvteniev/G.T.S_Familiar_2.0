@@ -188,7 +188,7 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2.76
+  m_Height: 1.21
   m_Radius: 0.55
   m_SlopeLimit: 90
   m_StepOffset: 0
@@ -397,8 +397,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.8614351, y: 5.272403, z: 2.5335736}
-  m_Center: {x: 0.26866928, y: -1.5274085, z: -0.012858059}
+  m_Size: {x: 1.1151692, y: 2.489599, z: 1.4299796}
+  m_Center: {x: 0.009794232, y: -0.13600603, z: 0.00012509522}
 --- !u!54 &7987859081465145409
 Rigidbody:
   m_ObjectHideFlags: 0
