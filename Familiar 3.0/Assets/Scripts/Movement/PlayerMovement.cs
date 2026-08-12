@@ -54,8 +54,6 @@ public class PlayerMovement : MonoBehaviour
         interacting = false;
         speedDefault = movementSpeed;
         jumped = false;
-
-        // animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -90,7 +88,8 @@ public class PlayerMovement : MonoBehaviour
         }
         animator.SetFloat("inputZ", direction.z);
         animator.SetFloat("inputX", direction.x);
-        //Normalize direction for consistant speed
+       
+        //Normalize direction for consistent speed
         direction = direction.normalized;
     }
 
