@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private PlayerDataScript playerDataScript;
     
     //Animations
-    private Animator animator;
+    [SerializeField] private Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
         speedDefault = movementSpeed;
         jumped = false;
 
-        animator = GetComponent<Animator>();
+        // animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
