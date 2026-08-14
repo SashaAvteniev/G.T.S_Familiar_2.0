@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a71ce9f8a610874ead57cd62a7e03dd, type: 3}
   m_Name: IntroWindowManager
   m_EditorClassIdentifier: Assembly-CSharp::IntroWindowManager
-  hasBeenShown: 0
+  hasBeenShown: 1

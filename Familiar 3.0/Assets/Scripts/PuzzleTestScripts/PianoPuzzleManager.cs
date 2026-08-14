@@ -4,6 +4,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.XR;
 
 public class PianoPuzzleManager : MonoBehaviour
 {
@@ -11,26 +13,46 @@ public class PianoPuzzleManager : MonoBehaviour
     [SerializeField] List<int> firstBar;
     [SerializeField] List<int> secondBar;
     [SerializeField] List<int> thirdBar;
-    bool correctOrderFirst;
-    bool correctOrderSecond;
-    bool correctOrderThird;
 
     [SerializeField] GameObject barOneObject;
     [SerializeField] GameObject barTwoObject;
     [SerializeField] GameObject barThreeObject;
+    
+    private MeshRenderer barOneMeshRenderer;
+    private MeshRenderer barTwoMeshRenderer;
+    private MeshRenderer barThreeMeshRenderer;
 
-    [SerializeField] Material success;
-    [SerializeField] Material failure;
+    [SerializeField]
+    [HideInInspector]
+    private Material mSuccess;
+    
+    [SerializeField]
+    [HideInInspector]
+    private Material mFailure;
 
-    [SerializeField] GameObject talisman; 
+    [SerializeField]
+    [HideInInspector]
+    private GameObject talisman; 
+    
+    // Default value is false
+    private bool correctOrderFirst;
+    private bool correctOrderSecond;
+    private bool correctOrderThird;
+    
+    private AudioSource pianoAudio;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    async void Start()
     {
-        correctOrderFirst = false;
-        correctOrderSecond = false;
-        correctOrderThird = false;
-        talisman.SetActive(false);
-        talisman.GetComponent<Rigidbody>().isKinematic = true;
+        pianoAudio = GetComponent<AudioSource>();
+        mSuccess = await Addressables.LoadAssetAsync<Material>("BarSuccess").Task;
+        mFailure = await Addressables.LoadAssetAsync<Material>("BarFail").Task;
+        talisman = await Addressables.LoadAssetAsync<GameObject>("Talisman").Task;
+        
+        // GetComponent is an expensive function, so we want to call it once per object and store the result
+        barOneMeshRenderer = barOneObject.GetComponent<MeshRenderer>();
+        barTwoMeshRenderer = barTwoObject.GetComponent<MeshRenderer>();
+        barThreeMeshRenderer = barThreeObject.GetComponent<MeshRenderer>();
     }
 
     // Update is called once per frame
@@ -41,14 +63,13 @@ public class PianoPuzzleManager : MonoBehaviour
             correctOrderFirst = puzzleNoteQueue.SequenceEqual(firstBar);
             if (correctOrderFirst)
             {
-                Debug.Log("firstBarDone");
                 puzzleNoteQueue.Clear();
-                barOneObject.GetComponent<MeshRenderer>().material = success;
+                barOneMeshRenderer.material = mSuccess;
             }
             else
             {
                 puzzleNoteQueue.Clear();
-                barOneObject.GetComponent<MeshRenderer>().material = failure;
+                barOneMeshRenderer.material = mFailure;
             }
         }
         else if(puzzleNoteQueue.Count == 4 && correctOrderFirst && !correctOrderSecond)
@@ -56,15 +77,14 @@ public class PianoPuzzleManager : MonoBehaviour
             correctOrderSecond = puzzleNoteQueue.SequenceEqual(secondBar);
             if (correctOrderSecond)
             {
-                Debug.Log("secondBarDone");
                 puzzleNoteQueue.Clear();
-                barTwoObject.GetComponent<MeshRenderer>().material = success;
+                barTwoMeshRenderer.material = mSuccess;
             }
             else
             {
                 puzzleNoteQueue.Clear();
-                barOneObject.GetComponent<MeshRenderer>().material = failure;
-                barTwoObject.GetComponent<MeshRenderer>().material = failure;
+                barOneMeshRenderer.material = mFailure;
+                barTwoMeshRenderer.material = mFailure;
                 correctOrderFirst = false;
             }
         }
@@ -74,30 +94,37 @@ public class PianoPuzzleManager : MonoBehaviour
             if (correctOrderThird)
             {
                 Debug.Log("thirdBarDone");
-                barThreeObject.GetComponent<MeshRenderer>().material = success;
+                barThreeMeshRenderer.material = mSuccess;
                 puzzleNoteQueue.Clear();
-                talisman.SetActive(true);
-                talisman.GetComponent<Rigidbody>().isKinematic = false;
+                
+                // Spawn talisman, will be 1 unit above player
+                Vector3 playerPos = GameManager.player.transform.position;
+                Vector3 spawnPos = new Vector3(playerPos.x, playerPos.y + 1f, playerPos.z);
+                GameObject talismanRef = Instantiate(talisman, spawnPos, Quaternion.identity);
+                talismanRef.GetComponent<Talisman>().talismanVersion = PlayerData.ETalismans.Elk;
             }
             else
             {
                 puzzleNoteQueue.Clear();
                 correctOrderFirst = false;
                 correctOrderSecond = false;
-                barOneObject.GetComponent<MeshRenderer>().material = failure;
-                barTwoObject.GetComponent<MeshRenderer>().material = failure;
-                barThreeObject.GetComponent<MeshRenderer>().material = failure;
+                barOneMeshRenderer.material = mFailure;
+                barTwoMeshRenderer.material = mFailure;
+                barThreeMeshRenderer.material = mFailure;
             }
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Shovable")
+        // Due to the fact that we don't know what is going to be overlapping the collider,
+        // we can do the check and get component at the same time this way
+        if(collision.gameObject.TryGetComponent(out PuzzleObjectPushScript puzzleObject))
         {
-            puzzleNoteQueue.Add(collision.gameObject.GetComponent<PuzzleObjectPushScript>().NoteValue);
-            collision.gameObject.GetComponent<PuzzleObjectPushScript>().Reset();
+            puzzleNoteQueue.Add(puzzleObject.NoteValue);
+            pianoAudio.generator = puzzleObject.SoundQueue;
+            pianoAudio.Play();
+            puzzleObject.Reset();
         }
-
     }
 }

@@ -258,6 +258,7 @@ GameObject:
   - component: {fileID: 4675452826053091251}
   - component: {fileID: 7434954320351290759}
   - component: {fileID: 2675663983940324647}
+  - component: {fileID: 8048915913609118940}
   m_Layer: 0
   m_Name: SM_Rock_Cliff_01_LOD0
   m_TagString: Untagged
@@ -337,6 +338,28 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8048915913609118940
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4400244488027437492}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7562218849442348878, guid: 71f8aa02af0c0bbb7b61dab6839b5a0e, type: 3}
 --- !u!1 &7070375084412604578
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,9 +7,9 @@ TagManager:
   - Floor
   - Shovable
   - Grabbable
+  - ExtLight
   - Talisman
   - Door
-  - ExtLight
   layers:
   - Default
   - TransparentFX
@@ -20,11 +20,11 @@ TagManager:
   - Walls
   - Player
   - HiddenBarrier
-  - Interactable
+  - 3D Background
   - Suimono_Water
   - Suimono_Depth
   - Suimono_Screen
-  - 
+  - Highlight
   - 
   - 
   - 
@@ -46,6 +46,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player Sprite
+    uniqueID: 2758966649
     locked: 0
   m_RenderingLayers:
   - Default

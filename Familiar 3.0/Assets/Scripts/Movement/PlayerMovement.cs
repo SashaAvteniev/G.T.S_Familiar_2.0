@@ -8,39 +8,25 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float movementSpeed;
     private float speedDefault;
     [SerializeField] private float gravity;
-    [SerializeField] private GameObject player;
-    [SerializeField] private SpriteRenderer playerSprite;
+    //[SerializeField] private SpriteRenderer playerSprite;
 
     private Vector3 direction;
     private Vector3 velocityHorizontal;
     private Vector3 velocityVertical;
 
+    private Vector2 rawInput;
+    
     //Jumping
     [SerializeField] private float jumpHeight;
     private float holdJumpTime;
     private bool holdingJump;
     private bool grounded;
     private bool jumped;
-
-    //Interacting
-    private bool interacting;
-    public bool Interacting { get { return interacting; } set { interacting = value; } }
-
+    
     //Shoving
     [SerializeField] private float shoveSpeed;
     public float ShoveSpeed { get { return shoveSpeed; } }
-    private bool shoving;
-    public bool Shoving { get { return shoving; } set { shoving = value; } }
-
-    //Grabbing
-    private bool grabbing;
-    public bool Grabbing { get { return grabbing; } set { grabbing = value; } }
-
-    //PlayerSaveData
-    [SerializeField] private PlayerDataScript playerDataScript;
-    
-    //Animations
-    [SerializeField] private Animator animator;
+    private CharacterController characterController;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -49,48 +35,54 @@ public class PlayerMovement : MonoBehaviour
         grounded = true;
         velocityVertical = Vector3.zero;
         velocityHorizontal = Vector3.zero;
-        shoving = false;
-        grabbing = false;
-        interacting = false;
         speedDefault = movementSpeed;
         jumped = false;
+        characterController = GetComponent<CharacterController>();
+        if(GameManager.gameData.doorExits.ContainsKey(GameManager.gameData.newDoorGUID))
+        {
+            CharacterController characterController = GetComponent<CharacterController>();
+            characterController.enabled = false;
+            gameObject.transform.position = GameManager.gameData.doorExits[GameManager.gameData.newDoorGUID];
+            characterController.enabled = true;
+        }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         #region calculate velocity
+        UpdateDirectionWithCamera();
         velocityHorizontal = new Vector3(direction.x * movementSpeed, 0, direction.z * movementSpeed);
         ApplyGravity();
         #endregion
         #region apply velocity
-        player.GetComponent<CharacterController>().Move(velocityVertical * Time.deltaTime + velocityHorizontal * Time.deltaTime);
+        characterController.Move(velocityVertical * Time.deltaTime + velocityHorizontal * Time.deltaTime);
         CheckFallingOffEdge();
         CheckLanded();
         #endregion
+    }
+    
+    private void UpdateDirectionWithCamera()
+    {
+        Camera mainCamera = Camera.main;
+        if (mainCamera == null) return;
+    
+        Vector3 cameraForward = mainCamera.transform.forward;
+        cameraForward.y = 0f;
+        cameraForward.Normalize();
+    
+        Vector3 cameraRight = mainCamera.transform.right;
+        cameraRight.y = 0f;
+        cameraRight.Normalize();
+    
+        direction = (cameraForward * rawInput.y + cameraRight * rawInput.x).normalized;
     }
 
     #region Player Methods
     //Active player methods
     public void Move(InputAction.CallbackContext context)
     {
-        direction.z = context.ReadValue<Vector2>().x;
-        direction.x = -context.ReadValue<Vector2>().y;
-
-        //activate walking animation
-        if(direction.magnitude > 0)
-        {
-            animator.SetBool("isWalking", true);
-        }
-        else
-        {
-            animator.SetBool("isWalking", false);
-        }
-        animator.SetFloat("inputZ", direction.z);
-        animator.SetFloat("inputX", direction.x);
-       
-        //Normalize direction for consistent speed
-        direction = direction.normalized;
+        rawInput = context.ReadValue<Vector2>();
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -101,39 +93,27 @@ public class PlayerMovement : MonoBehaviour
             jumped = true;
             grounded = false;
         }
-        else if (playerDataScript.PlayerData.currentTalisman == PlayerData.TalismanInUse.Elk && context.started && jumped)
+        else if (GameManager.gameData.playerData.currentTalisman == PlayerData.ETalismans.Elk && context.started && jumped)
         {
             velocityVertical.y = Vector3.up.y * jumpHeight;
             grounded = false;
             jumped = false;
         }
     }
-
-
-    public void Interact(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            interacting = true;
-        }
-        if (context.canceled)
-        {
-            interacting = false;
-        }
-    }
-
     #endregion
-    
+
+
+
     #region background methods
     //Background methods
     private void ApplyGravity()
     {
-       velocityVertical += Vector3.down * gravity*Time.deltaTime;
+       velocityVertical += Time.deltaTime * gravity * Vector3.down;
     }
 
     private void CheckLanded()
     {
-        if (player.GetComponent<CharacterController>().isGrounded)
+        if (characterController.isGrounded)
         {
             if (!grounded)
             {
@@ -147,10 +127,10 @@ public class PlayerMovement : MonoBehaviour
 
         }
     }
-
+    
     private void CheckFallingOffEdge()
     {
-        if (!player.GetComponent<CharacterController>().isGrounded && grounded)
+        if (!characterController.isGrounded && grounded)
         {
             velocityVertical = Vector3.zero;
             gravity = 20;
