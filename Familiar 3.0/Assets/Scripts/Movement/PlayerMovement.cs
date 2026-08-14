@@ -14,27 +14,18 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 velocityHorizontal;
     private Vector3 velocityVertical;
 
+    private Vector2 rawInput;
+    
     //Jumping
     [SerializeField] private float jumpHeight;
     private float holdJumpTime;
     private bool holdingJump;
     private bool grounded;
     private bool jumped;
-
-    //Interacting
-    private bool interacting;
-    public bool Interacting { get { return interacting; } set { interacting = value; } }
-
+    
     //Shoving
     [SerializeField] private float shoveSpeed;
     public float ShoveSpeed { get { return shoveSpeed; } }
-    private bool shoving;
-    public bool Shoving { get { return shoving; } set { shoving = value; } }
-
-    //Grabbing
-    private bool grabbing;
-    public bool Grabbing { get { return grabbing; } set { grabbing = value; } }
-
     private CharacterController characterController;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -44,9 +35,6 @@ public class PlayerMovement : MonoBehaviour
         grounded = true;
         velocityVertical = Vector3.zero;
         velocityHorizontal = Vector3.zero;
-        shoving = false;
-        grabbing = false;
-        interacting = false;
         speedDefault = movementSpeed;
         jumped = false;
         characterController = GetComponent<CharacterController>();
@@ -63,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         #region calculate velocity
+        UpdateDirectionWithCamera();
         velocityHorizontal = new Vector3(direction.x * movementSpeed, 0, direction.z * movementSpeed);
         ApplyGravity();
         #endregion
@@ -71,17 +60,29 @@ public class PlayerMovement : MonoBehaviour
         CheckFallingOffEdge();
         CheckLanded();
         #endregion
-
-
+    }
+    
+    private void UpdateDirectionWithCamera()
+    {
+        Camera mainCamera = Camera.main;
+        if (mainCamera == null) return;
+    
+        Vector3 cameraForward = mainCamera.transform.forward;
+        cameraForward.y = 0f;
+        cameraForward.Normalize();
+    
+        Vector3 cameraRight = mainCamera.transform.right;
+        cameraRight.y = 0f;
+        cameraRight.Normalize();
+    
+        direction = (cameraForward * rawInput.y + cameraRight * rawInput.x).normalized;
     }
 
     #region Player Methods
     //Active player methods
     public void Move(InputAction.CallbackContext context)
     {
-        direction.z = context.ReadValue<Vector2>().x;
-        direction.x = -context.ReadValue<Vector2>().y;
-        direction = direction.normalized;
+        rawInput = context.ReadValue<Vector2>();
     }
 
     public void Jump(InputAction.CallbackContext context)

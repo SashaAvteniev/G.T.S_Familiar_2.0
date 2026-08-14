@@ -30,13 +30,13 @@ public class CameraFollow : MonoBehaviour
     
     void Update()
     {
-        if (Keyboard.current.qKey.wasPressedThisFrame)
+        if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             currentYaw += 90f;
             target.transform.rotation = Quaternion.Euler(0f, currentYaw - 90f, 0f);
         }
 
-        if (Keyboard.current.eKey.wasPressedThisFrame)
+        if (Keyboard.current.qKey.wasPressedThisFrame)
         {
             currentYaw -= 90f;
             target.transform.rotation = Quaternion.Euler(0f, currentYaw - 90f, 0f);
