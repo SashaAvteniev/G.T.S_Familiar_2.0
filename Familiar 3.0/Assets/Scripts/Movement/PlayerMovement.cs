@@ -28,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
     public float ShoveSpeed { get { return shoveSpeed; } }
     private CharacterController characterController;
 
+    private Animator animator;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -45,6 +47,8 @@ public class PlayerMovement : MonoBehaviour
             gameObject.transform.position = GameManager.gameData.doorExits[GameManager.gameData.newDoorGUID];
             characterController.enabled = true;
         }
+
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -52,6 +56,8 @@ public class PlayerMovement : MonoBehaviour
     {
         #region calculate velocity
         UpdateDirectionWithCamera();
+        animator.SetFloat("inputZ", direction.z);
+        animator.SetFloat("inputX", direction.x);
         velocityHorizontal = new Vector3(direction.x * movementSpeed, 0, direction.z * movementSpeed);
         ApplyGravity();
         #endregion
@@ -83,6 +89,17 @@ public class PlayerMovement : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         rawInput = context.ReadValue<Vector2>();
+        UpdateDirectionWithCamera();
+        if(direction.magnitude > 0)
+        {
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
+        animator.SetFloat("inputZ", direction.z);
+        animator.SetFloat("inputX", direction.x);
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -99,6 +116,7 @@ public class PlayerMovement : MonoBehaviour
             grounded = false;
             jumped = false;
         }
+        animator.SetBool("isJumping", true);
     }
     #endregion
 
@@ -123,8 +141,8 @@ public class PlayerMovement : MonoBehaviour
                 movementSpeed = speedDefault;
                 jumped = false;
                 gravity = 30;
+                animator.SetBool("isJumping", false);
             }
-
         }
     }
     

@@ -51,16 +51,16 @@ public class CameraFollow : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log("Yaw 1: " + transform.rotation.eulerAngles);
+        //Debug.Log("Yaw 1: " + transform.rotation.eulerAngles);
         // base offset
         Vector3 offset = new Vector3(followDistance + 1f, followDistance * 0.75f, 0f);
         
-        Debug.Log("Yaw 2: " + transform.rotation.eulerAngles);
+        //Debug.Log("Yaw 2: " + transform.rotation.eulerAngles);
 
         // Rotate the offset around the player
         offset = Quaternion.Euler(0f, currentYaw, 0f) * offset;
         
-        Debug.Log("Yaw 3: " + transform.rotation.eulerAngles);
+        //Debug.Log("Yaw 3: " + transform.rotation.eulerAngles);
         
         // Vector3 desiredPosition = target.transform.position + offset;
         //
@@ -74,11 +74,11 @@ public class CameraFollow : MonoBehaviour
             target.transform.position + offset, 
             Time.deltaTime * smoothSpeed);
         
-        Debug.Log("Yaw 4: " + transform.rotation.eulerAngles);
+        //Debug.Log("Yaw 4: " + transform.rotation.eulerAngles);
         
         // Keep the camera looking at the player
         transform.LookAt(target.transform.position + Vector3.up * 1.2f);
         
-        Debug.Log("Yaw 5: " + transform.rotation.eulerAngles);
+        //Debug.Log("Yaw 5: " + transform.rotation.eulerAngles);
     }
 }
