@@ -20,7 +20,7 @@ TagManager:
   - Walls
   - Player
   - HiddenBarrier
-  - 
+  - 3D Background
   - Suimono_Water
   - Suimono_Depth
   - Suimono_Screen
@@ -46,6 +46,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player Sprite
+    uniqueID: 2758966649
     locked: 0
   m_RenderingLayers:
   - Default

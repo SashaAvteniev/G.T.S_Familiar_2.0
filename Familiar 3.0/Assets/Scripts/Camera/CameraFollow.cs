@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,6 +8,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField, Header("Camera")] private float followDistance;
     [SerializeField] private GameObject target;
     [SerializeField] private float smoothSpeed;
+    [SerializeField] private Vector3 offset;
 
     // [Header("Starting Rotation")]
     // //settings for the camera
