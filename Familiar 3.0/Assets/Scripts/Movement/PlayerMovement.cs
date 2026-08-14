@@ -109,14 +109,18 @@ public class PlayerMovement : MonoBehaviour
             velocityVertical = Vector3.up * jumpHeight;
             jumped = true;
             grounded = false;
+            animator.SetTrigger("Jump");
+            animator.SetBool("isWalking", false);
         }
         else if (GameManager.gameData.playerData.currentTalisman == PlayerData.ETalismans.Elk && context.started && jumped)
         {
             velocityVertical.y = Vector3.up.y * jumpHeight;
             grounded = false;
             jumped = false;
+            animator.SetBool("isJumping", true);
+            animator.SetBool("isWalking", false);
         }
-        animator.SetBool("isJumping", true);
+        
     }
     #endregion
 
@@ -133,6 +137,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (characterController.isGrounded)
         {
+            if (direction.magnitude > 0)
+            {
+                animator.SetBool("isWalking", true);
+            }
             if (!grounded)
             {
                 //Debug.Log("player is grounded");
@@ -141,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
                 movementSpeed = speedDefault;
                 jumped = false;
                 gravity = 30;
-                animator.SetBool("isJumping", false);
+
             }
         }
     }
