@@ -80,7 +80,7 @@ public class CameraFollow : MonoBehaviour
             Time.deltaTime * smoothSpeed);
         
         // Keep the camera looking at the player
-        transform.LookAt(target.transform.position + Vector3.up * 1.2f);
+        //transform.LookAt(target.transform.position + Vector3.up * 1.2f);
     }
 
     private void OnTriggerEnter(Collider other)
