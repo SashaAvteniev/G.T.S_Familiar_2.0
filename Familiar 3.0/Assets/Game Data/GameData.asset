@@ -12,14 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0712eae7585eaa7498d878f8cc758ec7, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDataScript
-  data:
+  playerData:
     currentTalisman: 0
     unlockedTalismans: 
   interactFlag: 0
   doorExits:
-    _serializedList:
-    - Key: PuzzleRoom_f82d8247-3852-48a0-a1c4-b266c7919f42
-      Value: {x: 6.42, y: 1.5600009, z: -1.5010002}
-    - Key: Town_a1d791d5-ee4e-43bd-8f1b-3e84396a3884
-      Value: {x: 19.25, y: 2.17, z: -1.99}
+    _serializedList: []
   newDoorGUID: 
+  currentTime: 1669.3203

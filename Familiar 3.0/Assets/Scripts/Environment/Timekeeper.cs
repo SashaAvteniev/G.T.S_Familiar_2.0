@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 // using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using Object = System.Object;
 
 public class Timekeeper : MonoBehaviour
 {
     public bool simulateTime = true;
     public GameObject directionalLight;
-    
+    public Volume postProcessVolume;
+
+    private ToonShadingVolume volumeSettings;
     //0 is midnight, 2300 is 11pm.
     [Range(0, 2400)]
     public float currentTime = 0f;
@@ -19,11 +25,20 @@ public class Timekeeper : MonoBehaviour
     private float fullDaySeconds = 0f;
     private Light sun;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    async void Start()
     {
         if(directionalLight)
             sun = directionalLight.GetComponent<Light>();
         fullDaySeconds = dayLength * 60f;
+        postProcessVolume = GameObject.FindWithTag("Post Process Volume").GetComponent<Volume>();
+        if (!postProcessVolume)
+        {
+            Debug.LogWarning("Could not find post processing volume for scene. Creating one instead.");
+            AsyncOperationHandle<UnityEngine.Object> handle =  Addressables.LoadAssetAsync<UnityEngine.Object>("PostProcessVolume");
+            await handle.Task;
+            postProcessVolume = Instantiate(handle.Result).GetComponent<Volume>();
+        }
+        postProcessVolume.profile.TryGet(out volumeSettings);
     }
 
     // Allows us to see all lighting changes in the editor so we don't need to press play
@@ -48,7 +63,9 @@ public class Timekeeper : MonoBehaviour
             else
             {
                 sun.intensity = 1f - Mathf.InverseLerp(1200f, 1800f, currentTime);
+
             }
+            
 
             // Handle lights turning on and off with day & night
 
@@ -97,10 +114,20 @@ public class Timekeeper : MonoBehaviour
             if (currentTime <= 1200f)
             {
                 sun.intensity = Mathf.InverseLerp(600f, 1200f, currentTime);
+                volumeSettings.lightBlendAmount = new ClampedFloatParameter(
+                    Mathf.InverseLerp(1200f, 1800f, currentTime),
+                    0,
+                    4
+                );
             }
             else
             {
                 sun.intensity = 1f - Mathf.InverseLerp(1200f, 1800f, currentTime);
+                volumeSettings.lightBlendAmount = new ClampedFloatParameter(
+                    1f - Mathf.InverseLerp(1200f, 1800f, currentTime),
+                    0,
+                    4
+                );
             }
             //Get all exterior lights
             GameObject[] extLights = GameObject.FindGameObjectsWithTag("ExtLight");

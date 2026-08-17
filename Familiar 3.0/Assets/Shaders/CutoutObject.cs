@@ -10,6 +10,8 @@ public class CutoutObject : MonoBehaviour
     [SerializeField] private LayerMask wallMask;
     [SerializeField, Range(0f, 0.5f)] private float viewportRaySpread = 1f;
 
+    private LayerMask mask;
+
     private Camera mainCamera;
     private readonly HashSet<Renderer> affectedRenderers = new HashSet<Renderer>();
     

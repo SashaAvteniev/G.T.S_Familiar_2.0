@@ -20,6 +20,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 11c8c16e8e11918afad8f80d5ae2104f
+    m_Address: PostProcessVolume
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 311313efa011949e98b6761d652ad13c
     m_Address: M_OutlineFill
     m_ReadOnly: 0

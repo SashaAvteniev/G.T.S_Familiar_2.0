@@ -66,7 +66,7 @@ public abstract class InteractParent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Keyboard.current.eKey.wasPressedThisFrame && inRange)
+        if(Keyboard.current.fKey.wasPressedThisFrame && inRange)
         {
             Interact();
         }
