@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -66,10 +67,10 @@ public class PianoPuzzleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if (isWaiting)
-        // {
-        //     return;
-        // }
+        if (isWaiting)
+        {
+            return;
+        }
         
         if (puzzleNoteQueue.Count == 4 && !correctOrderFirst)
         {
@@ -84,7 +85,6 @@ public class PianoPuzzleManager : MonoBehaviour
                 puzzleNoteQueue.Clear();
                 barOneMeshRenderer.material = mFailure;
                 
-                isWaiting = true;
                 MaterialReset(barOneMeshRenderer);
             }
         }
@@ -152,10 +152,12 @@ public class PianoPuzzleManager : MonoBehaviour
     }
 
     //sets material back to neutral when incorrect
-    IEnumerator MaterialReset(MeshRenderer updatingLight)
+    async void MaterialReset(MeshRenderer updatingLight)
     {
+        isWaiting = true;
+        
         //waits x seconds before running the rest
-        yield return new WaitForSeconds(2f);
+        await Task.Delay(2000);
         
         Debug.Log("ran");
         updatingLight.material = mNeutral;
