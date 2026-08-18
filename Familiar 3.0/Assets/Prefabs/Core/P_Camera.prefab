@@ -174,8 +174,8 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   wallMask:
     serializedVersion: 2
-    m_Bits: 64
-  viewportRaySpread: 0.5
+    m_Bits: 16383
+  viewportRaySpread: 0.03
 --- !u!65 &2466666716147081968
 BoxCollider:
   m_ObjectHideFlags: 0
