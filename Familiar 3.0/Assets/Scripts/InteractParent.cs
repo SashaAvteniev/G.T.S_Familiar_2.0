@@ -75,10 +75,10 @@ public abstract class InteractParent : MonoBehaviour
     // Will assign a 
     protected virtual void OnTriggerEnter(Collider collision)
     {
-        if(collision.gameObject.CompareTag("Player") && !GameManager.gameData.interactFlag)
+        if(collision.gameObject.CompareTag("Player") && !GameManager.gameData.interactFlag && !inRange)
         {
             inRange = true;
-            // Creates an outline if we don't already have one
+
             if(!outline)
             {
                 outline = this.AddComponent<Outline>();
@@ -93,10 +93,13 @@ public abstract class InteractParent : MonoBehaviour
 
     protected virtual void OnTriggerExit(Collider collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if(collision.gameObject.CompareTag("Player") && inRange)
         {
             inRange = false;
-            outline.enabled = false;
+            if(outline)
+            {
+                outline.enabled = false;
+            }
             GameManager.gameData.interactFlag = false;
         }
     }

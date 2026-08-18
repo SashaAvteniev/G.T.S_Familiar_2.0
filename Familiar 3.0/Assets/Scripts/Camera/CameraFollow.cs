@@ -33,8 +33,6 @@ public class CameraFollow : MonoBehaviour
         //apply correct camera angle on cat
         // transform.rotation = Quaternion.Euler(currentPitch, currentYaw, 0f);
         baseOffset = offset;
-        leftCollider = GetComponentsInChildren<Collider>()[0];
-        rightCollider = GetComponentsInChildren<Collider>()[1];
     }
     
     void Update()
@@ -80,7 +78,7 @@ public class CameraFollow : MonoBehaviour
             Time.deltaTime * smoothSpeed);
         
         // Keep the camera looking at the player
-        //transform.LookAt(target.transform.position + Vector3.up * 1.2f);
+        transform.LookAt(target.transform.position + Vector3.up * 1.2f);
     }
 
     private void OnTriggerEnter(Collider other)

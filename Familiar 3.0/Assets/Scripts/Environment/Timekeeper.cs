@@ -30,8 +30,8 @@ public class Timekeeper : MonoBehaviour
         if(directionalLight)
             sun = directionalLight.GetComponent<Light>();
         fullDaySeconds = dayLength * 60f;
-        postProcessVolume = GameObject.FindWithTag("Post Process Volume").GetComponent<Volume>();
-        if (!postProcessVolume)
+        GameObject volume = GameObject.FindWithTag("Post Process Volume");
+        if (!volume || !volume.TryGetComponent(out postProcessVolume))
         {
             Debug.LogWarning("Could not find post processing volume for scene. Creating one instead.");
             AsyncOperationHandle<UnityEngine.Object> handle =  Addressables.LoadAssetAsync<UnityEngine.Object>("PostProcessVolume");
