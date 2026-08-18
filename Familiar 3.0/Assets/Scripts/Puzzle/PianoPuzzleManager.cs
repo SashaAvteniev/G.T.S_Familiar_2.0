@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -29,6 +30,10 @@ public class PianoPuzzleManager : MonoBehaviour
     [SerializeField]
     [HideInInspector]
     private Material mFailure;
+    
+    [SerializeField]
+    [HideInInspector]
+    private Material mNeutral; 
 
     [SerializeField]
     [HideInInspector]
@@ -38,6 +43,8 @@ public class PianoPuzzleManager : MonoBehaviour
     private bool correctOrderFirst;
     private bool correctOrderSecond;
     private bool correctOrderThird;
+
+    private bool isWaiting;
     
     private AudioSource pianoAudio;
     
@@ -47,6 +54,7 @@ public class PianoPuzzleManager : MonoBehaviour
         pianoAudio = GetComponent<AudioSource>();
         mSuccess = await Addressables.LoadAssetAsync<Material>("BarSuccess").Task;
         mFailure = await Addressables.LoadAssetAsync<Material>("BarFail").Task;
+        mNeutral = await Addressables.LoadAssetAsync<Material>("BarNeutral").Task;
         talisman = await Addressables.LoadAssetAsync<GameObject>("Talisman").Task;
         
         // GetComponent is an expensive function, so we want to call it once per object and store the result
@@ -58,6 +66,11 @@ public class PianoPuzzleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // if (isWaiting)
+        // {
+        //     return;
+        // }
+        
         if (puzzleNoteQueue.Count == 4 && !correctOrderFirst)
         {
             correctOrderFirst = puzzleNoteQueue.SequenceEqual(firstBar);
@@ -70,6 +83,9 @@ public class PianoPuzzleManager : MonoBehaviour
             {
                 puzzleNoteQueue.Clear();
                 barOneMeshRenderer.material = mFailure;
+                
+                isWaiting = true;
+                MaterialReset(barOneMeshRenderer);
             }
         }
         else if(puzzleNoteQueue.Count == 4 && correctOrderFirst && !correctOrderSecond)
@@ -86,6 +102,9 @@ public class PianoPuzzleManager : MonoBehaviour
                 barOneMeshRenderer.material = mFailure;
                 barTwoMeshRenderer.material = mFailure;
                 correctOrderFirst = false;
+                
+                MaterialReset(barOneMeshRenderer);
+                MaterialReset(barTwoMeshRenderer);
             }
         }
         if (puzzleNoteQueue.Count == 4 && correctOrderFirst && correctOrderSecond)
@@ -111,6 +130,10 @@ public class PianoPuzzleManager : MonoBehaviour
                 barOneMeshRenderer.material = mFailure;
                 barTwoMeshRenderer.material = mFailure;
                 barThreeMeshRenderer.material = mFailure;
+                
+                MaterialReset(barOneMeshRenderer);
+                MaterialReset(barTwoMeshRenderer);
+                MaterialReset(barThreeMeshRenderer);
             }
         }
     }
@@ -126,5 +149,16 @@ public class PianoPuzzleManager : MonoBehaviour
             pianoAudio.Play();
             puzzleObject.Reset();
         }
+    }
+
+    //sets material back to neutral when incorrect
+    IEnumerator MaterialReset(MeshRenderer updatingLight)
+    {
+        //waits x seconds before running the rest
+        yield return new WaitForSeconds(2f);
+        
+        Debug.Log("ran");
+        updatingLight.material = mNeutral;
+        isWaiting = false;
     }
 }

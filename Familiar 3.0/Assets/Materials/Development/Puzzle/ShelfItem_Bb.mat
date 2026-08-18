@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ShelfItem_3
+  m_Name: ShelfItem_Bb
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -116,13 +116,13 @@ Material:
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.645283, g: 0.645283, b: 0.645283, a: 1}
-    - _Color: {r: 0.6452829, g: 0.6452829, b: 0.6452829, a: 1}
+    - _BaseColor: {r: 0.13207549, g: 0.12558585, b: 0.117372744, a: 1}
+    - _Color: {r: 0.13207546, g: 0.12558582, b: 0.117372714, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &3512504265832885427
+--- !u!114 &63741810667095334
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
