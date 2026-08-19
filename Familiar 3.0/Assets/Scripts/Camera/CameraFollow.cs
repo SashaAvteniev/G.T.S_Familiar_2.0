@@ -45,14 +45,14 @@ public class CameraFollow : MonoBehaviour
     public void TurnCameraRight()
     {
         if (target == null) return;
-        target.transform.Rotate(0f, 90f, 0f, Space.World);
+        target.transform.Rotate(0f, -90f, 0f, Space.World);
         offset = Quaternion.Euler(0f, -90f, 0f) * offset;
     }
 
     public void TurnCameraLeft()
     {
         if (target == null) return;
-        target.transform.Rotate(0f, -90f, 0f, Space.World);
+        target.transform.Rotate(0f, 90f, 0f, Space.World);
         offset = Quaternion.Euler(0f, 90f, 0f) * offset;
     }
 
