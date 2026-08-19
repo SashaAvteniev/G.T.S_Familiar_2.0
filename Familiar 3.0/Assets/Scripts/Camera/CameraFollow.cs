@@ -14,7 +14,7 @@ public class CameraFollow : MonoBehaviour
         if (target == null) return;
 
         transform.position = GetDesiredPosition();
-        transform.rotation = target.transform.rotation;
+        //transform.rotation = target.transform.rotation;
     }
 
     private void Update()
@@ -61,6 +61,6 @@ public class CameraFollow : MonoBehaviour
         if (target == null) return;
 
         transform.position = GetDesiredPosition();
-        transform.rotation = target.transform.rotation;
+        transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
     }
 }

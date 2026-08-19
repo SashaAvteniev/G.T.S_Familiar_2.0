@@ -68,6 +68,7 @@ public abstract class InteractParent : MonoBehaviour
     {
         if(Keyboard.current.fKey.wasPressedThisFrame && inRange)
         {
+            Debug.Log("HI-2");
             Interact();
         }
     }

@@ -32,6 +32,7 @@ public class Door : InteractParent
     
     protected override void Interact()
     {
+        Debug.Log("HI");
         GameManager.gameData.newDoorGUID = linkedGUID;
         GameManager.gameData.interactFlag = false; // We need to reset this, or we won't be able to interact with anything after the scene loads
         LoadingScreenManager.Instance.SwitchScene(linkedGUID.Split("_")[0]); // The scene name is saved in the beginning of the GUID so we can just split it via an underscore
