@@ -1,89 +1,66 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class CameraFollow : MonoBehaviour
 {
-    //Serialized
-    [SerializeField, Header("Camera")] private float followDistance;
-    [SerializeField] private GameObject target;
-    [SerializeField] private float smoothSpeed;
+    [SerializeField, Header("Camera")] private GameObject target;
+    [FormerlySerializedAs("smoothSpeed")] [SerializeField] private float lerpSpeed = 1f;
     [SerializeField] private Vector3 offset;
-
-    // [Header("Starting Rotation")]
-    // //settings for the camera
-    // [SerializeField] private float startingPitch;
-    // [SerializeField] private float startingYaw;
     
-    //holds changes to x & y rotation
-    private float currentPitch;
-    private float currentYaw;
-    private Quaternion startingRot;
-    private Vector3 baseOffset;
-    private Collider leftCollider;
-    private Collider rightCollider;
-    
-    public float SmoothSpeed { get { return smoothSpeed; } set { smoothSpeed = value; } }
 
-    void Start()
+    private void Start()
     {
-        currentPitch = transform.rotation.eulerAngles.x;
-        currentYaw = 0f;
-        startingRot = target.transform.rotation;
-        //apply correct camera angle on cat
-        // transform.rotation = Quaternion.Euler(currentPitch, currentYaw, 0f);
-        baseOffset = offset;
+        if (target == null) return;
+
+        transform.position = GetDesiredPosition();
+        transform.rotation = target.transform.rotation;
     }
-    
-    void Update()
+
+    private void Update()
     {
-        if (Keyboard.current.qKey.wasPressedThisFrame)
-        {
+        if (Keyboard.current?.qKey.wasPressedThisFrame == true)
             TurnCameraLeft();
-        }
-        if (Keyboard.current.eKey.wasPressedThisFrame)
-        {
+
+        if (Keyboard.current?.eKey.wasPressedThisFrame == true)
             TurnCameraRight();
-        }
-        currentYaw = Mathf.Repeat(currentYaw, 360f);
-        offset = Quaternion.Euler(0f, currentYaw, 0f) * baseOffset;
+    }
+
+    private void LateUpdate()
+    {
+        if (target == null) return;
+
+        Vector3 desiredPosition = GetDesiredPosition();
+        transform.position = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * lerpSpeed);
+        transform.rotation = Quaternion.Lerp(transform.rotation
+            ,Quaternion.Euler(transform.rotation.eulerAngles.x, target.transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z),
+            Time.deltaTime * lerpSpeed);
+    }
+
+    private Vector3 GetDesiredPosition()
+    {
+        return target.transform.position + offset;
     }
 
     public void TurnCameraRight()
     {
-        currentYaw += 90f;
-        target.transform.rotation = Quaternion.Euler(startingRot.eulerAngles.x, 
-            currentYaw - 90f, startingRot.eulerAngles.z);
+        if (target == null) return;
+        target.transform.Rotate(0f, 90f, 0f, Space.World);
+        offset = Quaternion.Euler(0f, 90f, 0f) * offset;
     }
 
     public void TurnCameraLeft()
     {
-        currentYaw -= 90f;
-        target.transform.rotation = Quaternion.Euler(startingRot.eulerAngles.x,
-            currentYaw - 90f, startingRot.eulerAngles.z);
+        if (target == null) return;
+        target.transform.Rotate(0f, -90f, 0f, Space.World);
+        offset = Quaternion.Euler(0f, -90f, 0f) * offset;
     }
 
     private void OnValidate()
     {
-        if(target)
-            transform.position = target.transform.position + offset;
-    }
+        if (target == null) return;
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        transform.position = Vector3.Lerp(
-            transform.position, 
-            target.transform.position + offset, 
-            Time.deltaTime * smoothSpeed);
-        
-        // Keep the camera looking at the player
-        transform.LookAt(target.transform.position + Vector3.up * 1.2f);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        GameObject openObject;
-        //bool leftOverlap = Physics.CheckBox()
+        transform.position = GetDesiredPosition();
+        transform.rotation = target.transform.rotation;
     }
 }

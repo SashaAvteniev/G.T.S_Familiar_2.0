@@ -43,7 +43,7 @@ public class Camerachange : MonoBehaviour
                 mainCamera.GetComponent<CameraFollow>().enabled = true;
                 if(currentCameraRotation.x <= baseCameraRotation.x-.1)
                 {
-                    mainCamera.GetComponent<CameraFollow>().SmoothSpeed = 3;
+                    //mainCamera.GetComponent<CameraFollow>().SmoothSpeed = 3;
                     currentCameraRotation = Vector3.Lerp(currentCameraRotation, baseCameraRotation, Time.deltaTime * 3);
                     mainCamera.transform.eulerAngles = currentCameraRotation;
                     //Debug.Log(currentCameraRotation);
@@ -52,7 +52,7 @@ public class Camerachange : MonoBehaviour
                 {
                     currentCameraRotation.x = baseCameraRotation.x;
                     //Debug.Log("hit");
-                    mainCamera.GetComponent<CameraFollow>().SmoothSpeed = 10;
+                    //mainCamera.GetComponent<CameraFollow>().SmoothSpeed = 10;
                 }
 
             }
