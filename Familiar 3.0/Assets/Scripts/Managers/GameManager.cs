@@ -1,11 +1,7 @@
-using System.Collections.Generic;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using AYellowpaper.SerializedCollections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using RenderSettings = UnityEngine.RenderSettings;
 
@@ -39,7 +35,7 @@ public static class GameManager
             gameData = gameDataHandle.Result;
             if (gameData.doorExits == null)
             {
-                gameData.doorExits = new SerializedDictionary<string, Vector3>();
+                gameData.doorExits = new AYellowpaper.SerializedCollections.SerializedDictionary<string, Vector3>();
             }
             if (string.IsNullOrEmpty(gameData.newDoorGUID))
             {

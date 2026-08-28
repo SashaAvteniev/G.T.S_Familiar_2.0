@@ -5,13 +5,15 @@
 //  Created by Chris Nolet on 3/30/18.
 //  Copyright © 2018 Chris Nolet. All rights reserved.
 //
+//  Modified to load outline materials via Addressables instead of Resources.
+//
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 [DisallowMultipleComponent]
 
@@ -63,7 +65,7 @@ public class Outline : MonoBehaviour {
 
   [SerializeField, Range(0f, 10f)]
   private float outlineWidth = 2f;
-
+  
   [Header("Optional")]
 
   [SerializeField, Tooltip("Precompute enabled: Per-vertex calculations are performed in the editor and serialized with the object. "
@@ -77,46 +79,54 @@ public class Outline : MonoBehaviour {
   private List<ListVector3> bakeValues = new List<ListVector3>();
 
   private Renderer[] renderers;
+
+  private AsyncOperationHandle<Material> outlineMaskMaterialHandle;
+  private AsyncOperationHandle<Material> outlineFillMaterialHandle;
+
   private Material outlineMaskMaterial;
   private Material outlineFillMaterial;
-  private Task initializationTask;
-  private bool isOutlineEnabled;
+
+  private bool maskLoaded;
+  private bool fillLoaded;
+  private bool materialsReady;
+
+  // Tracks whether OnEnable() ran before the addressable materials finished
+  // loading, so we can apply the enabled state retroactively once ready.
+  private bool pendingEnable;
+
+  // Tracks whether the outline materials are CURRENTLY appended to the
+  // renderers, so Apply/Remove are idempotent even if OnEnable()/OnDisable()
+  // race against the async load completing.
+  private bool materialsApplied;
 
   private bool needsUpdate;
 
   void Awake() {
 
+    //Debug.Log($"[Outline] Awake on {gameObject.name}", this);
     // Cache renderers
     renderers = GetComponentsInChildren<Renderer>();
-
-    initializationTask = InitializeAsync();
-  }
-
-  async Task InitializeAsync() {
-    // Instantiate outline materials
-    outlineMaskMaterial = await Addressables.LoadAssetAsync<Material>("M_OutlineMask").Task;
-    outlineFillMaterial = await Addressables.LoadAssetAsync<Material>("M_OutlineFill").Task;
-
-    outlineMaskMaterial.name = "M_OutlineMask";
-    outlineFillMaterial.name = "M_OutlineFill";
 
     // Retrieve or generate smooth normals
     LoadSmoothNormals();
 
-    // Apply material properties immediately
-    needsUpdate = true;
+    // Kick off asynchronous loading of the outline materials
+    LoadOutlineMaterials();
 
-    if (isOutlineEnabled) {
-      ApplyOutlineMaterials();
-    }
+    // Apply material properties immediately once materials are ready
+    needsUpdate = true;
   }
 
   void OnEnable() {
-    isOutlineEnabled = true;
 
-    if (initializationTask != null && initializationTask.IsCompleted) {
-      ApplyOutlineMaterials();
+    // If the materials haven't finished loading yet, defer enabling
+    // the outline shaders until they're ready.
+    if (!materialsReady) {
+      pendingEnable = true;
+      return;
     }
+
+    ApplyEnabledState();
   }
 
   void OnValidate() {
@@ -137,7 +147,7 @@ public class Outline : MonoBehaviour {
   }
 
   void Update() {
-    if (needsUpdate && outlineMaskMaterial != null && outlineFillMaterial != null) {
+    if (needsUpdate && materialsReady) {
       needsUpdate = false;
 
       UpdateMaterialProperties();
@@ -145,55 +155,122 @@ public class Outline : MonoBehaviour {
   }
 
   void OnDisable() {
-    isOutlineEnabled = false;
-    RemoveOutlineMaterials();
+
+    pendingEnable = false;
+
+    RemoveEnabledState();
   }
 
   void OnDestroy() {
 
     // Destroy material instances
-    Destroy(outlineMaskMaterial);
-    Destroy(outlineFillMaterial);
+    if (outlineMaskMaterial != null) {
+      Destroy(outlineMaskMaterial);
+    }
+
+    if (outlineFillMaterial != null) {
+      Destroy(outlineFillMaterial);
+    }
+
+    // Release the addressable handles so the underlying assets can be unloaded
+    if (outlineMaskMaterialHandle.IsValid()) {
+      Addressables.Release(outlineMaskMaterialHandle);
+    }
+
+    if (outlineFillMaterialHandle.IsValid()) {
+      Addressables.Release(outlineFillMaterialHandle);
+    }
   }
 
-  void ApplyOutlineMaterials() {
-    if (renderers == null || outlineMaskMaterial == null || outlineFillMaterial == null) {
+  void LoadOutlineMaterials() {
+
+    outlineMaskMaterialHandle = Addressables.LoadAssetAsync<Material>("M_OutlineMask");
+    outlineMaskMaterialHandle.Completed += OnOutlineMaskMaterialLoaded;
+
+    outlineFillMaterialHandle = Addressables.LoadAssetAsync<Material>("M_OutlineFill");
+    outlineFillMaterialHandle.Completed += OnOutlineFillMaterialLoaded;
+  }
+
+  void OnOutlineMaskMaterialLoaded(AsyncOperationHandle<Material> handle) {
+
+    outlineMaskMaterial = Instantiate(handle.Result);
+    outlineMaskMaterial.name = "OutlineMask";
+
+    maskLoaded = true;
+    TryFinalizeMaterialLoad();
+  }
+
+  void OnOutlineFillMaterialLoaded(AsyncOperationHandle<Material> handle) {
+    
+    outlineFillMaterial = Instantiate(handle.Result);
+    outlineFillMaterial.name = "OutlineFill";
+
+    fillLoaded = true;
+    TryFinalizeMaterialLoad();
+  }
+
+  void TryFinalizeMaterialLoad() {
+
+    if (!maskLoaded || !fillLoaded) {
+      return;
+    }
+
+    materialsReady = true;
+    needsUpdate = true;
+
+    // If OnEnable() ran before the materials were ready, apply it now.
+    if (pendingEnable) {
+      pendingEnable = false;
+      ApplyEnabledState();
+    }
+  }
+
+  void ApplyEnabledState() {
+
+    // Guard against double-adding if OnEnable()/the load-completion
+    // callback race each other.
+    if (materialsApplied) {
       return;
     }
 
     foreach (var renderer in renderers) {
-      var materials = renderer.sharedMaterials.ToList();
 
-      if (!materials.Contains(outlineMaskMaterial)) {
-        materials.Add(outlineMaskMaterial);
-      }
+      // Append outline shaders
+      var materials = renderer.materials.ToList();
 
-      if (!materials.Contains(outlineFillMaterial)) {
-        materials.Add(outlineFillMaterial);
-      }
+      materials.Add(outlineMaskMaterial);
+      materials.Add(outlineFillMaterial);
 
       renderer.materials = materials.ToArray();
     }
+
+    materialsApplied = true;
   }
 
-  void RemoveOutlineMaterials() {
-    if (renderers == null) {
+  void RemoveEnabledState() {
+
+    // Nothing to remove if the materials were never applied (e.g. the
+    // component was disabled before the addressable load finished).
+    if (!materialsApplied) {
       return;
     }
 
-    foreach (var renderer in renderers) {
-      var materials = renderer.sharedMaterials.ToList();
-
-      if (outlineMaskMaterial != null) {
-        materials.Remove(outlineMaskMaterial);
+    foreach (var renderer in renderers)
+    {
+      var kept = new List<Material>();
+      foreach (var mat in renderer.materials)
+      {
+        if (mat == null) continue;
+        if (mat == outlineMaskMaterial || mat == outlineFillMaterial ||
+            mat.name == "OutlineMask (Instance)" || mat.name == "OutlineFill (Instance)")
+          continue;
+        kept.Add(mat);
       }
 
-      if (outlineFillMaterial != null) {
-        materials.Remove(outlineFillMaterial);
-      }
-
-      renderer.materials = materials.ToArray();
+      renderer.materials = kept.ToArray();
     }
+    
+    materialsApplied = false;
   }
 
   void Bake() {

@@ -29,9 +29,16 @@ public class MenuUI : MonoBehaviour
     
     void Start()
     {
-        paused = true;
-        Time.timeScale = 0.0f;
-        menuOrder.Push(startingUI);
+        if(startingUI)
+        {
+            paused = true;
+            Time.timeScale = 0.0f;
+            menuOrder.Push(startingUI);
+        }
+        else
+        {
+            Debug.LogWarning("No starting UI set");
+        }
         
         //Check if the intro window has been shown before
         //If it has, don't show playtester window again

@@ -26,7 +26,7 @@ public class GameData : ScriptableObject
     [SerializeField]
     public string newDoorGUID; // Which door GUID is the target in the new scene
 
-    [HideInInspector]
+    [Tooltip("Change this to manually set the starting time for the next session")]
     [SerializeField]
     public float currentTime; // Current time in the world
 }
