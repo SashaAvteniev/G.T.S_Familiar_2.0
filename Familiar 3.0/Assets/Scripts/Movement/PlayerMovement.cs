@@ -28,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
     public float ShoveSpeed { get { return shoveSpeed; } }
     private CharacterController characterController;
 
+    private Animator animator;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -45,13 +47,20 @@ public class PlayerMovement : MonoBehaviour
             gameObject.transform.position = GameManager.gameData.doorExits[GameManager.gameData.newDoorGUID];
             characterController.enabled = true;
         }
+
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+
+        //Debug.Log("direction: " + direction.x);
+        //Debug.Log("rawInput: " + rawInput.y);
         #region calculate velocity
         UpdateDirectionWithCamera();
+        //animator.SetFloat("inputZ", direction.z);
+        //animator.SetFloat("inputX", direction.x);
         velocityHorizontal = new Vector3(direction.x * movementSpeed, 0, direction.z * movementSpeed);
         ApplyGravity();
         #endregion
@@ -83,6 +92,17 @@ public class PlayerMovement : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         rawInput = context.ReadValue<Vector2>();
+        UpdateDirectionWithCamera();
+        if(direction.magnitude > 0)
+        {
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
+        animator.SetFloat("inputZ", rawInput.x);
+        animator.SetFloat("inputX", -rawInput.y);
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -92,13 +112,18 @@ public class PlayerMovement : MonoBehaviour
             velocityVertical = Vector3.up * jumpHeight;
             jumped = true;
             grounded = false;
+            animator.SetTrigger("Jump");
+            animator.SetBool("isWalking", false);
         }
         else if (GameManager.gameData.playerData.currentTalisman == PlayerData.ETalismans.Elk && context.started && jumped)
         {
             velocityVertical.y = Vector3.up.y * jumpHeight;
             grounded = false;
             jumped = false;
+            animator.SetBool("isJumping", true);
+            animator.SetBool("isWalking", false);
         }
+        
     }
     #endregion
 
@@ -115,6 +140,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (characterController.isGrounded)
         {
+            if (direction.magnitude > 0)
+            {
+                animator.SetBool("isWalking", true);
+            }
             if (!grounded)
             {
                 //Debug.Log("player is grounded");
@@ -123,8 +152,8 @@ public class PlayerMovement : MonoBehaviour
                 movementSpeed = speedDefault;
                 jumped = false;
                 gravity = 30;
-            }
 
+            }
         }
     }
     
