@@ -54,10 +54,13 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+
+        //Debug.Log("direction: " + direction.x);
+        //Debug.Log("rawInput: " + rawInput.y);
         #region calculate velocity
         UpdateDirectionWithCamera();
-        animator.SetFloat("inputZ", direction.z);
-        animator.SetFloat("inputX", direction.x);
+        //animator.SetFloat("inputZ", direction.z);
+        //animator.SetFloat("inputX", direction.x);
         velocityHorizontal = new Vector3(direction.x * movementSpeed, 0, direction.z * movementSpeed);
         ApplyGravity();
         #endregion
@@ -98,8 +101,8 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isWalking", false);
         }
-        animator.SetFloat("inputZ", direction.z);
-        animator.SetFloat("inputX", direction.x);
+        animator.SetFloat("inputZ", rawInput.x);
+        animator.SetFloat("inputX", -rawInput.y);
     }
 
     public void Jump(InputAction.CallbackContext context)
